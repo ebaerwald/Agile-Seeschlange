@@ -26,10 +26,14 @@ export const getUsers = createAsyncThunk('getUsers', getProperties('', userIds))
 export const createUser = createAsyncThunk('createUser', createProperty('', user));
 export const updateUser = createAsyncThunk('updateUser', updateProperty('', user));
 export const getUsersFromGroup = createAsyncThunk('getUsersFromGroup', getProperties('', groupId));
-export const getUsersFromQuestion = createAsyncThunk('getUsersFromQuestion', getProperties('', questionId));
-export const getUsersFromAnswer = createAsyncThunk('getUsersFromAnswer', getProperties('', answerId));
+export const getUserFromQuestion = createAsyncThunk('getUsersFromQuestion', getProperty('', questionId));
+export const getUserFromAnswer = createAsyncThunk('getUsersFromAnswer', getProperty('', answerId));
 
+const userSlice = createRootSlice('user', initialStateUser, [getUser, createUser, updateUser, getUserFromQuestion, getUserFromAnswer]);
+const usersSlice = createRootSlice('users', initialStateUsers, [getUsers, getUsersFromGroup]);
 
+export const selectUser = (state) => state.user;
+export const selectUsers = (state) => state.users;
 
 
 

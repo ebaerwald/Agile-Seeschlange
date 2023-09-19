@@ -32,6 +32,13 @@ export const getUserFromAnswer = createAsyncThunk('getUsersFromAnswer', getPrope
 const userSlice = createRootSlice('user', initialStateUser, [getUser, createUser, updateUser, getUserFromQuestion, getUserFromAnswer]);
 const usersSlice = createRootSlice('users', initialStateUsers, [getUsers, getUsersFromGroup]);
 
+export const store = configureStore({
+    reducer: {
+        user: userSlice.reducer,
+        users: usersSlice.reducer,
+    },
+});
+
 export const selectUser = (state) => state.user;
 export const selectUsers = (state) => state.users;
 

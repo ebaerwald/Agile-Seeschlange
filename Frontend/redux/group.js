@@ -18,10 +18,21 @@ const initialStateGroups = {
     error: null,
 };
 
-export const getGroup = createAsyncThunk('getGroup', passId('', groupId, 'GET'));
-export const getGroups = createAsyncThunk('getGroups', passObject('', groupIds, 'GET'));
-export const createGroup = createAsyncThunk('createGroup', passObject('', group, 'POST'));
-export const updateGroup = createAsyncThunk('updateGroup', passObject('', group, 'PUT'));
+// ++++++++++++++++++++++
+// TODO: Replace these with the backend routes
+// * Pay attention to the HTTP method, which is the last argument in the passId and passObject functions
+
+const getGroupRoute = '';
+const getGroupsRoute = '';
+const createGroupRoute = '';
+const updateGroupRoute = '';
+
+// ----------------------
+
+export const getGroup = createAsyncThunk('getGroup', passId(getGroupRoute, groupId, 'GET'));
+export const getGroups = createAsyncThunk('getGroups', passObject(getGroupsRoute, groupIds, 'GET'));
+export const createGroup = createAsyncThunk('createGroup', passObject(createGroupRoute, group, 'POST'));
+export const updateGroup = createAsyncThunk('updateGroup', passObject(updateGroupRoute, group, 'PUT'));
 
 const groupSlice = createRootSlice('group', initialStateGroup, [getGroup, createGroup, updateGroup]);
 const groupsSlice = createRootSlice('groups', initialStateGroups, [getGroups]);

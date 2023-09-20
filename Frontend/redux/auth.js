@@ -10,7 +10,16 @@ const initialState = {
     status: 'idle',
 };
 
-export const normalAuthorize = createAsyncThunk('normalAuthorize', passObject('', userData, 'POST', async(userData) => {
+// ++++++++++++++++++++++
+// TODO: Replace these with the backend routes
+// * Pay attention to the HTTP method, which is the last argument in the passId and passObject functions
+
+const normalAuthorizeRoute = '';
+const oAuth2AuthorizeRoute = '';
+
+// ----------------------
+
+export const normalAuthorize = createAsyncThunk('normalAuthorize', passObject(normalAuthorizeRoute, userData, 'POST', async(userData) => {
     if (userData.password == null || (userData.email && userData.username) == null) throw new Error("Invalid parameters");
 }));
 
@@ -33,7 +42,7 @@ export const oAuth2Authorize = createAsyncThunk('oAuth2Authorize', async () =>{
         });
     
         const accessToken = tokenResult.accessToken;
-        const response = fetch ('', {
+        const response = fetch (oAuth2AuthorizeRoute, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

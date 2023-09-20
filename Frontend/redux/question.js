@@ -23,12 +23,25 @@ const initialStateQuestions = {
     error: null,
 };
 
-export const getQuestion = createAsyncThunk('getQuestion', passId('', questionId, 'GET'));
-export const getQuestionsFromGroup = createAsyncThunk('getQuestionsFromGroup', passId('', groupId, 'GET'));
-export const getQuestionsFromUser = createAsyncThunk('getQuestionsFromUser', passId('', userId, 'GET'));
-export const getQuestions = createAsyncThunk('getQuestions', passObject('', questionIds, 'GET'));
-export const createQuestion = createAsyncThunk('createQuestion', passObject('', question, 'POST'));
-export const updateQuestion = createAsyncThunk('updateQuestion', passObject('', question, 'PUT'));
+// ++++++++++++++++++++++
+// TODO: Replace these with the backend routes
+// * Pay attention to the HTTP method, which is the last argument in the passId and passObject functions
+
+const getQuestionRoute = '';
+const getQuestionsFromGroupRoute = '';
+const getQuestionsFromUserRoute = '';
+const getQuestionsRoute = '';
+const createQuestionRoute = '';
+const updateQuestionRoute = '';
+
+// ----------------------
+
+export const getQuestion = createAsyncThunk('getQuestion', passId(getQuestionRoute, questionId, 'GET'));
+export const getQuestionsFromGroup = createAsyncThunk('getQuestionsFromGroup', passId(getQuestionsFromGroupRoute, groupId, 'GET'));
+export const getQuestionsFromUser = createAsyncThunk('getQuestionsFromUser', passId(getQuestionsFromUserRoute, userId, 'GET'));
+export const getQuestions = createAsyncThunk('getQuestions', passObject(getQuestionsRoute, questionIds, 'GET'));
+export const createQuestion = createAsyncThunk('createQuestion', passObject(createQuestionRoute, question, 'POST'));
+export const updateQuestion = createAsyncThunk('updateQuestion', passObject(updateQuestionRoute, question, 'PUT'));
 
 const questionSlice = createRootSlice('question', initialStateQuestion, [getQuestion, createQuestion, updateQuestion]);
 const questionsSlice = createRootSlice('questions', initialStateQuestions, [getQuestions, getQuestionsFromGroup, getQuestionsFromUser]);

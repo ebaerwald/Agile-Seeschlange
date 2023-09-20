@@ -6,6 +6,7 @@ import { QuestionsPage } from './pages/questions';
 import { SignUpPage } from './pages/signup';
 import { SingleQuestionPage } from './pages/single_question';
 import { SingleGroupPage } from './pages/single_group';
+import { TestBackendPage } from './pages/test-backend';
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
       <Route path="/question/:id" element={<SingleQuestionPage />} />
       <Route path="/group/:id" element={<SingleGroupPage />} />
     </Routes>
+    // <TestBackendPage/>
   );
 }
 

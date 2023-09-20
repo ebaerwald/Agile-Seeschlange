@@ -2,15 +2,16 @@
 // createProperty, updateProperty, getProperty, getProperties, rootSlice
 import { createSlice } from '@reduxjs/toolkit';
 
-export async function createProperty(url, property) 
+export async function passObject(url, object, requestMethod, func = async () => {})
 {
     try {
+        await func();
         const response = await fetch(url, {
-            method: 'POST',
+            method: requestMethod,
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(property),
+            body: JSON.stringify(object),
         });
         const data = await response.json();
         if (response.ok) {
@@ -22,31 +23,16 @@ export async function createProperty(url, property)
     }
 }
 
-export async function updateProperty(url, property) 
+export async function passId(url, id, requestMethod, func = async () => {})
 {
     try {
-        const response = await fetch(url, {
-            method: 'PUT',
+        await func();
+        const response = await fetch(`${url}/${id}`, {
+            method: requestMethod,
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(property),
         });
-        const data = await response.json();
-        if (response.ok) {
-            return data;
-        }
-        throw new Error(data);
-    }
-    catch  (error) {
-        throw new Error(error.message);
-    }
-}
-
-export async function getProperty(url, propertyId)
-{
-    try {
-        const response = await fetch(`${url}/${propertyId}`);
         const data = await response.json();
         if (response.ok) {
             return data;
@@ -57,15 +43,15 @@ export async function getProperty(url, propertyId)
     }
 }
 
-export async function getProperties(url, propertyIds)
+export async function passNone(url, requestMethod, func = async () => {})
 {
     try {
+        await func();
         const response = await fetch(url, {
-            method: 'POST',
+            method: requestMethod,
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(propertyIds),
         });
         const data = await response.json();
         if (response.ok) {

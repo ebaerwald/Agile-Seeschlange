@@ -1,5 +1,5 @@
 import { configureStore, createAsyncThunk } from 'redux';
-import { getProperty, getProperties, createProperty, updateProperty, createRootSlice } from './root';
+import { createRootSlice, passId, passObject } from './root';
 
 const initialStateComment = {
     id: null,
@@ -17,12 +17,12 @@ const initialStateComments = {
     error: null,
 };
 
-export const getComment = createAsyncThunk('getComment', getProperty('', commentId));
-export const getComments = createAsyncThunk('getComments', getProperties('', commentIds));
-export const getCommentsFromQuestion = createAsyncThunk('getCommentsFromQuestion', getProperties('', questionId));
-export const getCommentsFromAnswer = createAsyncThunk('getCommentsFromAnswer', getProperties('', answerId));
-export const createComment = createAsyncThunk('createComment', createProperty('', comment));
-export const updateComment = createAsyncThunk('updateComment', updateProperty('', comment));
+export const getComment = createAsyncThunk('getComment', passId('', commentId, 'GET'));
+export const getComments = createAsyncThunk('getComments', passObject('', commentIds, 'GET'));
+export const getCommentsFromQuestion = createAsyncThunk('getCommentsFromQuestion', passId('', questionId, 'GET'));
+export const getCommentsFromAnswer = createAsyncThunk('getCommentsFromAnswer', passId('', answerId, 'GET'));
+export const createComment = createAsyncThunk('createComment', passObject('', comment, 'POST'));
+export const updateComment = createAsyncThunk('updateComment', passObject('', comment, 'PUT'));
 
 const commentSlice = createRootSlice('comment', initialStateComment, [getComment, createComment, updateComment]);
 const commentsSlice = createRootSlice('comments', initialStateComments, [getComments, getCommentsFromQuestion, getCommentsFromAnswer]);

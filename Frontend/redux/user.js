@@ -1,6 +1,5 @@
 import { configureStore, createAsyncThunk } from 'redux';
-import { getProperty, getProperties, createProperty, updateProperty, createRootSlice } from './root';
-import { getProperty } from './root';
+import { passId, passObject, createRootSlice } from './root';
 
 require('dotenv').config();
 
@@ -21,13 +20,13 @@ const initialStateUsers = {
     error: null,
 };
 
-export const getUser = createAsyncThunk('getUser', getProperty('', userId));
-export const getUsers = createAsyncThunk('getUsers', getProperties('', userIds));
-export const createUser = createAsyncThunk('createUser', createProperty('', user));
-export const updateUser = createAsyncThunk('updateUser', updateProperty('', user));
-export const getUsersFromGroup = createAsyncThunk('getUsersFromGroup', getProperties('', groupId));
-export const getUserFromQuestion = createAsyncThunk('getUsersFromQuestion', getProperty('', questionId));
-export const getUserFromAnswer = createAsyncThunk('getUsersFromAnswer', getProperty('', answerId));
+export const getUser = createAsyncThunk('getUser', passId('', userId, 'GET'));
+export const getUserFromQuestion = createAsyncThunk('getUsersFromQuestion', passId('', questionId, 'GET'));
+export const getUserFromAnswer = createAsyncThunk('getUsersFromAnswer', passId('', answerId, 'GET'));
+export const getUsers = createAsyncThunk('getUsers', passObject('', userIds, 'GET'));
+export const getUsersFromGroup = createAsyncThunk('getUsersFromGroup', passId('', groupId, 'GET'));
+export const createUser = createAsyncThunk('createUser', passObject('', user, 'POST'));
+export const updateUser = createAsyncThunk('updateUser', passObject('', user, 'PUT'));
 
 const userSlice = createRootSlice('user', initialStateUser, [getUser, createUser, updateUser, getUserFromQuestion, getUserFromAnswer]);
 const usersSlice = createRootSlice('users', initialStateUsers, [getUsers, getUsersFromGroup]);

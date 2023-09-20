@@ -1,5 +1,5 @@
 import { configureStore, createAsyncThunk } from 'redux';
-import { getProperty, getProperties, createProperty, updateProperty, createRootSlice } from './root';
+import { createRootSlice, passId, passObject } from './root';
 
 const initialStateAnswer = {
     id: null,
@@ -23,15 +23,15 @@ const initialStateAnswers = {
     error: null,
 };
 
-export const getAnswer = createAsyncThunk('getAnswer', getProperty('', answerId));
-export const getAnswers = createAsyncThunk('getAnswers', getProperties('', answerIds));
-export const getAnswersFromQuestion = createAsyncThunk('getAnswersFromQuestion', getProperties('', questionId));
-export const getAnswersFromUser = createAsyncThunk('getAnswersFromUser', getProperties('', userId));
-export const getMostHelpfullAnswerFromQuestion = createAsyncThunk('getMostHelpfullAnswerFromQuestion', getProperty('', questionId));
-export const getMostHelpfullAnswersFromGroup = createAsyncThunk('getMostHelpfullAnswersFromGroup', getProperty('', groupId));
-export const getMostHelpfullAnswersFromUser = createAsyncThunk('getMostHelpfullAnswersFromUser', getProperty('', userId));
-export const createAnswer = createAsyncThunk('createQuestion', createProperty('', answer));
-export const updateAnswer = createAsyncThunk('updateQuestion', updateProperty('', answer));
+export const getAnswer = createAsyncThunk('getAnswer', passId('', answerId, 'GET'));
+export const getAnswers = createAsyncThunk('getAnswers', passObject('', answerIds, 'GET'));
+export const getAnswersFromQuestion = createAsyncThunk('getAnswersFromQuestion', passId('', questionId, 'GET'));
+export const getAnswersFromUser = createAsyncThunk('getAnswersFromUser', passId('', userId, 'GET'));
+export const getMostHelpfullAnswerFromQuestion = createAsyncThunk('getMostHelpfullAnswerFromQuestion', passId('', questionId, 'GET'));
+export const getMostHelpfullAnswersFromGroup = createAsyncThunk('getMostHelpfullAnswersFromGroup', passId('', groupId, 'GET'));
+export const getMostHelpfullAnswersFromUser = createAsyncThunk('getMostHelpfullAnswersFromUser', passId('', userId, 'GET'));
+export const createAnswer = createAsyncThunk('createQuestion', passObject('', answer, 'POST'));
+export const updateAnswer = createAsyncThunk('updateQuestion', passObject('', answer, 'PUT'));
 
 const answerSlice = createRootSlice('answer', initialStateAnswer, [getAnswer, createAnswer, updateAnswer, getMostHelpfullAnswerFromQuestion]);
 const answersSlice = createRootSlice('answers', initialStateAnswers, [getAnswers, getAnswersFromQuestion, getAnswersFromUser]);

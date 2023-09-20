@@ -1,5 +1,5 @@
 import { configureStore, createAsyncThunk } from 'redux';
-import { getProperty, getProperties, createProperty, updateProperty, createRootSlice } from './root';
+import { createRootSlice, passId, passObject } from './root';
 
 const initialStateGroup = {
     id: null,
@@ -18,10 +18,10 @@ const initialStateGroups = {
     error: null,
 };
 
-export const getGroup = createAsyncThunk('getGroup', getProperty('', groupId));
-export const getGroups = createAsyncThunk('getGroups', getProperties('', groupIds));
-export const createGroup = createAsyncThunk('createGroup', createProperty('', initialState));
-export const updateGroup = createAsyncThunk('updateGroup', updateProperty('', group));
+export const getGroup = createAsyncThunk('getGroup', passId('', groupId, 'GET'));
+export const getGroups = createAsyncThunk('getGroups', passObject('', groupIds, 'GET'));
+export const createGroup = createAsyncThunk('createGroup', passObject('', group, 'POST'));
+export const updateGroup = createAsyncThunk('updateGroup', passObject('', group, 'PUT'));
 
 const groupSlice = createRootSlice('group', initialStateGroup, [getGroup, createGroup, updateGroup]);
 const groupsSlice = createRootSlice('groups', initialStateGroups, [getGroups]);

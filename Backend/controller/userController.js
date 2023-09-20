@@ -4,16 +4,16 @@ const cookieToken = require("../helper/cookieToken");
 //user signup
 exports.signup = async (req, res, next) => {
   try {
-    const { email, name, password, lastName } = req.body;
+    const { email, name, passwordHash: passwordHash, lastName } = req.body;
     //check if empty
-    if (!email || !password) {
+    if (!email || !passwordHash) {
       throw new Error("Please fill all the fields");
     }
 
     const user = await User.create({
       name,
       email,
-      password,
+      passwordHash: passwordHash,
       lastName,
     });
     user.save();
@@ -30,15 +30,15 @@ exports.signup = async (req, res, next) => {
 exports.login = async (req, res, next) => {
   try {
     //get User information
-    const { email, password } = req.body;
+    const { email, passwordHash: passwordHash } = req.body;
 
-    if (!email || !password) {
+    if (!email || !passwordHash) {
       res.status(401).send("Please provide email and password");
       console.log("Unauthoriced login");
     } else {
       //find user by email
 
-      const user = await User.findOne({ email, password });
+      const user = await User.findOne({ email, passwordHash: passwordHash });
       console.log(`user: ${user.email} loggged in`);
 
       //wrong credentials

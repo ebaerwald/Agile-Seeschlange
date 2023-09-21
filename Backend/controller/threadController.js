@@ -8,10 +8,7 @@ exports.createThread = async (req, res, next) => {
     console.log(req.body);
     //check if empty
     if (!title || !text) {
-      responseMgt.faild(
-        "ERRORCODE: Miau. YOU Fucked up. Title or Text is empty.....Miau ",
-        res
-      );
+      responseMgt.faild("ERRORCODE: Title or Text is empty...Miau ", res);
     }
 
     const thread = await Thread.create({
@@ -30,7 +27,6 @@ exports.createThread = async (req, res, next) => {
     console.error(err);
   }
 };
-
 exports.deleteThread = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -72,5 +68,62 @@ exports.modifyThread = async (req, res, next) => {
     }
   } catch (err) {
     throw new Error(err, res);
+  }
+};
+exports.getThreadWithAnswers = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      responseMgt.faild("No ID provided", res);
+    }
+
+    const thread = await Thread.findById(id).populate("tags").exec();
+
+    if (!thread) {
+      responseMgt.faild(`Thread with ID ${id} not found`, res);
+      return;
+    }
+
+    //Get all answers of this thread
+    const answers = await Answer.find({ parentThread: id })
+      .populate("answerOwner")
+      .populate("tags")
+      .exec();
+
+    //recursive funktion to create Answer of Answe hierarchy
+    const buildAnswerHierarchy = (answers, parentAnswer) => {
+      const result = [];
+      for (const answer of answers) {
+        if (answer.parentAnswer === parentAnswer) {
+          const subAnswers = buildAnswerHierarchy(answers, answer._id);
+          if (subAnswers.length > 0) {
+            answer.answers = subAnswers;
+          }
+          result.push(answer);
+        }
+      }
+      return result;
+    };
+
+    const answerHierarchy = buildAnswerHierarchy(answers, null);
+    responseMgt.succes(answerHierarchy, res);
+  } catch (err) {
+    responseMgt.faild(err, res);
+  }
+};
+exports.getThreads = async (res, next) => {
+  try {
+    const threads = await Thread.find({})
+      .limit(50)
+      .select("title _id text")
+      .exec();
+
+    if (threads) {
+      responseMgt.succes(threads, res);
+    } else {
+      responseMgt.faild("something went wrong", res);
+    }
+  } catch (err) {
+    responseMgt.faild(err, res);
   }
 };

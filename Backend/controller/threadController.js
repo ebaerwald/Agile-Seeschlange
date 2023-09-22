@@ -1,5 +1,6 @@
 const Thread = require("../mongoDB/ThreadSchema");
 const Answer = require("../mongoDB/AnswerSchema");
+const Group = require("../mongoDB/groupSchema");
 const responseMgt = require("../helper/responseMgt");
 
 exports.createThread = async (req, res, next) => {
@@ -10,13 +11,13 @@ exports.createThread = async (req, res, next) => {
     if (!title || !text) {
       responseMgt.faild("ERRORCODE: Title or Text is empty...Miau ", res);
     }
-
+    const group = await Group.findById(groupId);
     const thread = await Thread.create({
       title,
       text,
       tags,
       views,
-      groupId,
+      groupId: group._id,
       files,
       score,
     });

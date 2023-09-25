@@ -12,15 +12,28 @@ exports.createThread = async (req, res, next) => {
       responseMgt.faild("ERRORCODE: Title or Text is empty...Miau ", res);
     }
     const group = await Group.findById(groupId);
-    const thread = await Thread.create({
-      title,
-      text,
-      tags,
-      views,
-      groupId: group._id,
-      files,
-      score,
-    });
+    let thread;
+    if (!group) {
+      thread = await Thread.create({
+        title,
+        text,
+        tags,
+        views,
+        files,
+        score,
+      });
+    } else {
+      thread = await Thread.create({
+        title,
+        text,
+        tags,
+        views,
+        groupId: group._id,
+        files,
+        score,
+      });
+    }
+
     thread.save();
     console.log(`created Thread:${title}`);
     responseMgt.succes(title, res);
@@ -38,6 +51,7 @@ exports.deleteThread = async (req, res, next) => {
     const deletedThread = await Thread.findByIdAndRemove(id);
     if (deletedThread) {
       responseMgt.succes(deletedThread, res);
+      console.log("Thread deleted successfully: " + deletedThread._id);
     } else {
       responseMgt.faild(deletedThread, res);
     }
@@ -49,7 +63,6 @@ exports.modifyThread = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { title, text, tags, views, groupId, files, score } = req.body;
-    console.log(id);
     if (!id) {
       responseMgt.faild("No ID provided", res);
     }
@@ -64,6 +77,7 @@ exports.modifyThread = async (req, res, next) => {
     });
     if (modifiedThread) {
       responseMgt.succes(modifiedThread, res);
+      console.log("Thread modified: " + modifiedThread._id);
     } else {
       responseMgt.faild("Update failed:" + modifiedThread, res);
     }

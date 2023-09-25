@@ -13,6 +13,7 @@ const userSchema = new mongoose.Schema({
   houseNumber: Number,
   sex: String,
   profileImage: String,
+  isActive: Boolean,
   createdAt: {
     type: Date,
     immutable: true,

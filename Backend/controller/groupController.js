@@ -1,19 +1,28 @@
 const Group = require("../mongoDB/groupSchema");
+const Tag = require("../mongoDB/TagsSchema");
 const responseMgt = require("../helper/responseMgt");
 
 exports.createGroup = async (req, res, next) => {
   try {
     const { name, description, tags, userIds, groupOwner } = req.body;
     console.log(req.body);
+    let tagIDs = [];
     //check if empty
     if (!name || !groupOwner) {
       responseMgt.faild("name or groupOwner are empty", res);
     }
 
+    await Promise.all(
+      tags.map(async (tag) => {
+        const newTag = await Tag.create(tag.TagName);
+        tagIDs.push(newTag._id);
+      })
+    );
+
     const group = await Group.create({
       name,
       description,
-      tags,
+      tags: tagIDs,
       userIds,
       groupOwner,
     });
@@ -30,9 +39,15 @@ exports.deleteGroup = async (req, res, next) => {
     if (!id) {
       responseMgt.faild("No ID provided", res);
     }
-    const deletedGroup = await Group.findByIdAndRemove(id);
+    const deletedGroup = await Group.findByIdAndDelete(id);
+    await Promise.all(
+      deletedGroup.tags.map(async (tag) => {
+        await Tag.findByIdAndDelete(tag._id);
+      })
+    );
     if (deletedGroup) {
       responseMgt.succes(deletedGroup, res);
+      console.log("Deleted group: " + deletedGroup._id);
     } else {
       responseMgt.faild(deletedGroup, res);
     }
@@ -48,13 +63,15 @@ exports.modifyGroup = async (req, res, next) => {
     if (!id) {
       responseMgt.faild("No ID provided", res);
     }
-    const modifiedGroup = await Group.findByIdAndUpdate(id, {
-      name,
-      description,
-      tags,
-      userIds,
-      groupOwner,
-    });
+    const modifiedGroup = await Group.findByIdAndUpdate(
+      id,
+      {
+        name,
+        description,
+        groupOwner,
+      },
+      { new: true }
+    );
     if (modifiedGroup) {
       responseMgt.succes(modifiedGroup, res);
     } else {
@@ -74,17 +91,12 @@ exports.addUserToGroup = async (req, res, next) => {
     const modifiedGroup = await Group.findByIdAndUpdate(
       groupId,
       { $push: { userIds: userId } },
-      { new: true },
-      (err) => {
-        if (err) {
-          responseMgt.faild("Update failed:" + err, res);
-        } else {
-          responseMgt.faild("Update failed:" + err, res);
-        }
-      }
+      { new: true } //=>sorgt für die Rückgabe des upgedateten Datensatzes
     );
     if (modifiedGroup) {
       responseMgt.succes(modifiedGroup, res);
+    } else {
+      responseMgt.faild("Update failed:" + err, res);
     }
   } catch (err) {
     throw new Error(err, res);
@@ -100,17 +112,12 @@ exports.deleteUserFromGroup = async (req, res, next) => {
     const modifiedGroup = await Group.findByIdAndUpdate(
       groupId,
       { $pull: { userIds: userId } },
-      { new: true },
-      (err) => {
-        if (err) {
-          responseMgt.faild("Update failed:" + err, res);
-        } else {
-          responseMgt.faild("Update failed:" + err, res);
-        }
-      }
+      { new: true }
     );
     if (modifiedGroup) {
       responseMgt.succes(modifiedGroup, res);
+    } else {
+      responseMgt.faild("Update failed:" + modifiedGroup, res);
     }
   } catch (err) {
     throw new Error(err, res);
@@ -118,30 +125,27 @@ exports.deleteUserFromGroup = async (req, res, next) => {
 };
 exports.addTagToGroup = async (req, res, next) => {
   try {
-    const { tagId, groupId } = req.body;
-    console.log(tagId + ":" + groupId);
-    if (!tagId || !groupId) {
+    const { tagName, groupId } = req.body;
+    console.log(tagName + ":" + groupId);
+    if (!tagName || !groupId) {
       responseMgt.faild("No tagId or groupId provided", res);
       return;
     }
 
+    const newTag = await Tag.create({ tagName });
+
     const modifiedGroup = await Group.findByIdAndUpdate(
       groupId,
-      { $push: { tags: tagId } },
-      { new: true },
-      (err) => {
-        if (err) {
-          responseMgt.faild("Update failed:" + err, res);
-        } else {
-          responseMgt.succes(modifiedGroup, res);
-        }
-      }
+      { $push: { tags: newTag._id } },
+      { new: true }
     );
     if (modifiedGroup) {
       responseMgt.succes(modifiedGroup, res);
+    } else {
+      responseMgt.faild(modifiedGroup, res);
     }
   } catch (err) {
-    throw new Error(err, res);
+    throw new Error(err);
   }
 };
 exports.deleteTagFromGroup = async (req, res, next) => {
@@ -156,18 +160,13 @@ exports.deleteTagFromGroup = async (req, res, next) => {
     const modifiedGroup = await Group.findByIdAndUpdate(
       groupId,
       { $pull: { tags: tagId } },
-      { new: true },
-      (err) => {
-        if (err) {
-          responseMgt.faild("Update failed:" + err, res);
-        } else {
-          responseMgt.succes(modifiedGroup, res);
-        }
-      }
+      { new: true }
     );
 
     if (modifiedGroup) {
       responseMgt.succes(modifiedGroup, res);
+    } else {
+      responseMgt.faild(modifiedGroup, res);
     }
   } catch (err) {
     throw new Error(err, res);
@@ -175,9 +174,9 @@ exports.deleteTagFromGroup = async (req, res, next) => {
 };
 exports.getGroup = async (req, res, next) => {
   try {
-    const { groupId } = req.params;
-
-    const group = await Group.findById(groupId)
+    const { id } = req.params;
+    console.log(id);
+    const group = await Group.findById(id)
       .populate("userIds", "tags")
       .select("-updatedAt");
 

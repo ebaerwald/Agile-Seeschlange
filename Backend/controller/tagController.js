@@ -11,7 +11,7 @@ exports.createTag = async (req, res, next) => {
     }
 
     const tag = await Tag.create({
-      name,
+      tagName: name,
       description,
     });
     tag.save();
@@ -38,6 +38,31 @@ exports.deleteTag = async (req, res, next) => {
   }
 };
 exports.modifyTag = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { tagName, description } = req.body;
+    console.log(id);
+    if (!id) {
+      responseMgt.faild("No ID provided", res);
+    }
+    const modifiedTag = await Tag.findByIdAndUpdate(
+      id,
+      {
+        tagName,
+        description,
+      },
+      { new: true }
+    );
+    if (modifiedTag) {
+      responseMgt.succes(modifiedTag, res);
+    } else {
+      responseMgt.faild("Update failed:" + modifiedTag, res);
+    }
+  } catch (err) {
+    throw new Error(err, res);
+  }
+};
+exports.getTag = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { name, description } = req.body;

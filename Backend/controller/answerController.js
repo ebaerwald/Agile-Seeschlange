@@ -1,8 +1,13 @@
 const Answer = require("../mongoDB/AnswerSchema");
+const Thread = require("../mongoDB/ThreadSchema");
+const User = require("../mongoDB/UserSchema");
+const Tag = require("../mongoDB/TagsSchema");
 const responseMgt = require("../helper/responseMgt");
 
 exports.createAnswer = async (req, res, next) => {
   try {
+    let answer;
+    let tagIds = [];
     const {
       answerOwner,
       parentAnswer,
@@ -20,17 +25,41 @@ exports.createAnswer = async (req, res, next) => {
       responseMgt.faild("title,answerOwner ord parentThread are empty", res);
     }
 
-    const answer = await Answer.create({
-      answerOwner,
-      parentAnswer,
-      title,
-      text,
-      parentThread,
-      tags,
-      score,
-      IsMostHelpfull,
-      files,
-    });
+    await Promise.all(
+      tags.map(async (tag) => {
+        const newTag = await Tag.create(tag.TagName);
+        tagIds.push(newTag._id);
+      })
+    );
+
+    const thread = await Thread.findById(parentThread);
+    const user = await User.findById(answerOwner);
+    if (!parentAnswer) {
+      answer = await Answer.create({
+        answerOwner: user._id,
+        title,
+        text,
+        parentThread: thread._id,
+        tags: tagIds,
+        score,
+        IsMostHelpfull,
+        files,
+      });
+    } else {
+      const parentAnser = await Answer.findById(parentAnswer);
+      answer = await Answer.create({
+        answerOwner: user._id,
+        parentAnswer: parentAnser._id,
+        title,
+        text,
+        parentThread: thread._id,
+        tags,
+        score,
+        IsMostHelpfull,
+        files,
+      });
+    }
+
     answer.save();
     console.log(`created Answer:${title}`);
     responseMgt.succes(title, res);
@@ -55,42 +84,38 @@ exports.deleteAnswer = async (req, res, next) => {
   } catch (err) {
     throw new Error(err, res);
   }
+
+  const deleteChildAnswers = async (id) => {
+    const answer = await Answer.deleteMany({ parentAnswer: id });
+  };
 };
 exports.modifyAnswer = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const {
-      answerOwner,
-      parentAnswer,
-      title,
-      text,
-      parentThread,
-      tags,
-      score,
-      IsMostHelpfull,
-      files,
-    } = req.body;
-    console.log(id);
-    if (!id) {
-      responseMgt.faild("No ID provided", res);
+    const answerId = req.params.id;
+    let tagIds = [];
+    const { title, text, tags, score, IsMostHelpfull, files } = req.body;
+
+    for (const tag of tags) {
+      const newTag = await Tag.create({ TagName: tag });
+      tagIds.push(newTag._id);
     }
-    const modifiedAnswer = await Answer.findByIdAndUpdate(id, {
-      answerOwner,
-      parentAnswer,
-      title,
-      text,
-      parentThread,
-      tags,
-      score,
-      IsMostHelpfull,
-      files,
-    });
-    if (modifiedAnswer) {
-      responseMgt.succes(modifiedAnswer, res);
-    } else {
-      responseMgt.faild("Update failed:" + modifiedAnswer, res);
-    }
+
+    const updatedAnswer = await Answer.findOneAndUpdate(
+      { _id: answerId },
+      {
+        title,
+        text,
+        score,
+        IsMostHelpfull,
+        files,
+        $push: { tags: tagIds },
+      },
+      { new: true }
+    );
+
+    console.log(`Aktualisierte Antwort: ${updatedAnswer._id}`);
+    responseMgt.succes(title, res);
   } catch (err) {
-    throw new Error(err, res);
+    responseMgt.faild(errorMessage, res);
   }
 };

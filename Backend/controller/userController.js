@@ -59,9 +59,9 @@ exports.delet = async (req, res, next) => {
       console.log("Unauthoriced login");
     } else {
       const user = await User.findOneAndUpdate(
-        email,
+        { email, passwordHash },
         {
-          isACtive: false,
+          isActive: false,
         },
         { new: true }
       );

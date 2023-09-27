@@ -67,16 +67,14 @@ exports.createAnswer = async (req, res, next) => {
     console.error(err);
   }
 };
-
 exports.deleteAnswer = async (req, res, next) => {
   try {
     const { id } = req.params;
     if (!id) {
       responseMgt.faild("No ID provided", res);
     }
-    const deletedAnswers = await Answer.deleteMany({ parentAnswer: id });
-    const deletedAnswer = await Answer.findByIdAndRemove(id);
-    if (deletedAnswer) {
+
+    if (false) {
       responseMgt.succes(deletedAnswer, res);
     } else {
       responseMgt.faild(deletedAnswer, res);
@@ -85,8 +83,11 @@ exports.deleteAnswer = async (req, res, next) => {
     throw new Error(err, res);
   }
 
-  const deleteChildAnswers = async (id) => {
-    const answer = await Answer.deleteMany({ parentAnswer: id });
+  const deleteChildAnswer = async (id) => {
+    const answer = await Answer.findById({ parentAnswer: id });
+    let childAnswers = [];
+    const findAnswers = Answer.find();
+    console.log(findAnswers);
   };
 };
 exports.modifyAnswer = async (req, res, next) => {

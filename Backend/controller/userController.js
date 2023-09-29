@@ -18,7 +18,7 @@ exports.signup = async (req, res, next) => {
     });
     user.save();
     if (user) {
-      responseMgt.succes(user, res);
+      responseMgt.success(user, res);
       console.log(`created User:${user._id}`);
     } else {
       responseMgt.faild(user, res);
@@ -66,7 +66,7 @@ exports.delet = async (req, res, next) => {
         { new: true }
       );
       if (user) {
-        responseMgt.succes(user, res);
+        responseMgt.success(user, res);
         console.log(`Deactivated User:${user._id}`);
       } else {
         responseMgt.faild(user, res);

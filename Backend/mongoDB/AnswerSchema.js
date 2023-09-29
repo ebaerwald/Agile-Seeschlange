@@ -34,6 +34,8 @@ const AnswerSchema = new mongoose.Schema({
     default: () => Date.now(),
   },
 });
-
+function hasChildElement(){
+  
+}
 //exports schema to modles
 module.exports = mongoose.model("Answer", AnswerSchema);

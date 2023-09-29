@@ -16,7 +16,7 @@ exports.createTag = async (req, res, next) => {
     });
     tag.save();
     console.log(`created Tag:${name}`);
-    responseMgt.succes(name, res);
+    responseMgt.success(name, res);
   } catch (err) {
     console.error(err);
   }
@@ -29,7 +29,7 @@ exports.deleteTag = async (req, res, next) => {
     }
     const deletedTag = await Tag.findByIdAndRemove(id);
     if (deletedTag) {
-      responseMgt.succes(deletedTag, res);
+      responseMgt.success(deletedTag, res);
     } else {
       responseMgt.faild(deletedTag, res);
     }
@@ -54,7 +54,7 @@ exports.modifyTag = async (req, res, next) => {
       { new: true }
     );
     if (modifiedTag) {
-      responseMgt.succes(modifiedTag, res);
+      responseMgt.success(modifiedTag, res);
     } else {
       responseMgt.faild("Update failed:" + modifiedTag, res);
     }
@@ -75,7 +75,7 @@ exports.getTag = async (req, res, next) => {
       description,
     });
     if (modifiedTag) {
-      responseMgt.succes(modifiedTag, res);
+      responseMgt.success(modifiedTag, res);
     } else {
       responseMgt.faild("Update failed:" + modifiedTag, res);
     }

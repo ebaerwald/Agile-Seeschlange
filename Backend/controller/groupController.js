@@ -28,7 +28,7 @@ exports.createGroup = async (req, res, next) => {
     });
     group.save();
     console.log(`created Group:${name}`);
-    responseMgt.succes(name, res);
+    responseMgt.success(name, res);
   } catch (err) {
     console.error(err);
   }
@@ -46,7 +46,7 @@ exports.deleteGroup = async (req, res, next) => {
       })
     );
     if (deletedGroup) {
-      responseMgt.succes(deletedGroup, res);
+      responseMgt.success(deletedGroup, res);
       console.log("Deleted group: " + deletedGroup._id);
     } else {
       responseMgt.faild(deletedGroup, res);
@@ -73,7 +73,7 @@ exports.modifyGroup = async (req, res, next) => {
       { new: true }
     );
     if (modifiedGroup) {
-      responseMgt.succes(modifiedGroup, res);
+      responseMgt.success(modifiedGroup, res);
     } else {
       responseMgt.faild("Update failed:" + modifiedGroup, res);
     }
@@ -94,7 +94,7 @@ exports.addUserToGroup = async (req, res, next) => {
       { new: true } //=>sorgt für die Rückgabe des upgedateten Datensatzes
     );
     if (modifiedGroup) {
-      responseMgt.succes(modifiedGroup, res);
+      responseMgt.success(modifiedGroup, res);
     } else {
       responseMgt.faild("Update failed:" + err, res);
     }
@@ -115,7 +115,7 @@ exports.deleteUserFromGroup = async (req, res, next) => {
       { new: true }
     );
     if (modifiedGroup) {
-      responseMgt.succes(modifiedGroup, res);
+      responseMgt.success(modifiedGroup, res);
     } else {
       responseMgt.faild("Update failed:" + modifiedGroup, res);
     }
@@ -140,7 +140,7 @@ exports.addTagToGroup = async (req, res, next) => {
       { new: true }
     );
     if (modifiedGroup) {
-      responseMgt.succes(modifiedGroup, res);
+      responseMgt.success(modifiedGroup, res);
     } else {
       responseMgt.faild(modifiedGroup, res);
     }
@@ -164,7 +164,7 @@ exports.deleteTagFromGroup = async (req, res, next) => {
     );
 
     if (modifiedGroup) {
-      responseMgt.succes(modifiedGroup, res);
+      responseMgt.success(modifiedGroup, res);
     } else {
       responseMgt.faild(modifiedGroup, res);
     }
@@ -185,7 +185,7 @@ exports.getGroup = async (req, res, next) => {
       return;
     }
 
-    responseMgt.succes(group, res);
+    responseMgt.success(group, res);
   } catch (err) {
     throw new Error(err, res);
   }
@@ -194,7 +194,7 @@ exports.getGroups = async (req, res, next) => {
   try {
     const groupsOverview = await Group.find({}, "_id name description");
 
-    responseMgt.succes(groupsOverview, res);
+    responseMgt.success(groupsOverview, res);
   } catch (err) {
     responseMgt.faild("Fatal error:" + err, res);
   }

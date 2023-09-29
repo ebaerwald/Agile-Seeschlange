@@ -36,7 +36,7 @@ exports.createThread = async (req, res, next) => {
 
     thread.save();
     console.log(`created Thread:${title}`);
-    responseMgt.succes(title, res);
+    responseMgt.success(title, res);
   } catch (err) {
     console.error(err);
   }
@@ -50,7 +50,7 @@ exports.deleteThread = async (req, res, next) => {
     const deletedAnswers = await Answer.deleteMany({ parentThread: id });
     const deletedThread = await Thread.findByIdAndRemove(id);
     if (deletedThread) {
-      responseMgt.succes(deletedThread, res);
+      responseMgt.success(deletedThread, res);
       console.log("Thread deleted successfully: " + deletedThread._id);
     } else {
       responseMgt.faild(deletedThread, res);
@@ -76,7 +76,7 @@ exports.modifyThread = async (req, res, next) => {
       score,
     });
     if (modifiedThread) {
-      responseMgt.succes(modifiedThread, res);
+      responseMgt.success(modifiedThread, res);
       console.log("Thread modified: " + modifiedThread._id);
     } else {
       responseMgt.faild("Update failed:" + modifiedThread, res);
@@ -121,7 +121,7 @@ exports.getThreadWithAnswers = async (req, res, next) => {
     };
 
     const answerHierarchy = buildAnswerHierarchy(answers, null);
-    responseMgt.succes(answerHierarchy, res);
+    responseMgt.success(answerHierarchy, res);
   } catch (err) {
     responseMgt.faild(err, res);
   }
@@ -134,7 +134,7 @@ exports.getThreads = async (res, next) => {
       .exec();
 
     if (threads) {
-      responseMgt.succes(threads, res);
+      responseMgt.success(threads, res);
     } else {
       responseMgt.faild("something went wrong", res);
     }

@@ -25,12 +25,14 @@ exports.createAnswer = async (req, res, next) => {
       responseMgt.faild("title,answerOwner ord parentThread are empty", res);
     }
 
-    await Promise.all(
-      tags.map(async (tag) => {
-        const newTag = await Tag.create(tag.TagName);
-        tagIds.push(newTag._id);
-      })
-    );
+    try {
+      await Promise.all(
+        tags.map(async (tag) => {
+          const newTag = await Tag.create(tag.TagName);
+          tagIds.push(newTag._id);
+        })
+      );
+    } catch (err) {}
 
     const thread = await Thread.findById(parentThread);
     const user = await User.findById(answerOwner);
@@ -62,7 +64,7 @@ exports.createAnswer = async (req, res, next) => {
 
     answer.save();
     console.log(`created Answer:${title}`);
-    responseMgt.succes(title, res);
+    responseMgt.success(answer._id, res);
   } catch (err) {
     console.error(err);
   }
@@ -74,21 +76,23 @@ exports.deleteAnswer = async (req, res, next) => {
       responseMgt.faild("No ID provided", res);
     }
 
-    if (false) {
-      responseMgt.succes(deletedAnswer, res);
-    } else {
-      responseMgt.faild(deletedAnswer, res);
+    const deleteChildAnswer = async (id) => {
+      const answer = await Answer.findById(id);
+      while (answer.hasChildElements) {
+        await deleteChildAnswer(answer._id);
+      }
+      answer.deleteOne();
+    };
+    async function getNextChild(id) {
+      const nextChild = await Answer.findOne({ parentAnswer: id });
+      return nextChild._id;
     }
+
+    deleteChildAnswer(id);
+    responseMgt.success(id, res);
   } catch (err) {
     throw new Error(err, res);
   }
-
-  const deleteChildAnswer = async (id) => {
-    const answer = await Answer.findById({ parentAnswer: id });
-    let childAnswers = [];
-    const findAnswers = Answer.find();
-    console.log(findAnswers);
-  };
 };
 exports.modifyAnswer = async (req, res, next) => {
   try {
@@ -115,7 +119,7 @@ exports.modifyAnswer = async (req, res, next) => {
     );
 
     console.log(`Aktualisierte Antwort: ${updatedAnswer._id}`);
-    responseMgt.succes(title, res);
+    responseMgt.success(title, res);
   } catch (err) {
     responseMgt.faild(errorMessage, res);
   }

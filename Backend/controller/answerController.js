@@ -19,7 +19,6 @@ exports.createAnswer = async (req, res, next) => {
       IsMostHelpfull,
       files,
     } = req.body;
-    console.log(req.body);
     //check if empty
     if (!title || !answerOwner || !parentThread) {
       responseMgt.faild("title,answerOwner ord parentThread are empty", res);
@@ -69,29 +68,34 @@ exports.createAnswer = async (req, res, next) => {
     console.error(err);
   }
 };
-exports.deleteAnswer = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    if (!id) {
-      responseMgt.faild("No ID provided", res);
-    }
+exports.deleteAnswer = async (req, res) => {
+  const { id } = req.params;
+  if (!id) {
+    responseMgt.faild("No ID provided", res);
+  } else {
+    responseMgt.success(deleteAnswerAndChildren(id), res);
+  }
 
-    const deleteChildAnswer = async (id) => {
-      const answer = await Answer.findById(id);
-      while (answer.hasChildElements) {
-        await deleteChildAnswer(answer._id);
+  async function deleteAnswerAndChildren(answerId) {
+    try {
+      const deletedAnswer = await Answer.findByIdAndRemove(answerId);
+
+      if (!deletedAnswer) {
+        throw new Error(
+          "Die Antwort wurde nicht gefunden oder konnte nicht gelöscht werden."
+        );
       }
-      answer.deleteOne();
-    };
-    async function getNextChild(id) {
-      const nextChild = await Answer.findOne({ parentAnswer: id });
-      return nextChild._id;
-    }
 
-    deleteChildAnswer(id);
-    responseMgt.success(id, res);
-  } catch (err) {
-    throw new Error(err, res);
+      const childAnswers = await Answer.find({ parentAnswer: answerId });
+
+      for (const childAnswer of childAnswers) {
+        await deleteAnswerAndChildren(childAnswer._id);
+      }
+
+      return deletedAnswer._id;
+    } catch (error) {
+      throw error;
+    }
   }
 };
 exports.modifyAnswer = async (req, res, next) => {

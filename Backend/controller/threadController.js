@@ -93,40 +93,22 @@ exports.getThreadWithAnswers = async (req, res, next) => {
     }
 
     const thread = await Thread.findById(id).populate("tags").exec();
-
-    if (!thread) {
-      responseMgt.faild(`Thread with ID ${id} not found`, res);
-      return;
-    }
-
-    //Get all answers of this thread
-    const answers = await Answer.find({ parentThread: id })
-      .populate("answerOwner")
-      .populate("tags")
+    const answers = await Answer.find({
+      parentThread: threadId,
+      parentAnswer: null,
+    })
+      .populate("answer")
       .exec();
-
-    //recursive funktion to create Answer of Answe hierarchy
-    const buildAnswerHierarchy = (answers, parentAnswer) => {
-      const result = [];
-      for (const answer of answers) {
-        if (answer.parentAnswer === parentAnswer) {
-          const subAnswers = buildAnswerHierarchy(answers, answer._id);
-          if (subAnswers.length > 0) {
-            answer.answers = subAnswers;
-          }
-          result.push(answer);
-        }
-      }
-      return result;
-    };
-
-    const answerHierarchy = buildAnswerHierarchy(answers, null);
-    responseMgt.success(answerHierarchy, res);
+    if (thread) {
+      responseMgt.success(answers, res);
+    } else {
+      responseMgt.faild("No Thread found", res);
+    }
   } catch (err) {
     responseMgt.faild(err, res);
   }
 };
-exports.getThreads = async (res, next) => {
+exports.getThreads = async (req, res, next) => {
   try {
     const threads = await Thread.find({})
       .limit(50)

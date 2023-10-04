@@ -1,25 +1,27 @@
-import { Route, Routes } from 'react-router-dom';
-import { LandingPage } from './pages';
-import { LogInPage } from './pages/login';
-import { GroupsPage } from './pages/groups';
-import { QuestionsPage } from './pages/questions';
-import { SignUpPage } from './pages/signup';
-import { SingleQuestionPage } from './pages/single_question';
-import { SingleGroupPage } from './pages/single_group';
-import { TestBackendPage } from './pages/test-backend';
+import { StatusBar } from 'expo-status-bar';
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { FrontendTestScreen } from './pages/FrontendTestScreen'
+import { LoginPage } from './pages/LoginPage'
+import { SplashScreen } from './pages/SplashScreen'
+import { RegisterPage } from './pages/RegisterPage'
+import { MenuePage } from './pages/MenuePage'
+import { ArchivPage } from './pages/ArchivPage'
+
+const NativeStack = createNativeStackNavigator()
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/groups" element={<GroupsPage />} />
-      <Route path="/login" element={<LogInPage />} />
-      <Route path="/questions" element={<QuestionsPage />} />
-      <Route path="/signup" element={<SignUpPage />} />
-      <Route path="/question/:id" element={<SingleQuestionPage />} />
-      <Route path="/group/:id" element={<SingleGroupPage />} />
-    </Routes>
-    // <TestBackendPage/>
+    <NavigationContainer>
+        <NativeStack.Navigator initialRouteName={'FrontendTestScreen'}>
+          <NativeStack.Screen name={'FrontendTestScreen'} component={FrontendTestScreen} options={{ title: 'FrontendTestScreen'}} />
+          <NativeStack.Screen name={'Login'} component={LoginPage} />
+          <NativeStack.Screen name={'Splash'} component={SplashScreen} />
+          <NativeStack.Screen name={'Register'} component={RegisterPage} />
+          <NativeStack.Screen name={'Menue'} component={MenuePage} />
+          <NativeStack.Screen name={'Archiv'} component={ArchivPage} />
+        </NativeStack.Navigator>
+      <StatusBar style="auto" />
+    </NavigationContainer>
   );
 }
-

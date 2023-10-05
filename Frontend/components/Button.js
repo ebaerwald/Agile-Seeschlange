@@ -1,19 +1,19 @@
 import React from 'react';
 import { View, Image, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-// Importiere deine Icons als Konstanten
 import loginIcon from '../assets/LoginInIcon.png';
 import registerIcon from '../assets/SignInIcon.png';
+import AnswerSnake from '../assets/AnswerSnake.png';
 
 const Button = ({ onPress, iconType, text }) => {
-  // Definiere eine Funktion, um das passende Icon basierend auf dem Text auszuwählen
   const getIconSource = () => {
     if (iconType === 'Login') {
       return loginIcon;
     } else if (iconType === 'Register') {
       return registerIcon;
+    } else if (iconType === 'Answer') {
+      return AnswerSnake;
     } else {
-      // Hier kannst du eine Standardquelle für den Fall verwenden, dass kein passender Text gefunden wurde
       return require('../assets/DefaultIcon.png');
     }
   };
@@ -77,4 +77,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Button; // Fügen Sie den Standardexport hinzu
+export default Button;

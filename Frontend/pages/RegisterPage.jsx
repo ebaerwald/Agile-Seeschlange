@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native'; // Importieren Sie CheckBox von react-native
+import { StyleSheet, View, ScrollView } from 'react-native';
 import Button from '../components/Button';
 import DataInputField from '../components/DataInputField';
 import SnakeImage from '../components/SnakeImage';
 import Background from '../components/Background';
-import CustomCheckbox from '../components/Checkbox'; // Importieren Sie die CustomCheckbox-Komponente
+import CustomCheckbox from '../components/Checkbox';
 import HeaderText from '../components/HeaderText';
 import Text from '../components/Text';
 
@@ -35,10 +35,11 @@ const RegisterPage = ({ navigation }) => {
     console.log('Passwort:', password);
     console.log('AGB akzeptiert:', agbChecked);
     console.log('Datenschutzbestimmungen akzeptiert:', datenschutzChecked);
-    navigation.navigate('Register');
+    navigation.navigate('Menue');
   };
 
   return (
+    <ScrollView>
     <Background showFooter={false} showBurgerBun={false}>
       {/* Inhalt der Seite */}    
       <View style={styles.outerBox}>
@@ -58,8 +59,9 @@ const RegisterPage = ({ navigation }) => {
         {/* Checkboxen für AGB und Datenschutz, Verwenden Sie die CustomCheckbox-Komponente */}
         <CustomCheckbox label="Hiermit stimme ich den AGB zu*" value={agbChecked} onValueChange={value => setAgbChecked(value)} />
         <CustomCheckbox label="Hiermit stimme ich den Datenschutzbestimmungen zu*" value={datenschutzChecked} onValueChange={value => setDatenschutzChecked(value)} />
-
+        
         <Text title="Alle mit * markierten Felder sind Pflichtfelder. Bitte fülle sie aus." type="center" />
+
 
       {/* Registrieren-Button */}
       <Button
@@ -80,6 +82,8 @@ const RegisterPage = ({ navigation }) => {
       </View>
 
     </Background>
+          
+    </ScrollView>
   );
 };
 

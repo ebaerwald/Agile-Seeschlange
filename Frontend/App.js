@@ -7,6 +7,8 @@ import { SplashScreen } from './pages/SplashScreen'
 import { RegisterPage } from './pages/RegisterPage'
 import { MenuePage } from './pages/MenuePage'
 import { ArchivPage } from './pages/ArchivPage'
+import { SingleQuestionPage } from './pages/SingleQuestionPage'
+import { LawPage } from './pages/LawPage'
 
 const NativeStack = createNativeStackNavigator()
 
@@ -20,6 +22,8 @@ export default function App() {
           <NativeStack.Screen name={'Register'} component={RegisterPage} />
           <NativeStack.Screen name={'Menue'} component={MenuePage} />
           <NativeStack.Screen name={'Archiv'} component={ArchivPage} />
+          <NativeStack.Screen name={'SingleQuestion'} component={SingleQuestionPage} />
+          <NativeStack.Screen name={'Law'} component={LawPage} />
         </NativeStack.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>

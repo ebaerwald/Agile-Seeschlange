@@ -12,6 +12,8 @@ const FrontendTestScreen = ({ navigation }) => {
             <Button onPress={() => navigation.navigate('Register')} title={'Go to RegisterPage'} />
             <Button onPress={() => navigation.navigate('Menue')} title={'Go to MenuePage'} />
             <Button onPress={() => navigation.navigate('Archiv')} title={'Go to ArchivPage'} />
+            <Button onPress={() => navigation.navigate('SingleQuestion')} title={'Go to SingleQuestionPage'} />
+            <Button onPress={() => navigation.navigate('Law')} title={'Go to LawPage'} />
         </View>
     );
 }

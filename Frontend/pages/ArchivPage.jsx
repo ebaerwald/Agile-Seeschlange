@@ -1,4 +1,4 @@
-import { StyleSheet, View, } from 'react-native'; // Importieren Sie CheckBox von react-native
+import { StyleSheet, View, ScrollView } from 'react-native'; // Importieren Sie CheckBox von react-native
 import Background from '../components/Background';
 import Question from '../components/Question';
 import HeaderText from '../components/HeaderText';
@@ -7,6 +7,7 @@ import Text from '../components/Text';
 
 const ArchivPage = ({ navigation }) => {
   return (
+    <ScrollView>
     <Background showFooter={true} showBurgerBun={true}>
       <View style={styles.outerBox}>
       <HeaderText title="Archiv" type="left" />
@@ -17,6 +18,7 @@ const ArchivPage = ({ navigation }) => {
 
       </View>
     </Background>
+    </ScrollView>
   );
 };
 

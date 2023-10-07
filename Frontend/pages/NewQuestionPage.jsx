@@ -9,14 +9,13 @@ import HeaderText from '../components/HeaderText';
 import Text from '../components/Text';
 import Question from '../components/Question';
 
-const SingleQuestionPage = ({ navigation }) => {
-  const [giveAnswer, setAnswer] = useState('');
+const NewQuestionPage = ({ navigation }) => {
   const [UserRightsChecked, setUserRightsChecked] = useState(false); // Zustand für die AGB-Checkbox
 
   const handleAnswerButtonClick = () => {
     // Hier Logik für den Antwortgeben-Button 
-    console.log('AGB akzeptiert:', agbChecked);
-    //navigation.navigate('Menue');
+    console.log('AGB akzeptiert:', UserRightsChecked);
+    navigation.navigate('Menue');
   };
 
   return (
@@ -27,16 +26,10 @@ const SingleQuestionPage = ({ navigation }) => {
 
         <SnakeImage size="small" />
 
-        <HeaderText title="Die Frage" type="center" />
-        <Question subject="Mathematik" user="UserXY" question="Wie löse ich diese Aufgabe?" navigation={navigation} showAnswers={true} />
+        <HeaderText title="Deine Frage" type="center" />
+        <Question subject="Mathematik" user="UserXY" question="" navigation={navigation} showAnswers={false} newQuestion={true} />
 
-        <Text title="Eine Seeschlange hat diese Frage gepostet und braucht Deine Hilfe. Du weißt eine Antwort? Super! Poste deine Antwort und hilf anderen Seeschlangen!" type="center" />
-
-        {/* Eingabefelder für Vorname, Nachname, Geburtsdatum, E-Mail und Passwort */}
-        <DataInputField placeholder="Deine Antwort*" value={giveAnswer} onChangeText={text => setAnswer(text)} />
-
-        {/* Checkboxen für AGB und Datenschutz, Verwenden Sie die CustomCheckbox-Komponente */}
-        <CustomCheckbox label="Hiermit stimme ich zu, dass meine Antwort veröffentlich wird*" value={UserRightsChecked} onValueChange={value => setUserRightsChecked(value)} />
+        <CustomCheckbox label="Hiermit stimme ich zu, dass meine Frage im Meer veröffentlich wird*" value={UserRightsChecked} onValueChange={value => setUserRightsChecked(value)} />
         <Text title="Alle mit * markierten Felder sind Pflichtfelder. Bitte fülle sie aus." type="center" />
 
 
@@ -44,7 +37,7 @@ const SingleQuestionPage = ({ navigation }) => {
       <Button
         onPress={handleAnswerButtonClick}
         iconType="Answer"
-        text="Antwort im Meer senden!"
+        text="Frage im Meer stellen!"
       />
 
       </View>
@@ -64,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export { SingleQuestionPage };
+export { NewQuestionPage };

@@ -4,6 +4,7 @@ import { View, Image, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import loginIcon from '../assets/LoginInIcon.png';
 import registerIcon from '../assets/SignInIcon.png';
 import AnswerSnake from '../assets/AnswerSnake.png';
+import QuestionIcon from '../assets/question-mark.png';
 
 const Button = ({ onPress, iconType, text }) => {
   const getIconSource = () => {
@@ -13,7 +14,10 @@ const Button = ({ onPress, iconType, text }) => {
       return registerIcon;
     } else if (iconType === 'Answer') {
       return AnswerSnake;
-    } else {
+    } else if (iconType === 'newQuestion') {
+      return QuestionIcon;
+    } 
+    else {
       return require('../assets/DefaultIcon.png');
     }
   };
@@ -65,11 +69,12 @@ const styles = StyleSheet.create({
     flex: 1,
     marginBottom: 10,
     marginTop: 10,
-    marginRight: 10,
+    marginRight: 15,
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 10,
     padding: 5,
+    
   },
   buttonText: {
     color: 'black',

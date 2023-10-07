@@ -15,14 +15,25 @@ const InteractionButton = ({ type, onPress }) => {
     case 'superlike':
       iconSource = require('../assets/HeartIcon.png');
       break;
+      case 'superlikePushed':
+        iconSource = require('../assets/HeartSolidIcon.png');
+        break;
     case 'comment':
       iconSource = require('../assets/CommentIcon.png');
       break;
+    case 'star':
+      iconSource = require('../assets/StarIcon.png');
+      break;
+    case 'starPushed':
+        iconSource = require('../assets/StarSolidIcon.png');
+      break;
+
     default:
       // Fallback, falls der Typ nicht erkannt wird
       iconSource = require('../assets/DefaultIcon.png');
       break;
   }
+  
 
   return (
     <View style={styles.interactionContainer}>

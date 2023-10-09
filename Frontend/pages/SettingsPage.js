@@ -21,8 +21,8 @@ export function SettingsPage() {
   };
 
   const memoryDataButton = () => {
-    navigation.navigate("MemoryDataPage")
-  }
+    navigation.navigate("MemoryDataPage");
+  };
 
   return (
     <View style={styles.container}>

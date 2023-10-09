@@ -16,6 +16,7 @@ import { NotificationsPage } from "./pages/NotificationsPage";
 import { KontoPage } from "./pages/KontoPage";
 import { MemoryDataPage } from "./pages/MemoryDataPage";
 import FaqPage from "./pages/FaqPage";
+import { useTheme, ThemeProvider } from './components/ThemeContext';
 
 const NativeStack = createNativeStackNavigator();
 
@@ -79,6 +80,7 @@ export default function App() {
   }
   const Tab = createBottomTabNavigator();
   return (
+    <ThemeProvider>
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
@@ -109,6 +111,7 @@ export default function App() {
         <Tab.Screen name="Einstellungen" component={EinstellungenStackScreen} />
       </Tab.Navigator>
     </NavigationContainer>
+    </ThemeProvider>
 
     // <NavigationContainer>
     //     <NativeStack.Navigator initialRouteName={'FrontendTestScreen'}>

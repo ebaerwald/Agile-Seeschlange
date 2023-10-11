@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
-import Footer from './Footer'; // Importiere die Footer-Komponente
-
+import Footer from './Footer';
 const Background = ({ children, showFooter, showBurgerBun }) => {
   const handleBurgerMenuClick = () => {
     console.log('Button Burgermenü wurde geklickt');
@@ -20,7 +19,7 @@ const Background = ({ children, showFooter, showBurgerBun }) => {
       {children}
       {showFooter && (
         <View style={styles.footer}>
-          {/* Hier kannst du den Footer-Inhalt hinzufügen */}
+          {/* Hier Footer-Inhalt hinzufügen */}
           <Footer />
         </View>
       )}

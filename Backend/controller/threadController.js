@@ -103,21 +103,51 @@ exports.modifyThread = async (req, res, next) => {
 exports.getThreadWithAnswers = async (req, res, next) => {
   try {
     const { id } = req.params;
-    if (!id) {
-      responseMgt.faild("No ID provided", res);
+    async function getThreadWithAnswers(threadId) {
+      try {
+        let thread = await Thread.findById(threadId);
+
+        if (!thread) {
+          return null;
+        }
+
+        const threadWithAnswer = await buildAnswerHierarchy(thread._id);
+        thread = thread.toJSON();
+        thread.answers = threadWithAnswer.answers;
+        return thread;
+      } catch (error) {
+        console.error("failed to get thread: ", error);
+        throw error;
+      }
     }
-    const thread = await Thread.findById(id).populate("tags").exec();
-    const answers = await Answer.find({
-      parentThread: thread._id,
-      parentAnswer: null,
-    });
-    if (thread) {
-      responseMgt.success(answers, res);
+
+    async function getAnswersForThread(id) {
+      const answers = await Answer.find({ parentAnswer: id }).lean();
+      return answers;
+    }
+
+    async function buildAnswerHierarchy(id) {
+      let answerObj = {};
+      answerObj.answers = await getAnswersForThread(id);
+
+      if (answerObj.answers.length === 0) {
+        return answerObj;
+      }
+
+      for (const subAnswer of answerObj.answers) {
+        subAnswer.answers = (await buildAnswerHierarchy(subAnswer._id)).answers;
+      }
+      return answerObj;
+    }
+
+    const responseMsg = await getThreadWithAnswers(id);
+    if (responseMsg) {
+      responseMgt.success(responseMsg, res);
     } else {
-      responseMgt.faild("No Thread found", res);
+      responseMgt.faild(responseMsg, res);
     }
   } catch (err) {
-    console.log("If This then FUCK");
+    console.log("if this then you are FUCKED");
     responseMgt.faild(err, res);
   }
 };

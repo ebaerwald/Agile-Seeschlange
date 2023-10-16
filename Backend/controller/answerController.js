@@ -41,6 +41,7 @@ exports.createAnswer = async (req, res, next) => {
         title,
         text,
         parentThread: thread._id,
+        parentAnswer: thread._id,
         tags: tagIds,
         score,
         IsMostHelpfull,

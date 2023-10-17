@@ -1,14 +1,8 @@
-import { configureStore, createAsyncThunk } from 'redux';
 import { authorize, refresh } from 'react-native-app-auth';
-import { passObject, createRootSlice } from './root';
 
-require('dotenv').config();
-
-const initialState = {
-    acessToken: null,
-    error: null,
-    status: 'idle',
-};
+export const authStore = {
+    acessToken: null
+}
 
 // ++++++++++++++++++++++
 // TODO: Replace these with the backend routes
@@ -19,11 +13,15 @@ const oAuth2AuthorizeRoute = '';
 
 // ----------------------
 
-export const normalAuthorize = createAsyncThunk('normalAuthorize', passObject(normalAuthorizeRoute, userData, 'POST', async(userData) => {
-    if (userData.password == null || (userData.email && userData.username) == null) throw new Error("Invalid parameters");
-}));
+export async function normalAuthorize(imp, userData)
+{
+    const response = await passObject(normalAuthorizeRoute, userData, 'POST');
+    imp.set.authStore = response;
+    return response;
+}
 
-export const oAuth2Authorize = createAsyncThunk('oAuth2Authorize', async () =>{
+export async function oAuth2Authorize()
+{
     try {
         const config = {
             issuer: 'https://accounts.google.com',
@@ -58,23 +56,6 @@ export const oAuth2Authorize = createAsyncThunk('oAuth2Authorize', async () =>{
     catch (error) {
         throw new Error(error.message);
     }
-});
-
-const authSlice = createRootSlice('auth', initialState, [normalAuthorize, oAuth2Authorize]);
-
-export const store = configureStore({
-    reducer: {
-        auth: authSlice.reducer,
-    },
-});
-
-export const selectAuth = (state) => state.auth;
-
-
-
-
-
-
-
+}
 
 

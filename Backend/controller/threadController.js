@@ -1,6 +1,7 @@
 const Thread = require("../mongoDB/ThreadSchema");
 const Answer = require("../mongoDB/AnswerSchema");
 const Group = require("../mongoDB/groupSchema");
+const Tag = require("../mongoDB/TagsSchema");
 const responseMgt = require("../helper/responseMgt");
 
 exports.createThread = async (req, res, next) => {
@@ -61,20 +62,34 @@ exports.deleteThread = async (req, res, next) => {
 };
 exports.modifyThread = async (req, res, next) => {
   try {
+    let tagIds = [];
     const { id } = req.params;
     const { title, text, tags, views, groupId, files, score } = req.body;
     if (!id) {
       responseMgt.faild("No ID provided", res);
     }
-    const modifiedThread = await Thread.findByIdAndUpdate(id, {
-      title,
-      text,
-      tags,
-      views,
-      groupId,
-      files,
-      score,
-    });
+
+    await Promise.all(
+      tags.map(async (tag) => {
+        const newTag = await Tag.create(tag.TagName);
+        tagIds.push(newTag._id);
+      })
+    );
+
+    console.log(tagIds);
+    const modifiedThread = await Thread.findByIdAndUpdate(
+      id,
+      {
+        title,
+        text,
+        tags: tagIds,
+        views,
+        groupId,
+        files,
+        score,
+      },
+      { new: true }
+    );
     if (modifiedThread) {
       responseMgt.success(modifiedThread, res);
       console.log("Thread modified: " + modifiedThread._id);
@@ -88,23 +103,51 @@ exports.modifyThread = async (req, res, next) => {
 exports.getThreadWithAnswers = async (req, res, next) => {
   try {
     const { id } = req.params;
-    if (!id) {
-      responseMgt.faild("No ID provided", res);
+    async function getThreadWithAnswers(threadId) {
+      try {
+        let thread = await Thread.findById(threadId);
+
+        if (!thread) {
+          return null;
+        }
+
+        const threadWithAnswer = await buildAnswerHierarchy(thread._id);
+        thread = thread.toJSON();
+        thread.answers = threadWithAnswer.answers;
+        return thread;
+      } catch (error) {
+        console.error("failed to get thread: ", error);
+        throw error;
+      }
     }
 
-    const thread = await Thread.findById(id).populate("tags").exec();
-    const answers = await Answer.find({
-      parentThread: threadId,
-      parentAnswer: null,
-    })
-      .populate("answer")
-      .exec();
-    if (thread) {
-      responseMgt.success(answers, res);
+    async function getAnswersForThread(id) {
+      const answers = await Answer.find({ parentAnswer: id }).lean();
+      return answers;
+    }
+
+    async function buildAnswerHierarchy(id) {
+      let answerObj = {};
+      answerObj.answers = await getAnswersForThread(id);
+
+      if (answerObj.answers.length === 0) {
+        return answerObj;
+      }
+
+      for (const subAnswer of answerObj.answers) {
+        subAnswer.answers = (await buildAnswerHierarchy(subAnswer._id)).answers;
+      }
+      return answerObj;
+    }
+
+    const responseMsg = await getThreadWithAnswers(id);
+    if (responseMsg) {
+      responseMgt.success(responseMsg, res);
     } else {
-      responseMgt.faild("No Thread found", res);
+      responseMgt.faild(responseMsg, res);
     }
   } catch (err) {
+    console.log("if this then you are FUCKED");
     responseMgt.faild(err, res);
   }
 };

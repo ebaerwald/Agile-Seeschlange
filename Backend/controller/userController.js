@@ -39,7 +39,7 @@ exports.login = async (req, res, next) => {
       //find user by email
 
       const user = await User.findOne({ email, passwordHash: passwordHash });
-      console.log(`user: ${user.email} loggged in`);
+      console.log(`user: ${user.email} loged in`);
 
       //wrong credentials
       if (!user) {

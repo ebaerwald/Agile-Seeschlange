@@ -2,16 +2,17 @@ import { passId, passObject } from "./root";
 
 export const answerStore = {
     id: null,
+    answerOwner: null,
     title: null,
     text: null,
     tags: [],
     score: 0,
-    views: 0,
-    closed: false,
     questionId: null,
+    parentAnswer: null,
     files: null,
     createdAt: new Date(),
-    mostHelpfull: false
+    mostHelpfull: false,
+    updatedAt: null
 };
 
 export const answersStore = {
@@ -22,15 +23,12 @@ export const answersStore = {
 // TODO: Replace these with the backend routes
 // * Pay attention to the HTTP method, which is the last argument in the passId and passObject functions
 
-const getAnswerRoute = '';
-const getAnswersRoute = '';
-const getAnswersFromQuestionRoute = '';
-const getAnswersFromUserRoute = '';
-const getMostHelpfullAnswerFromQuestionRoute = '';
-const getMostHelpfullAnswersFromGroupRoute = '';
-const getMostHelpfullAnswersFromUserRoute = '';
-const createAnswerRoute = '';
-const updateAnswerRoute = '';
+// const getAnswersFromQuestionRoute = ''; // bei den Threads
+
+const createAnswerRoute = 'http://localhost:3001/api/answer'; //post pass id
+const updateAnswerRoute = 'http://localhost:3001/api/answer'; //put
+const deleteAnswerRoute = 'http://localhost:3001/api/answer'; //del pass id
+
 
 // ----------------------
 

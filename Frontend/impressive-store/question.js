@@ -11,7 +11,7 @@ export const questionStore = {
     groupId: null,
     files: null,
     createdAt: new Date(),
-    closedAt: null
+    updatedAt: null
 };
 
 export const questionsStore = {
@@ -22,12 +22,13 @@ export const questionsStore = {
 // TODO: Replace these with the backend routes
 // * Pay attention to the HTTP method, which is the last argument in the passId and passObject functions
 
-const getQuestionRoute = '';
-const getQuestionsFromGroupRoute = '';
-const getQuestionsFromUserRoute = '';
-const getQuestionsRoute = '';
-const createQuestionRoute = '';
-const updateQuestionRoute = '';
+const getQuestionWithAnswersRoute = 'http://localhost:3001/api/thread'; //get //questionId
+
+const getQuestionsRoute = 'http://localhost:3001/api/threads'; //get // random questions
+
+const createQuestionRoute = 'http://localhost:3001/api/thread'; // post
+const updateQuestionRoute = 'http://localhost:3001/api/thread'; // pass id put
+const deleteQuestionRoute = 'http://localhost:3001/api/thread'; // del pass id
 
 // ----------------------
 

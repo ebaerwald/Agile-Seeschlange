@@ -31,7 +31,7 @@ export async function passObject(route, object, requestMethod)
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(object),
+            body: object,
         });
         if (response.ok) 
         {

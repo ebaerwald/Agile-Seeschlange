@@ -6,7 +6,9 @@ export const groupStore = {
     description: null,
     tags: [],
     userIds: [],
-    groupOwnerId: null
+    groupOwnerId: null,
+    createdAt: new Date(),
+    updatedAt: null
 };
 
 export const groupsStore = {
@@ -17,10 +19,20 @@ export const groupsStore = {
 // TODO: Replace these with the backend routes
 // * Pay attention to the HTTP method, which is the last argument in the passId and passObject functions
 
-const getGroupRoute = '';
-const getGroupsRoute = '';
-const createGroupRoute = '';
-const updateGroupRoute = '';
+const getGroupRoute = 'http://localhost:3001/api/group'; //get //groupId
+const getGroupsRoute = 'http://localhost:3001/api/groups'; //get // random groups
+
+const createGroupRoute = 'http://localhost:3001/api/group'; //post pass id
+const updateGroupRoute = 'http://localhost:3001/api/group'; //put
+const deleteGroupRoute = 'http://localhost:3001/api/group'; //del
+
+const addUserToGroupRoute = 'http://localhost:3001/api/addUserToGroup'; //put
+
+const deleteUserFromGroupRoute = 'http://localhost:3001/api/deleteUserFromGroup'; //del
+const addTagToGroupRoute = 'http://localhost:3001/api/addTagToGroup'; //post
+
+const deleteTagFromGroupRoute = 'http://localhost:3001/api/deleteTagFromGroup'; //del
+
 
 // ----------------------
 

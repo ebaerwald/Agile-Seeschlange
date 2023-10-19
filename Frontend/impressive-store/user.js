@@ -4,11 +4,7 @@ export const userStore = {
     id: null,
     username: null,
     email: null,
-    hashedPassword: null,
-    questionIds: [],
-    answerIds: [],
-    favoredQuestionIds: [],
-    favoredAnswerIds: []
+    favoredQuestionIds: []
 }
 
 export const usersStore = {
@@ -19,13 +15,11 @@ export const usersStore = {
 // TODO: Replace these with the backend routes
 // * Pay attention to the HTTP method, which is the last argument in the passId and passObject functions
 
-const getUserRoute = '';
-const getUserFromQuestionRoute = '';
-const getUserFromAnswerRoute = '';
-const getUsersRoute = '';
-const getUsersFromGroupRoute = '';
-const createUserRoute = '';
-const updateUserRoute = '';
+const getUserRoute = 'http://localhost:3001/api/user'; //get
+const createUserRoute = 'http://localhost:3001/api/user/signup';
+const updateUserRoute = 'http://localhost:3001/api/user'; //put
+const updateUsersFavoriteQuestionsRoute = 'http://localhost:3001/api/user/addfavoritequestion'; //put
+const deleteUserRoute = 'http://localhost:3001/api/user'; //delete
 
 // ----------------------
 

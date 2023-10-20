@@ -23,9 +23,17 @@ server.use(cors());
 //template engine
 server.set("view engine", "ejs");
 
-const usersRouter = require("./routes/userRoutes");
+const userRouter = require("./routes/userRoutes");
+const threadRouter = require("./routes/threadRoutes");
+const groupRouter = require("./routes/groupRoutes");
+const answerRouter = require("./routes/answerRoutes");
+const tagRouter = require("./routes/tagRoutes");
 
-server.use("/api", usersRouter);
+server.use("/api", userRouter);
+server.use("/api", threadRouter);
+server.use("/api", groupRouter);
+server.use("/api", answerRouter);
+server.use("/api", tagRouter);
 //WebServer Port 3001
 server.listen("3001", () =>
   console.log("Server started and listen on Port(3001)")

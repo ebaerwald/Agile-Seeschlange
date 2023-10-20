@@ -1,51 +1,76 @@
 const User = require("../mongoDB/UserSchema");
-const cookieToken = require("../helper/cookieToken");
+const responseMgt = require("../helper/responseMgt");
 
 //user signup
 exports.signup = async (req, res, next) => {
   try {
-    const { email, name, password, lastName } = req.body;
+    const { email, name, passwordHash, lastName } = req.body;
     //check if empty
-    if (!email || !password) {
+    if (!email || !passwordHash) {
       throw new Error("Please fill all the fields");
     }
 
     const user = await User.create({
       name,
       email,
-      password,
+      passwordHash,
       lastName,
     });
     user.save();
-    console.log(`created User:${user}`);
-
-    //send the user the token
-    cookieToken(user.email, user.name, user._id, res);
+    if (user) {
+      responseMgt.success(user, res);
+      console.log(`created User:${user._id}`);
+    } else {
+      responseMgt.faild(user, res);
+    }
   } catch (err) {
     res.status(500).send(err);
   }
 };
-
-//User login
 exports.login = async (req, res, next) => {
   try {
     //get User information
-    const { email, password } = req.body;
+    const { email, passwordHash: passwordHash } = req.body;
 
-    if (!email || !password) {
+    if (!email || !passwordHash) {
       res.status(401).send("Please provide email and password");
       console.log("Unauthoriced login");
     } else {
       //find user by email
 
-      const user = await User.findOne({ email, password });
-      console.log(`user: ${user.email} loggged in`);
+      const user = await User.findOne({ email, passwordHash: passwordHash });
+      console.log(`user: ${user.email} loged in`);
 
       //wrong credentials
       if (!user) {
         throw new Error("No user found with this email");
       }
-      cookieToken(user.email, user.name, user._id, res);
+    }
+  } catch (err) {
+    throw new Error(err, res);
+  }
+};
+exports.delet = async (req, res, next) => {
+  try {
+    const { email, passwordHash } = req.body;
+
+    if (!email || !passwordHash) {
+      res.status(401).send("Please provide email and password");
+      console.log("Unauthoriced login");
+    } else {
+      const user = await User.findOneAndUpdate(
+        { email, passwordHash },
+        {
+          isActive: false,
+        },
+        { new: true }
+      );
+      if (user) {
+        responseMgt.success(user, res);
+        console.log(`Deactivated User:${user._id}`);
+      } else {
+        responseMgt.faild(user, res);
+      }
     }
   } catch (err) {
     throw new Error(err, res);

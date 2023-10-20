@@ -18,6 +18,16 @@ import { MemoryDataPage } from "./pages/MemoryDataPage";
 import FaqPage from "./pages/FaqPage";
 import { useTheme, ThemeProvider } from './components/ThemeContext';
 
+//Impressive Store
+import { ImpProvider } from "./impressive-store/provider";
+import { answerStore, answersStore } from "./impressive-store/answer";
+import { authStore } from "./impressive-store/auth";
+import { groupStore, groupsStore } from "./impressive-store/group";
+import { questionStore, questionsStore } from "./impressive-store/question";
+import { userStore, usersStore } from "./impressive-store/user";
+import { commentStore, commentsStore } from "./impressive-store/comment";
+// ----------------------
+
 const NativeStack = createNativeStackNavigator();
 
 export default function App() {
@@ -79,7 +89,21 @@ export default function App() {
     );
   }
   const Tab = createBottomTabNavigator();
+  const initialStore = {
+    authStore: authStore,
+    usersStore: usersStore,
+    userStore: userStore,
+    groupsStore: groupsStore,
+    groupStore: groupStore,
+    questionsStore: questionsStore,
+    questionStore: questionStore,
+    answersStore: answersStore,
+    answerStore: answerStore,
+    commentStore: commentStore,
+    commentsStore: commentsStore
+  };
   return (
+    <ImpProvider store={initialStore}>
     <ThemeProvider>
     <NavigationContainer>
       <Tab.Navigator
@@ -124,5 +148,6 @@ export default function App() {
     //     </NativeStack.Navigator>
     //   <StatusBar style="auto" />
     // </NavigationContainer>
+    </ImpProvider>
   );
 }

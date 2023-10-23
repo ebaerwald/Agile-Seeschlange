@@ -17,18 +17,16 @@ import { KontoPage } from "./pages/KontoPage";
 import { MemoryDataPage } from "./pages/MemoryDataPage";
 import FaqPage from "./pages/FaqPage";
 import { useTheme, ThemeProvider } from './components/ThemeContext';
+import { TestBackendPage } from "./pages/test-backend";
 
 //Impressive Store
 import { ImpProvider } from "./impressive-store/provider";
 import { answerStore, answersStore } from "./impressive-store/answer";
-import { authStore } from "./impressive-store/auth";
+// import { authStore } from "./impressive-store/auth";
 import { groupStore, groupsStore } from "./impressive-store/group";
 import { questionStore, questionsStore } from "./impressive-store/question";
 import { userStore, usersStore } from "./impressive-store/user";
-import { commentStore, commentsStore } from "./impressive-store/comment";
 // ----------------------
-
-const NativeStack = createNativeStackNavigator();
 
 export default function App() {
   const EinstellungenStack = createStackNavigator();
@@ -90,7 +88,7 @@ export default function App() {
   }
   const Tab = createBottomTabNavigator();
   const initialStore = {
-    authStore: authStore,
+    // authStore: authStore,
     usersStore: usersStore,
     userStore: userStore,
     groupsStore: groupsStore,
@@ -98,9 +96,7 @@ export default function App() {
     questionsStore: questionsStore,
     questionStore: questionStore,
     answersStore: answersStore,
-    answerStore: answerStore,
-    commentStore: commentStore,
-    commentsStore: commentsStore
+    answerStore: answerStore
   };
   return (
     <ImpProvider store={initialStore}>
@@ -133,21 +129,11 @@ export default function App() {
         <Tab.Screen name="Groups" component={FrontendTestStackScreen} />
         <Tab.Screen name="Explore" component={ArchivPage} />
         <Tab.Screen name="Einstellungen" component={EinstellungenStackScreen} />
+        <Tab.Screen name="TestBackend" component={TestBackendPage} />
       </Tab.Navigator>
     </NavigationContainer>
     </ThemeProvider>
-
-    // <NavigationContainer>
-    //     <NativeStack.Navigator initialRouteName={'FrontendTestScreen'}>
-    //       <NativeStack.Screen name={'FrontendTestScreen'} component={FrontendTestScreen} options={{ title: 'FrontendTestScreen'}} />
-    //       <NativeStack.Screen name={'Login'} component={LoginPage} />
-    //       <NativeStack.Screen name={'Splash'} component={SplashScreen} />
-    //       <NativeStack.Screen name={'Register'} component={RegisterPage} />
-    //       <NativeStack.Screen name={'Menue'} component={MenuePage} />
-    //       <NativeStack.Screen name={'Archiv'} component={ArchivPage} />
-    //     </NativeStack.Navigator>
-    //   <StatusBar style="auto" />
-    // </NavigationContainer>
     </ImpProvider>
-  );
+    );
+
 }

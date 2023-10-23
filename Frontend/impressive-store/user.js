@@ -2,7 +2,7 @@ import { passId, passObject } from "./root";
 
 export const userStore = {
     id: null,
-    username: null,
+    username: 'null',
     email: null,
     favoredQuestionIds: []
 }

@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-native-google-signin/google-signin": "^10.0.1",
     "@react-navigation/bottom-tabs": "^6.5.9",
     "@react-navigation/native": "^6.1.8",
     "@react-navigation/native-stack": "^6.9.14",
@@ -17,6 +18,7 @@
     "expo": "~49.0.10",
     "expo-checkbox": "^2.5.0",
     "expo-status-bar": "~1.6.0",
+    "fs": "^0.0.1-security",
     "googleapis": "^127.0.0",
     "react": "18.2.0",
     "react-native": "0.72.4",

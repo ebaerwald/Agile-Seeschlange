@@ -1,16 +1,14 @@
 import { createContext, useState } from 'react';
 
-let imp = {};
-
-export let impContext = createContext({ imp });
+export let impContext = createContext(null);
 
 export const ImpProvider = ({ children, store }) => {
-    let imp = {};
+    const imp = {};
     imp['set'] = {};
 
     for (let key in store)
     {
-        const [impStore, setImpStore] = useState<any>(store[key]);
+        const [impStore, setImpStore] = useState(store[key]);
         imp[key] = impStore;
         imp['set'][key] = setImpStore;
     }
@@ -21,6 +19,4 @@ export const ImpProvider = ({ children, store }) => {
         </impContext.Provider>
     );
 };
-
-
 

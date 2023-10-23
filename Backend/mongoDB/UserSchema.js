@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
   name: String,
+  googleUserId: String,
   lastName: String,
-  passwordHash: String,
   age: { type: Number, min: 0, max: 120 },
   dateOfBirth: Date,
   phoneNumber: String,
@@ -14,6 +14,12 @@ const userSchema = new mongoose.Schema({
   sex: String,
   profileImage: String,
   isActive: Boolean,
+  favoriteThreads: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: "Thread",
+    },
+  ],
   createdAt: {
     type: Date,
     immutable: true,

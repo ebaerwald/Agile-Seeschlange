@@ -1,4 +1,4 @@
-import { passId, passObject } from "./root";
+import { passId, passObject, passIdObject, passNone } from "./root";
 
 export const questionStore = {
     id: null,
@@ -22,13 +22,15 @@ export const questionsStore = {
 // TODO: Replace these with the backend routes
 // * Pay attention to the HTTP method, which is the last argument in the passId and passObject functions
 
-const getQuestionWithAnswersRoute = 'http://localhost:3001/api/thread'; //get //questionId
+const getQuestionRoute = 'http://localhost:3001/api/thread'; //get //questionId //finished
 
-const getQuestionsRoute = 'http://localhost:3001/api/threads'; //get // random questions
+const getQuestionsRoute = 'http://localhost:3001/api/threads'; //get // random questions //finished
 
-const createQuestionRoute = 'http://localhost:3001/api/thread'; // post
-const updateQuestionRoute = 'http://localhost:3001/api/thread'; // pass id put
-const deleteQuestionRoute = 'http://localhost:3001/api/thread'; // del pass id
+const createQuestionRoute = 'http://localhost:3001/api/thread'; // post // finished
+
+const updateQuestionRoute = 'http://localhost:3001/api/thread'; // pass id put // finished
+
+const deleteQuestionRoute = 'http://localhost:3001/api/thread'; // del pass id // finished
 
 // ----------------------
 
@@ -39,37 +41,30 @@ export async function getQuestion(imp, questionId)
     return question;
 }
 
-export async function getQuestionsFromGroup(imp, groupId)
+export async function getQuestions(imp)
 {
-    const questions = await passId(getQuestionsFromGroupRoute, groupId, 'GET');
+    const questions = await passNone(getQuestionsRoute, 'GET');
     imp.set.questionsStore = questions;
     return questions;
 }
 
-export async function getQuestionsFromUser(imp, userId)
+export async function createQuestion(imp, object)
 {
-    const questions = await passId(getQuestionsFromUserRoute, userId, 'GET');
-    imp.set.questionsStore = questions;
-    return questions;
+    const question = await passObject(createQuestionRoute, object, 'POST');
+    imp.set.questionStore = question;
+    return question;
 }
 
-export async function getQuestions(imp, questionIds)
+export async function updateQuestion(imp, questionId, object)
 {
-    const questions = await passObject(getQuestionsRoute, questionIds, 'GET');
-    imp.set.questionsStore = questions;
-    return questions;
+    const question = await passIdObject(updateQuestionRoute, questionId, object, 'PUT');
+    imp.set.questionStore = question;
+    return question;
 }
 
-export async function createQuestion(imp, question)
+export async function deleteQuestion(imp, questionId)
 {
-    const newQuestion = await passObject(createQuestionRoute, question, 'POST');
-    imp.set.questionStore = newQuestion;
-    return newQuestion;
-}
-
-export async function updateQuestion(imp, question)
-{
-    const updatedQuestion = await passObject(updateQuestionRoute, question, 'PUT');
-    imp.set.questionStore = updatedQuestion;
-    return updatedQuestion;
+    const question = await passId(deleteQuestionRoute, questionId, 'DELETE');
+    imp.set.questionStore = question;
+    return question;
 }

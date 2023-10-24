@@ -1,4 +1,4 @@
-import { passId, passObject } from "./root";
+import { passId, passObject, passIdObject } from "./root";
 
 export const answerStore = {
     id: null,
@@ -32,65 +32,23 @@ const deleteAnswerRoute = 'http://localhost:3001/api/answer'; //del pass id
 
 // ----------------------
 
-export async function getAnswer(imp, answerId)
+export async function createAnswer(imp, object)
 {
-    const answer = await passId(getAnswerRoute, answerId, 'GET');
+    const answer = await passObject(createAnswerRoute, object, 'POST');
     imp.set.answerStore = answer;
     return answer;
 }
 
-export async function getAnswers(imp, answerIds)
+export async function updateAnswer(imp, answerId, object)
 {
-    const answers = await passObject(getAnswersRoute, answerIds, 'GET');
-    imp.set.answersStore = answers;
-    return answers;
-}
-
-export async function getAnswersFromQuestion(imp, questionId)
-{
-    const answers = await passId(getAnswersFromQuestionRoute, questionId, 'GET');
-    imp.set.answersStore = answers;
-    return answers;
-}
-
-export async function getAnswersFromUser(imp, userId)
-{
-    const answers = await passId(getAnswersFromUserRoute, userId, 'GET');
-    imp.set.answersStore = answers;
-    return answers;
-}
-
-export async function getMostHelpfullAnswerFromQuestion(imp, questionId)
-{
-    const answer = await passId(getMostHelpfullAnswerFromQuestionRoute, questionId, 'GET');
+    const answer = await passIdObject(updateAnswerRoute, answerId, object, 'PUT');
     imp.set.answerStore = answer;
     return answer;
 }
 
-export async function getMostHelpfullAnswersFromGroup(imp, groupId)
+export async function deleteAnswer(imp, answerId)
 {
-    const answers = await passId(getMostHelpfullAnswersFromGroupRoute, groupId, 'GET');
-    imp.set.answersStore = answers;
-    return answers;
-}
-
-export async function getMostHelpfullAnswersFromUser(imp, userId)
-{
-    const answers = await passId(getMostHelpfullAnswersFromUserRoute, userId, 'GET');
-    imp.set.answersStore = answers;
-    return answers;
-}
-
-export async function createAnswer(imp, answer)
-{
-    const newAnswer = await passObject(createAnswerRoute, answer, 'POST');
-    imp.set.answerStore = newAnswer;
-    return newAnswer;
-}
-
-export async function updateAnswer(imp, answer)
-{
-    const updatedAnswer = await passObject(updateAnswerRoute, answer, 'PUT');
-    imp.set.answerStore = updatedAnswer;
-    return updatedAnswer;
+    const answer = await passId(deleteAnswerRoute, answerId, 'DELETE');
+    imp.set.answerStore = answer;
+    return answer;
 }

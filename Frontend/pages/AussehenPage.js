@@ -1,7 +1,8 @@
 import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Switch } from "react-native";
 import { useTheme } from "../components/ThemeContext";
 import { lightModeTheme, darkModeTheme } from "../components/theme";
+import SnakeImage from "../components/SnakeImage";
 
 export function AussehenPage() {
   const { theme, toggleTheme } = useTheme();
@@ -19,13 +20,12 @@ export function AussehenPage() {
 
   return (
     <View style={pageStyles}>
+      <SnakeImage></SnakeImage>
       <Text style={textStyles}>AussehenPage!</Text>
-      <TouchableOpacity onPress={toggleTheme}>
-        <Text>
-          TiefseeModus (Jetzt gerade:{" "}
-          {theme === lightModeTheme ? "Oberfläche" : "Tiefsee"})
-        </Text>
-      </TouchableOpacity>
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <Text style={textStyles}>TiefseeModus: </Text>
+        <Switch value={theme === darkModeTheme} onValueChange={toggleTheme} />
+      </View>
     </View>
   );
 }

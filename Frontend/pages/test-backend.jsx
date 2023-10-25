@@ -1,15 +1,11 @@
 import * as user from "../impressive-store/user";
-import * as answer from "../impressive-store/answer";
-// import * as auth from "../impressive-store/auth";
-import * as question from "../impressive-store/question";
-import * as group from "../impressive-store/group";
 import { impContext } from "../impressive-store/provider";
 
 import { useEffect, useContext } from "react";
 import { StyleSheet, View, ScrollView, Text, Button } from 'react-native';
 import Background from '../components/Background';
 
-const TestBackendPage = ({ navigation }) => {
+const TestBackendPage = () => {
 
     const { imp } = useContext(impContext);
     useEffect(() => {
@@ -29,6 +25,18 @@ const TestBackendPage = ({ navigation }) => {
                   ...imp.userStore,
                   username: "Test",
                 })
+              }}
+            />
+            <Button
+              title="Create User"
+              onPress={async() => {
+                const response = await user.createUser(imp, {
+                  email: 'test@testuser.de',
+                  name: 'Test',
+                  lastName: 'User',
+                  googleUserId: '1234567890',
+                });
+                console.log(response);
               }}
             />
           </View>

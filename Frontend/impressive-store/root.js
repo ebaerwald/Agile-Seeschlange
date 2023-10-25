@@ -22,10 +22,8 @@ export async function passId(route, id, requestMethod)
     }
 }
 
-export async function passObject(route, object, requestMethod)
-{
-    try 
-    {
+export async function passObject(route, object, requestMethod) {
+    try {
         const response = await fetch(route, {
             method: requestMethod,
             headers: {
@@ -33,16 +31,14 @@ export async function passObject(route, object, requestMethod)
             },
             body: JSON.stringify(object),
         });
-        if (response.ok) 
-        {
+
+        if (response.ok) {
             const data = await response.json();
             return data;
-            
+        } else {
+            throw new Error(`Request failed with status: ${response.status} - ${response.statusText}`);
         }
-        throw new Error(data);
-    } 
-    catch (error) 
-    {
+    } catch (error) {
         throw new Error(error.message);
     }
 }

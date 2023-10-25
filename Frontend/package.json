@@ -16,6 +16,7 @@
     "@react-navigation/stack": "^6.3.18",
     "@reduxjs/toolkit": "^1.9.5",
     "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "expo": "~49.0.10",
     "expo-checkbox": "^2.5.0",
     "expo-status-bar": "~1.6.0",

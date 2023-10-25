@@ -103,13 +103,13 @@ exports.addfavoritequestion = async (req, res, next) => {
 };
 exports.getUserIniformation = async (req, res, next) => {
   try {
-    const { googleUserId } = req.body;
+    const { id } = req.params;
 
-    if (!googleUserId) {
+    if (!id) {
       res.status(401).send("Please provide the Google User ID");
       console.log("Fiald to get User bc of missing Google User ID");
     } else {
-      const user = await User.findOne(googleUserId);
+      const user = await User.findOne(id);
       if (user) {
         responseMgt.success(user, res);
         console.log(`User Get:${user._id}`);

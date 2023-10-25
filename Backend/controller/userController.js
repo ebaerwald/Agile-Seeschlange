@@ -5,11 +5,15 @@ const responseMgt = require("../helper/responseMgt");
 //user signup
 exports.signup = async (req, res, next) => {
   try {
-    const { email, name, lastName, googleUserId } = req.body;
+    const { object } = req.body;
     //check if empty
-    if (!email || !googleUserId) {
+    if (!object.email || !object.googleUserId) {
       throw new Error("Please fill all the fields");
     }
+    const name = object.name;
+    const email = object.email;
+    const googleUserId = object.googleUserId;
+    const lastName = object.lastName;
 
     const user = await User.create({
       name,
@@ -30,14 +34,14 @@ exports.signup = async (req, res, next) => {
 };
 exports.delet = async (req, res, next) => {
   try {
-    const { email, passwordHash } = req.body;
+    const { googleUserId } = req.body;
 
-    if (!email || !passwordHash) {
+    if (!googleUserId) {
       res.status(401).send("Please provide email and password");
       console.log("Unauthoriced login");
     } else {
       const user = await User.findOneAndUpdate(
-        { email, passwordHash },
+        { googleUserId },
         {
           isActive: false,
         },

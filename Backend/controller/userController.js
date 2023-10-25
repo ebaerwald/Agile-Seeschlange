@@ -5,16 +5,11 @@ const responseMgt = require("../helper/responseMgt");
 //user signup
 exports.signup = async (req, res, next) => {
   try {
-    const { object } = req.body;
+    const { name, email, googleUserId, lastName } = req.body;
     //check if empty
-    if (!object.email || !object.googleUserId) {
+    if (!email || !googleUserId) {
       throw new Error("Please fill all the fields");
     }
-    const name = object.name;
-    const email = object.email;
-    const googleUserId = object.googleUserId;
-    const lastName = object.lastName;
-
     const user = await User.create({
       name,
       email,

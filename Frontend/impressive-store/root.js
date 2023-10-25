@@ -2,7 +2,7 @@ export async function passId(route, id, requestMethod)
 {
     try 
     {
-        const response = await fetch(`${route}/${id}`, {
+        const response = await fetch(route + '/' + id, {
             method: requestMethod,
             headers: {
                 'Content-Type': 'application/json',
@@ -13,8 +13,9 @@ export async function passId(route, id, requestMethod)
             const data = await response.json();
             return data;
             
-        }
-        throw new Error(data);
+           }   else {
+                throw new Error(`Request failed with status: ${response.status} - ${response.statusText}`);
+            }
     } 
     catch (error) 
     {
@@ -22,10 +23,9 @@ export async function passId(route, id, requestMethod)
     }
 }
 
-export async function passObject(route, object, requestMethod)
-{
-    try 
-    {
+export async function passObject(route, object, requestMethod) {
+    try {
+        console.log(route, object, requestMethod);
         const response = await fetch(route, {
             method: requestMethod,
             headers: {
@@ -33,16 +33,14 @@ export async function passObject(route, object, requestMethod)
             },
             body: JSON.stringify(object),
         });
-        if (response.ok) 
-        {
+
+        if (response.ok) {
             const data = await response.json();
             return data;
-            
+        } else {
+            throw new Error(`Request failed with status: ${response.status} - ${response.statusText}`);
         }
-        throw new Error(data);
-    } 
-    catch (error) 
-    {
+    } catch (error) {
         throw new Error(error.message);
     }
 }
@@ -63,8 +61,9 @@ export async function passIdObject(route, id, object, requestMethod)
             const data = await response.json();
             return data;
             
+        } else {
+            throw new Error(`Request failed with status: ${response.status} - ${response.statusText}`);
         }
-        throw new Error(data);
     } 
     catch (error) 
     {
@@ -88,7 +87,9 @@ export async function passNone(route, requestMethod)
             return data;
             
         }
-        throw new Error(data);
+        else {
+            throw new Error(`Request failed with status: ${response.status} - ${response.statusText}`);
+        }
     } 
     catch (error) 
     {

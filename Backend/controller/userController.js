@@ -56,6 +56,7 @@ exports.delet = async (req, res, next) => {
 exports.updateUser = async (req, res, next) => {
   try {
     const { userObject } = req.body;
+    console.log(req.body);
 
     if (!userObject.googleUserId) {
       res.status(401).send("Please provide email and password");

@@ -2,7 +2,7 @@ export async function passId(route, id, requestMethod)
 {
     try 
     {
-        const response = await fetch(`${route}/${id}`, {
+        const response = await fetch(route + '/' + id, {
             method: requestMethod,
             headers: {
                 'Content-Type': 'application/json',
@@ -13,8 +13,9 @@ export async function passId(route, id, requestMethod)
             const data = await response.json();
             return data;
             
-        }
-        throw new Error(data);
+           }   else {
+                throw new Error(`Request failed with status: ${response.status} - ${response.statusText}`);
+            }
     } 
     catch (error) 
     {
@@ -24,8 +25,9 @@ export async function passId(route, id, requestMethod)
 
 export async function passObject(route, object, requestMethod) {
     try {
-        const response = await fetch('http://10.25.3.174:3001/api/user/signup', {
-            method: 'POST',
+        console.log(route, object, requestMethod);
+        const response = await fetch(route, {
+            method: requestMethod,
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -59,8 +61,9 @@ export async function passIdObject(route, id, object, requestMethod)
             const data = await response.json();
             return data;
             
+        } else {
+            throw new Error(`Request failed with status: ${response.status} - ${response.statusText}`);
         }
-        throw new Error(data);
     } 
     catch (error) 
     {
@@ -84,7 +87,9 @@ export async function passNone(route, requestMethod)
             return data;
             
         }
-        throw new Error(data);
+        else {
+            throw new Error(`Request failed with status: ${response.status} - ${response.statusText}`);
+        }
     } 
     catch (error) 
     {

@@ -17,14 +17,16 @@
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.5.1",
     "bcrypt": "^5.1.1",
+    "bcrypt-react-native": "^1.1.1",
     "bcryptjs": "^2.4.3",
     "expo": "~49.0.10",
-    "expo-checkbox": "^2.5.0",
+    "expo-checkbox": "~2.4.0",
+    "expo-crypto": "~12.4.1",
     "expo-status-bar": "~1.6.0",
     "fs": "^0.0.1-security",
     "googleapis": "^127.0.0",
     "react": "18.2.0",
-    "react-native": "0.72.4",
+    "react-native": "0.72.6",
     "react-native-app-auth": "^7.1.0"
   },
   "devDependencies": {

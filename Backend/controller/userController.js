@@ -7,6 +7,7 @@ exports.signup = async (req, res, next) => {
   try {
     const { object } = req.body;
     //check if empty
+    console.log(req.body);
     if (!object.email || !object.googleUserId) {
       throw new Error("Please fill all the fields");
     }
@@ -15,13 +16,15 @@ exports.signup = async (req, res, next) => {
     const googleUserId = object.googleUserId;
     const lastName = object.lastName;
 
-    const user = await User.create({
-      name,
-      email,
-      googleUserId,
-      lastName,
-    });
-    user.save();
+    const user = await User.create(
+      {
+        name,
+        email,
+        googleUserId,
+        lastName,
+      },
+      { new: true }
+    );
     if (user) {
       responseMgt.success(user, res);
       console.log(`created User:${user._id}`);

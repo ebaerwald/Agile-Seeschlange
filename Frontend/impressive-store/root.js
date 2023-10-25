@@ -24,8 +24,8 @@ export async function passId(route, id, requestMethod)
 
 export async function passObject(route, object, requestMethod) {
     try {
-        const response = await fetch(route, {
-            method: requestMethod,
+        const response = await fetch('http://10.25.3.174:3001/api/user/signup', {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },

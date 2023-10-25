@@ -30,11 +30,14 @@ const TestBackendPage = () => {
             <Button
               title="Create User"
               onPress={async() => {
+                console.log("Fick dich")
                 const response = await user.createUser(imp, {
-                  email: 'test@testuser.de',
-                  name: 'Test',
-                  lastName: 'User',
-                  googleUserId: '1234567890',
+                  "object": {
+                  "email": 'test@testuser.de',
+                  "name": 'Test',
+                  "lastName": 'User',
+                  "googleUserId": '1234567890',
+                  }
                 });
                 console.log(response);
               }}

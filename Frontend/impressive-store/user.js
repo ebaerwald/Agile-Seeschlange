@@ -16,8 +16,9 @@ export const usersStore = {
 // TODO: Replace these with the backend routes
 // * Pay attention to the HTTP method, which is the last argument in the passId and passObject functions
 
+const ipv4 = '10.25.3.174';
 const getUserRoute = 'http://localhost:3001/api/user'; //finished
-const createUserRoute = 'http://localhost:3001/api/user/signup'; //finished
+const createUserRoute = 'http://' + ipv4 + ':3001/api/user/signup'; //finished
 const updateUserRoute = 'http://localhost:3001/api/user'; //finished waiting for commit
 const addFavoriteQuestionRoute = 'http://localhost:3001/api/user/addfavoritequestion'; //finished
 const deleteUserRoute = 'http://localhost:3001/api/user'; //delete backend function falsch geschrieben // finished

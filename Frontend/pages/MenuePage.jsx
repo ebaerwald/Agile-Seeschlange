@@ -11,7 +11,7 @@ const MenuePage = ({ navigation }) => {
 
   return (
     <ScrollView>
-      <Background showFooter={true} showBurgerBun={true}>
+      <Background>
         <View style={styles.outerBox}>
           <HeaderText title="Home" type="left" />
           <Searchbar
@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     padding: 2,
+    marginTop: 50,
   },
 });
 

@@ -41,7 +41,7 @@ const RegisterPage = ({ navigation }) => {
 
   return (
     <ScrollView>
-      <Background showFooter={false} showBurgerBun={false}>
+      <Background>
         {/* Inhalt der Seite */}
         <View style={styles.outerBox}>
           <SnakeImage size="small" />
@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     padding: 10,
+    marginTop: 50,
   },
 });
 

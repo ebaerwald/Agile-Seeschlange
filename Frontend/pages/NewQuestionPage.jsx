@@ -20,7 +20,7 @@ const NewQuestionPage = ({ navigation }) => {
 
   return (
     <ScrollView>
-    <Background showFooter={true} showBurgerBun={true}>
+    <Background>
       {/* Inhalt der Seite */}    
       <View style={styles.outerBox}>
 
@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     padding: 10,
+    marginTop: 50,
   },
 });
 

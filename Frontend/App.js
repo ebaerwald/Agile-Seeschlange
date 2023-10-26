@@ -18,6 +18,8 @@ import { MemoryDataPage } from "./pages/MemoryDataPage";
 import FaqPage from "./pages/FaqPage";
 import { useTheme, ThemeProvider } from './components/ThemeContext';
 import { TestBackendPage } from "./pages/test-backend";
+import { SingleQuestionPage } from "./pages/SingleQuestionPage";
+import { NewQuestionPage } from "./pages/NewQuestionPage";
 
 //Impressive Store
 import { ImpProvider } from "./impressive-store/provider";
@@ -67,25 +69,19 @@ export default function App() {
           headerShown: false,
         }}
       >
-        <FrontendTestStack.Screen
-          name={"FrontendTestScreen"}
-          component={FrontendTestScreen}
-        />
+        <FrontendTestStack.Screen name={"FrontendTestScreen"} component={FrontendTestScreen}/>
         <FrontendTestStack.Screen name={"LoginPage"} component={LoginPage} />
-        <FrontendTestStack.Screen
-          name={"SplashScreen"}
-          component={SplashScreen}
-        />
-        <FrontendTestStack.Screen
-          name={"RegisterPage"}
-          component={RegisterPage}
-        />
+        <FrontendTestStack.Screen name={"SplashScreen"} component={SplashScreen} />
+        <FrontendTestStack.Screen name={"RegisterPage"} component={RegisterPage} />
         <FrontendTestStack.Screen name={"MenuePage"} component={MenuePage} />
         <FrontendTestStack.Screen name={"ArchivPage"} component={ArchivPage} />
         <FrontendTestStack.Screen name={"FaqPage"} component={FaqPage} />
+        
       </FrontendTestStack.Navigator>
     );
   }
+
+
   const Tab = createBottomTabNavigator();
   const initialStore = {
     // authStore: authStore,
@@ -130,7 +126,15 @@ export default function App() {
         <Tab.Screen name="Explore" component={ArchivPage} />
         <Tab.Screen name="Einstellungen" component={EinstellungenStackScreen} />
         <Tab.Screen name="TestBackend" component={TestBackendPage} />
+        <Tab.Screen name="Login" component={LoginPage} />
+        <Tab.Screen name="Menue" component={MenuePage} />
+        <Tab.Screen name="Register" component={RegisterPage} />
+        <Tab.Screen name="Archiv" component={ArchivPage} />
+        <Tab.Screen name="NewQuestion" component={NewQuestionPage} />
+        <Tab.Screen name="SingleQuestion" component={SingleQuestionPage} />
+        <Tab.Screen name="Splash" component={SplashScreen} />
       </Tab.Navigator>
+      
     </NavigationContainer>
     </ThemeProvider>
     </ImpProvider>

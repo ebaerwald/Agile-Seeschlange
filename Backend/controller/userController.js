@@ -110,7 +110,7 @@ exports.getUserIniformation = async (req, res, next) => {
       res.status(401).send("Please provide the Google User ID");
       console.log("Fiald to get User bc of missing Google User ID");
     } else {
-      const user = await User.findOne(id);
+      const user = await User.findById(id);
       if (user) {
         responseMgt.success(user, res);
         console.log(`User Get:${user._id}`);

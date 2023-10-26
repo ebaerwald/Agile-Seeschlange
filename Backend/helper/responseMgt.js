@@ -1,12 +1,6 @@
 exports.success = (successMessage, res) => {
-  res.status(200).json({
-    success: true,
-    successMessage,
-  });
+  res.status(200).json(successMessage);
 };
 exports.faild = (errorMessage, res) => {
-  res.status(500).json({
-    success: false,
-    errorMessage,
-  });
+  res.status(500).json(errorMessage);
 };

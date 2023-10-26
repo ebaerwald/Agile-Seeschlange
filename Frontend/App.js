@@ -22,7 +22,7 @@ import { TestBackendPage } from "./pages/test-backend";
 //Impressive Store
 import { ImpProvider } from "./impressive-store/provider";
 import { answerStore, answersStore } from "./impressive-store/answer";
-// import { authStore } from "./impressive-store/auth";
+import { tagStore, tagsStore } from "./impressive-store/tag";
 import { groupStore, groupsStore } from "./impressive-store/group";
 import { questionStore, questionsStore } from "./impressive-store/question";
 import { userStore, usersStore } from "./impressive-store/user";
@@ -88,7 +88,6 @@ export default function App() {
   }
   const Tab = createBottomTabNavigator();
   const initialStore = {
-    // authStore: authStore,
     usersStore: usersStore,
     userStore: userStore,
     groupsStore: groupsStore,
@@ -96,7 +95,9 @@ export default function App() {
     questionsStore: questionsStore,
     questionStore: questionStore,
     answersStore: answersStore,
-    answerStore: answerStore
+    answerStore: answerStore,
+    tagStore: tagStore,
+    tagsStore: tagsStore
   };
   return (
     <ImpProvider store={initialStore}>

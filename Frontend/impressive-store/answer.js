@@ -35,21 +35,21 @@ const deleteAnswerRoute = 'http://' + ipv4 + ':3001/api/answer'; //del pass id
 
 export async function createAnswer(imp, object)
 {
-    const answer = await passObject(createAnswerRoute, object, 'POST'); // Cannot read properties of null (reading '_id')
+    const answer = await passObject(createAnswerRoute, object, 'POST'); // works
     imp.set.answerStore(answer);
     return answer;
 }
 
 export async function updateAnswer(imp, answerId, object)
 {
-    const answer = await passIdObject(updateAnswerRoute, answerId, object, 'PUT');
+    const answer = await passIdObject(updateAnswerRoute, answerId, object, 'PUT'); // dont work errorMessage is not defined
     imp.set.answerStore(answer);
     return answer;
 }
 
 export async function deleteAnswer(imp, answerId)
 {
-    const answer = await passId(deleteAnswerRoute, answerId, 'DELETE');
+    const answer = await passId(deleteAnswerRoute, answerId, 'DELETE'); // works
     imp.set.answerStore(answer);
     return answer;
 }

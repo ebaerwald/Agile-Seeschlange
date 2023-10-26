@@ -11,7 +11,7 @@ const {
 router.route("/user/signup").post(signup); //Ready and Teste
 router.route("/user").delete(delet); //Ready and Teste
 router.route("/user/:id").put(updateUser);
-router.route("/user").get(getUserIniformation);
+router.route("/user/:id").get(getUserIniformation);
 router.route("/user/addfavoritequestion").put(addfavoritequestion);
 
 module.exports = router;

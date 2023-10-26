@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import SnakeImage from "../components/SnakeImage";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import HeaderText from "../components/HeaderText";
+import Background from "../components/Background";
+import { useTheme } from "../hooks/useTheme";
 
 export function FaqPage() {
   const [isTextExpanded, setTextExpanded] = useState([
@@ -12,6 +14,10 @@ export function FaqPage() {
     false,
   ]);
 
+  const [currentAppColorScheme, setCurrentAppColorScheme] = useState("auto");
+  const currentTheme = useTheme({ currentAppColorScheme });
+  const styles = themedStyle(currentTheme);
+
   const toggleTextExpansion = (index) => {
     const updatedExpansionState = [...isTextExpanded];
     updatedExpansionState[index] = !updatedExpansionState[index];
@@ -20,39 +26,42 @@ export function FaqPage() {
 
   return (
     <View style={styles.container}>
-      <View>
-        <SnakeImage />
-      </View>
-      <HeaderText title="FAQ" type="center" />
-      <View style={styles.faqItemContainer}>
-        {questions.map((question, index) => (
-          <View
-            key={index}
-            style={[
-              styles.centeredFaqItem,
-              {
-                borderTopLeftRadius: index === 0 ? 10 : 0,
-                borderTopRightRadius: index === 0 ? 10 : 0,
-                borderBottomLeftRadius: index === questions.length - 1 ? 10 : 0,
-                borderBottomRightRadius:
-                  index === questions.length - 1 ? 10 : 0,
-              },
-            ]}
-          >
-            <View style={styles.questionContainer}>
-              <Text style={styles.faqQuestion}>{question}</Text>
-              <TouchableOpacity onPress={() => toggleTextExpansion(index)}>
-                <Text style={styles.toggleButton}>
-                  {isTextExpanded[index] ? "▲" : "▼"}
-                </Text>
-              </TouchableOpacity>
+      <Background>
+        <View>
+          <SnakeImage />
+        </View>
+        <HeaderText title="FAQ" type="center" />
+        <View style={styles.faqItemContainer}>
+          {questions.map((question, index) => (
+            <View
+              key={index}
+              style={[
+                styles.centeredFaqItem,
+                {
+                  borderTopLeftRadius: index === 0 ? 10 : 0,
+                  borderTopRightRadius: index === 0 ? 10 : 0,
+                  borderBottomLeftRadius:
+                    index === questions.length - 1 ? 10 : 0,
+                  borderBottomRightRadius:
+                    index === questions.length - 1 ? 10 : 0,
+                },
+              ]}
+            >
+              <View style={styles.questionContainer}>
+                <Text style={styles.faqQuestion}>{question}</Text>
+                <TouchableOpacity onPress={() => toggleTextExpansion(index)}>
+                  <Text style={styles.toggleButton}>
+                    {isTextExpanded[index] ? "▲" : "▼"}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              {isTextExpanded[index] && (
+                <Text style={styles.faqAnswer}>{answers[index]}</Text>
+              )}
             </View>
-            {isTextExpanded[index] && (
-              <Text style={styles.faqAnswer}>{answers[index]}</Text>
-            )}
-          </View>
-        ))}
-      </View>
+          ))}
+        </View>
+      </Background>
     </View>
   );
 }
@@ -73,43 +82,44 @@ const answers = [
   "Hast du überhaupt welche?",
 ];
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#7ea8e7",
-  },
-  faqItemContainer: {
-    width: "95%",
-  },
-  centeredFaqItem: {
-    flexDirection: "column",
-    borderWidth: 1,
-    borderColor: "black",
-    padding: 10,
-    backgroundColor: "#a4ea7a",
-  },
-  questionContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  faqQuestion: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  faqAnswer: {
-    fontSize: 16,
-    marginTop: 5,
-    backgroundColor: "#72C770",
-    padding: 10,
-    borderRadius: 5,
-  },
-  toggleButton: {
-    color: "black",
-    fontSize: 16,
-  },
-});
+const themedStyle = (currentTheme) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: currentTheme.backgroundColor,
+    },
+    faqItemContainer: {
+      width: "95%",
+    },
+    centeredFaqItem: {
+      flexDirection: "column",
+      borderWidth: 1,
+      borderColor: "black",
+      padding: 10,
+      backgroundColor: "#a4ea7a",
+    },
+    questionContainer: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    faqQuestion: {
+      fontSize: 18,
+      fontWeight: "bold",
+    },
+    faqAnswer: {
+      fontSize: 16,
+      marginTop: 5,
+      backgroundColor: "#72C770",
+      padding: 10,
+      borderRadius: 5,
+    },
+    toggleButton: {
+      color: "black",
+      fontSize: 16,
+    },
+  });
 
 export default FaqPage;

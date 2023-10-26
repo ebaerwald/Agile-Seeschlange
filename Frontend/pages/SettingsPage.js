@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import HeaderText from "../components/HeaderText";
 import SnakeImage from "../components/SnakeImage";
 import { useNavigation } from "@react-navigation/native";
+import { useTheme } from "../hooks/useTheme";
 
 export function SettingsPage() {
   const navigation = useNavigation();
+  const [currentAppColorScheme, setCurrentAppColorScheme] = useState("auto");
+  const currentTheme = useTheme({ currentAppColorScheme });
+  const styles = themedStyle(currentTheme);
 
   const aussehenButton = () => {
     console.log("aussehen button gedrueckt");
@@ -48,26 +52,27 @@ export function SettingsPage() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#7ea8e7",
-  },
-  button: {
-    backgroundColor: "#a4ea7a",
-    padding: 10,
-    marginVertical: 10,
-    width: 350,
-    alignItems: "center",
-    borderRadius: 5,
-  },
-  buttonText: {
-    fontSize: 18,
-    color: "black",
-    fontWeight: "bold",
-  },
-});
+const themedStyle = (currentTheme) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: currentTheme.backgroundColor,
+    },
+    button: {
+      backgroundColor: "#a4ea7a",
+      padding: 10,
+      marginVertical: 10,
+      width: 350,
+      alignItems: "center",
+      borderRadius: 5,
+    },
+    buttonText: {
+      fontSize: 18,
+      color: "ffffff",
+      fontWeight: "bold",
+    },
+  });
 
 export default SettingsPage;

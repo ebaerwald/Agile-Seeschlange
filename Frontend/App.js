@@ -16,21 +16,21 @@ import { NotificationsPage } from "./pages/NotificationsPage";
 import { KontoPage } from "./pages/KontoPage";
 import { MemoryDataPage } from "./pages/MemoryDataPage";
 import FaqPage from "./pages/FaqPage";
-import { useTheme, ThemeProvider } from './components/ThemeContext';
 
 //Impressive Store
-import { ImpProvider } from "./impressive-store/provider";
-import { answerStore, answersStore } from "./impressive-store/answer";
-import { authStore } from "./impressive-store/auth";
-import { groupStore, groupsStore } from "./impressive-store/group";
-import { questionStore, questionsStore } from "./impressive-store/question";
-import { userStore, usersStore } from "./impressive-store/user";
-import { commentStore, commentsStore } from "./impressive-store/comment";
+// import { ImpProvider } from "./impressive-store/provider";
+// import { answerStore, answersStore } from "./impressive-store/answer";
+// import { authStore } from "./impressive-store/auth";
+// import { groupStore, groupsStore } from "./impressive-store/group";
+// import { questionStore, questionsStore } from "./impressive-store/question";
+// import { userStore, usersStore } from "./impressive-store/user";
+
 // ----------------------
 
 const NativeStack = createNativeStackNavigator();
 
 export default function App() {
+  
   const EinstellungenStack = createStackNavigator();
   const FrontendTestStack = createStackNavigator();
 
@@ -53,7 +53,9 @@ export default function App() {
           name="NotificationsPage"
           component={NotificationsPage}
         />
-        <EinstellungenStack.Screen name="KontoPage" component={KontoPage} />
+        <EinstellungenStack.Screen 
+        name="KontoPage" 
+        component={KontoPage} />
         <EinstellungenStack.Screen
           name="MemoryDataPage"
           component={MemoryDataPage}
@@ -89,22 +91,19 @@ export default function App() {
     );
   }
   const Tab = createBottomTabNavigator();
-  const initialStore = {
-    authStore: authStore,
-    usersStore: usersStore,
-    userStore: userStore,
-    groupsStore: groupsStore,
-    groupStore: groupStore,
-    questionsStore: questionsStore,
-    questionStore: questionStore,
-    answersStore: answersStore,
-    answerStore: answerStore,
-    commentStore: commentStore,
-    commentsStore: commentsStore
-  };
+  // const initialStore = {
+  //   authStore: authStore,
+  //   usersStore: usersStore,
+  //   userStore: userStore,
+  //   groupsStore: groupsStore,
+  //   groupStore: groupStore,
+  //   questionsStore: questionsStore,
+  //   questionStore: questionStore,
+  //   answersStore: answersStore,
+  //   answerStore: answerStore,
+  // };
   return (
-    <ImpProvider store={initialStore}>
-    <ThemeProvider>
+    // <ImpProvider store={initialStore}>
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
@@ -135,7 +134,6 @@ export default function App() {
         <Tab.Screen name="Einstellungen" component={EinstellungenStackScreen} />
       </Tab.Navigator>
     </NavigationContainer>
-    </ThemeProvider>
 
     // <NavigationContainer>
     //     <NativeStack.Navigator initialRouteName={'FrontendTestScreen'}>
@@ -148,6 +146,6 @@ export default function App() {
     //     </NativeStack.Navigator>
     //   <StatusBar style="auto" />
     // </NavigationContainer>
-    </ImpProvider>
+    // </ImpProvider>
   );
 }

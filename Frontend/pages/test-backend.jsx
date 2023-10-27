@@ -2,6 +2,7 @@ import * as user from "../impressive-store/user";
 import * as question from "../impressive-store/question";
 import * as group from "../impressive-store/group";
 import * as answer from "../impressive-store/answer";
+import * as tag from "../impressive-store/tag";
 import { impContext } from "../impressive-store/provider";
 
 import { useEffect, useContext } from "react";
@@ -12,7 +13,7 @@ const TestBackendPage = () => {
 
     const { imp } = useContext(impContext);
     useEffect(() => {
-        console.log(imp)
+        console.log(imp);
     }, [imp]);
 
     return (
@@ -33,13 +34,7 @@ const TestBackendPage = () => {
                 })
               }}
             />
-            <Button 
-              title="Get User"
-              onPress={async() => {
-                user.getUser(imp, {"S.": '1234567890'})
-              }}
-              />
-            {/* <Button
+
               title="Create User"
               onPress={async() => {
                 user.createUser(imp, {
@@ -77,8 +72,8 @@ const TestBackendPage = () => {
                     },
                   })
               }}
-              /> */}
-            <Button
+              />
+            {/* <Button
               title="Add favorite Question"
               onPress={
                 async() => {
@@ -130,7 +125,7 @@ const TestBackendPage = () => {
                     question.getQuestions(imp);
                   }
                 }
-              />
+              /> */}
               <Button
                 title="Log Questions Store"
                 onPress={ () => {
@@ -228,10 +223,60 @@ const TestBackendPage = () => {
                       title: "A Answer to all questions you might ask",
                       text: "Lorem Impsum dolor sit amet",
                       score: 10,
+                      parentThread: "651ab66ddc81a30aeffe2b1a"
                     })
                   }
                 }
                 />
+                <Button
+                  title="Update Answer"
+                  onPress={async() => {
+                    answer.updateAnswer(imp, "653aa5311e8f913e7f367fb4", {
+                      answerOwner: "65394b05d8e739fc66ce7bb4",
+                      title: "A Answer to all questions you might ask",
+                      text: "Lorem Doloris",
+                      score: 10,
+                      parentThread: "651ab66ddc81a30aeffe2b1a"
+                    })
+                  }}
+                  />
+                  {/* <Button
+                    title="Delete Answer"
+                    onPress={
+                      async()=> {
+                        answer.deleteAnswer(imp, "653aa5311e8f913e7f367fb4");
+                      }
+                    }
+                    />
+                    <Button
+                      title="Create Tag"
+                      onPress={
+                        async() => {
+                          tag.createTag(imp, {
+                            name: "Best Tag",
+                            description: "Best description"
+                          })
+                        }
+                      }
+                      />
+                      <Button 
+                        title="Get Tag"
+                        onPress={
+                          async() => {
+                            const res = await tag.getTag(imp, "653abf8a2d4e6b5e3b6a5b8f");
+                            console.log(res);
+                          }
+                        }
+                        />
+                        <Button
+                          title="Delete Tag"
+                          onPress={
+                            async() => {
+                              tag.deleteTag(imp, "653abf8a2d4e6b5e3b6a5b8f");
+                            }
+                          }
+                          /> */}
+
               
           </View>
         </Background>

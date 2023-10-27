@@ -27,8 +27,8 @@ const LoginPage = ({ navigation }) => {
   };
 
   return (
-    <Background showFooter={false} showBurgerBun={false}>
-      {/* Inhalt der Seite */}
+
+    <Background>
       <View style={styles.outerBox}>
 
         <SnakeImage size="small" />
@@ -61,7 +61,7 @@ const LoginPage = ({ navigation }) => {
       <Text title="Dieses Produkt wurde von ANG, TID, ERB, SMH entwickelt." type="center" />
 
       </View>
-    </Background>
+      </Background>
   );
 };
 
@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     padding: 10,
+    marginTop: 25,
   },
 });
 

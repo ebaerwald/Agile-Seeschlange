@@ -34,7 +34,7 @@ const TestBackendPage = () => {
                 })
               }}
             />
-            <Button
+
               title="Create User"
               onPress={async() => {
                 user.createUser(imp, {

@@ -8,11 +8,20 @@ import CustomCheckbox from "../components/Checkbox"; // Importieren Sie die Cust
 import HeaderText from "../components/HeaderText";
 import Text from "../components/Text";
 import { ScrollView } from "react-native";
+import * as user from "../impressive-store/user";
+import { impContext } from "../impressive-store/provider";
+import { useEffect, useContext } from "react";
+
 
 const RegisterPage = ({ navigation }) => {
-  const [firstName, setFirstName] = useState("");
+
+  const { imp } = useContext(impContext);
+  useEffect(() => {
+      console.log(imp)
+  }, [imp]);
+
+  const [name, setUsername] = useState("");
   const [lastName, setLastName] = useState("");
-  const [birthdate, setBirthdate] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [agbChecked, setAgbChecked] = useState(false); // Zustand für die AGB-Checkbox
@@ -21,21 +30,17 @@ const RegisterPage = ({ navigation }) => {
 
   const handleLoginButtonClick = () => {
     // Hier Logik für den Login-Button
-    console.log("Login-Button wurde geklickt");
-    console.log("E-Mail:", email);
-    console.log("Passwort:", password);
+    navigation.navigate("Login");
   };
 
   const handleRegisterButtonClick = () => {
-    // Hier Logik für den Registrieren-Button
-    console.log("Register-Button wurde geklickt");
-    console.log("Vorname:", firstName);
-    console.log("Nachname:", lastName);
-    console.log("Geburtsdatum:", birthdate);
-    console.log("E-Mail:", email);
-    console.log("Passwort:", password);
-    console.log("AGB akzeptiert:", agbChecked);
-    console.log("Datenschutzbestimmungen akzeptiert:", datenschutzChecked);
+    user.createUser(imp, {
+      "email": email,
+      "name": name,
+      "lastName": lastName,
+      "googleUserId": '1234567890',
+      }
+    );
     navigation.navigate("Register");
   };
 
@@ -54,19 +59,14 @@ const RegisterPage = ({ navigation }) => {
 
           {/* Eingabefelder für Vorname, Nachname, Geburtsdatum, E-Mail und Passwort */}
           <DataInputField
-            placeholder="Vorname*"
-            value={firstName}
-            onChangeText={(text) => setFirstName(text)}
+            placeholder="Username*"
+            value={name}
+            onChangeText={(text) => setUsername(text)}
           />
           <DataInputField
             placeholder="Nachname*"
             value={lastName}
             onChangeText={(text) => setLastName(text)}
-          />
-          <DataInputField
-            placeholder="Geburtsdatum*"
-            value={birthdate}
-            onChangeText={(text) => setBirthdate(text)}
           />
           <DataInputField
             placeholder="E-Mail*"
@@ -108,11 +108,6 @@ const RegisterPage = ({ navigation }) => {
             onPress={handleLoginButtonClick}
             iconType="Login"
             text="Bereits eine Seeschlange? Dann logge dich hier ein"
-          />
-
-          <Text
-            title="Dieses Produkt wurde von ANG, TID, ERB, SMH entwickelt."
-            type="center"
           />
         </View>
       </Background>

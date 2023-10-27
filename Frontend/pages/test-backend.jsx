@@ -33,6 +33,12 @@ const TestBackendPage = () => {
                 })
               }}
             />
+            <Button 
+              title="Get User"
+              onPress={async() => {
+                user.getUser(imp, {"S.": '1234567890'})
+              }}
+              />
             {/* <Button
               title="Create User"
               onPress={async() => {

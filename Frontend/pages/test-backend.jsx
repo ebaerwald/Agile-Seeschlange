@@ -34,7 +34,7 @@ const TestBackendPage = () => {
                 })
               }}
             />
-
+            <Button
               title="Create User"
               onPress={async() => {
                 user.createUser(imp, {
@@ -73,6 +73,29 @@ const TestBackendPage = () => {
                   })
               }}
               />
+
+            <Button
+                title="Create Question"
+                onPress={
+                  async() => {
+                    question.createQuestion(imp, {
+                      title: 'Super Titel',
+                       text: 'Lorem Impsum dolor sit amet',
+                       views: 500, 
+                       score: 10
+                    });
+                  }
+                }
+              />
+              <Button
+               title="Get Question"
+                onPress={
+                  async() => {
+                    const res = await question.getQuestion(imp, '65393f82702a94d7bc2256dd');
+                    console.log(res);
+                  }
+                }
+                />
             {/* <Button
               title="Add favorite Question"
               onPress={

@@ -16,32 +16,30 @@ import { useEffect, useContext } from "react";
 const RegisterPage = ({ navigation }) => {
 
   const { imp } = useContext(impContext);
-  useEffect(() => {
-      console.log(imp)
-  }, [imp]);
 
-  const [name, setUsername] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [agbChecked, setAgbChecked] = useState(false); // Zustand für die AGB-Checkbox
   const [datenschutzChecked, setDatenschutzChecked] = useState(false); // Zustand für die Datenschutz-Checkbox
-  const [isChecked, setChecked] = useState(false);
 
   const handleLoginButtonClick = () => {
-    // Hier Logik für den Login-Button
     navigation.navigate("Login");
   };
 
-  const handleRegisterButtonClick = () => {
-    user.createUser(imp, {
-      "email": email,
-      "name": name,
-      "lastName": lastName,
-      "googleUserId": '1234567890',
-      }
-    );
-    navigation.navigate("Register");
+  const handleRegisterButtonClick = async() => {
+    if (!agbChecked || !datenschutzChecked) {
+      // Überprüfen, ob beide Checkboxen angehakt sind
+      alert("Bitte stimme unseren Bestimmungen zu.");
+    } else {
+      const res = await user.createUser(imp, {
+        email: email,
+        name: username,
+        googleUserId: '1234567890',
+      });
+      console.log(res);
+      navigation.navigate("Menue");
+    }
   };
 
   return (
@@ -60,13 +58,8 @@ const RegisterPage = ({ navigation }) => {
           {/* Eingabefelder für Vorname, Nachname, Geburtsdatum, E-Mail und Passwort */}
           <DataInputField
             placeholder="Username*"
-            value={name}
+            value={username}
             onChangeText={(text) => setUsername(text)}
-          />
-          <DataInputField
-            placeholder="Nachname*"
-            value={lastName}
-            onChangeText={(text) => setLastName(text)}
           />
           <DataInputField
             placeholder="E-Mail*"

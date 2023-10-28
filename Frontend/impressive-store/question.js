@@ -22,7 +22,7 @@ export const questionsStore = {
 // TODO: Replace these with the backend routes
 // * Pay attention to the HTTP method, which is the last argument in the passId and passObject functions
 
-const ipv4 = '10.25.3.174';
+const ipv4 = '192.168.178.67';
 const getQuestionRoute = 'http://' + ipv4 + ':3001/api/thread'; //get //questionId //finished
 
 const getQuestionsRoute = 'http://' + ipv4 + ':3001/api/threads'; //get // random questions //finished

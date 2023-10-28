@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FrontendTestScreen } from "./pages/FrontendTestScreen";
-import { LoginPage } from "./pages/LoginPage";
+import {LoginPage} from './pages/LoginPage';
 import { SplashScreen } from "./pages/SplashScreen";
 import { RegisterPage } from "./pages/RegisterPage";
 import { MenuePage } from "./pages/MenuePage";
@@ -35,6 +35,7 @@ export default function App() {
   const EinstellungenStack = createStackNavigator();
   const FrontendTestStack = createStackNavigator();
 
+
   function EinstellungenStackScreen() {
     return (
       <EinstellungenStack.Navigator
@@ -42,23 +43,11 @@ export default function App() {
           headerShown: false,
         }}
       >
-        <EinstellungenStack.Screen
-          name="Einstellungen"
-          component={SettingsPage}
-        />
-        <EinstellungenStack.Screen
-          name="AussehenPage"
-          component={AussehenPage}
-        />
-        <EinstellungenStack.Screen
-          name="NotificationsPage"
-          component={NotificationsPage}
-        />
+        <EinstellungenStack.Screen name="Einstellungen" component={SettingsPage} />
+        <EinstellungenStack.Screen name="AussehenPage" component={AussehenPage} />
+        <EinstellungenStack.Screen name="NotificationsPage" omponent={NotificationsPage} />
         <EinstellungenStack.Screen name="KontoPage" component={KontoPage} />
-        <EinstellungenStack.Screen
-          name="MemoryDataPage"
-          component={MemoryDataPage}
-        />
+        <EinstellungenStack.Screen name="MemoryDataPage" component={MemoryDataPage} />
       </EinstellungenStack.Navigator>
     );
   }
@@ -77,11 +66,9 @@ export default function App() {
         <FrontendTestStack.Screen name={"MenuePage"} component={MenuePage} />
         <FrontendTestStack.Screen name={"ArchivPage"} component={ArchivPage} />
         <FrontendTestStack.Screen name={"FaqPage"} component={FaqPage} />
-        
       </FrontendTestStack.Navigator>
     );
   }
-
 
   const Tab = createBottomTabNavigator();
   const initialStore = {
@@ -128,13 +115,13 @@ export default function App() {
         <Tab.Screen name="Explore" component={ArchivPage} />
         <Tab.Screen name="Einstellungen" component={EinstellungenStackScreen} />
         <Tab.Screen name="TestBackend" component={TestBackendPage} />
-        <Tab.Screen name="Login" component={LoginPage} />
         <Tab.Screen name="Menue" component={MenuePage} />
-        <Tab.Screen name="Register" component={RegisterPage} />
         <Tab.Screen name="Archiv" component={ArchivPage} />
         <Tab.Screen name="NewQuestion" component={NewQuestionPage} />
         <Tab.Screen name="SingleQuestion" component={SingleQuestionPage} />
         <Tab.Screen name="Splash" component={SplashScreen} />
+        <Tab.Screen name="Register" component={RegisterPage} />
+        <Tab.Screen name="Login" component={LoginPage} />
       </Tab.Navigator>
       
     </NavigationContainer>

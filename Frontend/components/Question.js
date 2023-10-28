@@ -4,6 +4,8 @@ import Answer from '../components/Answer';
 import InteractionButton from '../components/InteractionButton';
 import DataInputField from '../components/DataInputField';
 
+
+
 const Question = ({ subject, user, question, navigation, newQuestion }) => {
   const [likeCount, setLikeCount] = useState(0);
   const [dislikeCount, setDislikeCount] = useState(0);
@@ -20,8 +22,8 @@ const Question = ({ subject, user, question, navigation, newQuestion }) => {
     { user: 'Benutzer1', text: 'Dies ist Antwort 1' },
     { user: 'Benutzer2', text: 'Dies ist Antwort 2' },
   ];
-
   const [answerCount] = [dummyAnswers.length];
+
 
   // 
   const handleStar = () => {
@@ -51,14 +53,6 @@ const Question = ({ subject, user, question, navigation, newQuestion }) => {
     }
     console.log('Superlike wurde geklickt');
   };
-
-  /* Die Buttonfunktionalität auf Commit wird theoretisch nicht mehr gebraucht.
-  Man kann die Kommentare über einen Klick auf dem Questionobjekt anzeigen lassen -> siehe handleShortPress
-  const handleComment = () => {
-    console.log('Button Commit wurde geklickt');
-  };
-  */
-
 
   const toggleAnswers = () => {
     if (!showAnswers) {
@@ -122,8 +116,8 @@ const Question = ({ subject, user, question, navigation, newQuestion }) => {
         ) : (
           <DataInputField placeholder="Formuliere deine Frage möglichst präzise*" value={answer} onChangeText={text => setAnswer(text)} type="Answer" />
         )}
-
       </View>
+
 
       {/* Interaktionscontainer für Frage */}
       {!newQuestion && (
@@ -195,23 +189,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 5,
     backgroundColor: '#72c770',
-    justifyContent: 'left', // Hinzugefügt
+    justifyContent: 'left', 
   },
   fachContainer: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center', // Hinzugefügt
+    justifyContent: 'center',
     padding: 5,
     backgroundColor: '#a4ea7a',
     marginLeft: 10,
-    
   },
   text: {
-    //fontWeight: 'bold', // Text fett machen
-    fontSize: 14, // Schriftgröße ändern (z.B. auf 16 Pixel)
+    fontSize: 14,
 
   },
-
   fragenContainer: {
     marginBottom: 5,
     backgroundColor: '#a4ea7a',
@@ -221,13 +212,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   interactionContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 5,
-
     borderBottomWidth: 1, // Breite der Linie
     borderBottomColor: 'black', // Farbe der Linie
     borderBottomStyle: 'dashed', // Stil der Linie (gestrichelt)
@@ -262,7 +251,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     marginTop: 10,
-  }
+  },
 });
 
 export default Question;

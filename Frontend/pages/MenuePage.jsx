@@ -5,9 +5,13 @@ import Searchbar from '../components/Searchbar.js';
 import HeaderText from '../components/HeaderText';
 import SubHeaderText from '../components/SubHeaderText';
 import Button from '../components/Button';
+import * as question from "../impressive-store/question";
+import * as answer from "../impressive-store/answer";
+import { impContext } from "../impressive-store/provider";
+import { useEffect, useContext } from "react";
 
 const MenuePage = ({ navigation }) => {
-
+  const { imp } = useContext(impContext);
 
   return (
     <ScrollView>
@@ -23,11 +27,19 @@ const MenuePage = ({ navigation }) => {
 
           <Button
             text="Ich will eine neue Frage posten"
-            iconType="newQuestion" // Hier setzen wir den Typ auf "newQuestion"
+            iconType="newQuestion" 
             onPress={() => {
-              // Hier kannst du die Aktion hinzufügen, die beim Klicken auf den Button ausgeführt werden soll
               navigation.navigate('NewQuestion');
           }}/>
+
+          <Button
+            text="Was gibts gerade für Fragen?"
+            iconType="newQuestion"
+            onPress={async() => {
+              question.getQuestions(imp);
+              }
+            }
+          /> 
 
           <SubHeaderText title="Meine Fragen" type="left" />
           <Question
@@ -43,15 +55,10 @@ const MenuePage = ({ navigation }) => {
             question="Wie löse ich diese Aufgabe?"
             navigation={navigation}
           />
-  
-
         </View>
       </Background>
     </ScrollView>
   );
-  
-
-  
 };
 
 const styles = StyleSheet.create({

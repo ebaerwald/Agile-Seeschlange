@@ -9,9 +9,16 @@ import HeaderText from '../components/HeaderText';
 import Text from '../components/Text';
 import Question from '../components/Question';
 
+//Imp-Store Questions
+import { impContext } from "../impressive-store/provider";
+import * as question from "../impressive-store/question";
+import { useEffect, useContext } from "react";
+
 const SingleQuestionPage = ({ navigation }) => {
   const [giveAnswer, setAnswer] = useState('');
   const [UserRightsChecked, setUserRightsChecked] = useState(false); // Zustand für die AGB-Checkbox
+
+  const { imp } = useContext(impContext);
 
   const handleAnswerButtonClick = () => {
     // Hier Logik für den Antwortgeben-Button 
@@ -35,7 +42,18 @@ const SingleQuestionPage = ({ navigation }) => {
         {/* Eingabefelder für Vorname, Nachname, Geburtsdatum, E-Mail und Passwort */}
         <DataInputField placeholder="Deine Antwort*" value={giveAnswer} onChangeText={text => setAnswer(text)} />
 
-        {/* Checkboxen für AGB und Datenschutz, Verwenden Sie die CustomCheckbox-Komponente */}
+        <Button
+          title="Get Question"
+          onPress={async () => {
+            try {
+              const res = await question.getQuestion(imp, '5f9e9b3b9b7b7b0b3c3c3c3c');
+              console.log(res);
+            } catch (error) {
+              console.error('Fehler beim Abrufen der Frage:', error);
+            }
+          }}
+        />
+
         <CustomCheckbox label="Hiermit stimme ich zu, dass meine Antwort veröffentlich wird*" value={UserRightsChecked} onValueChange={value => setUserRightsChecked(value)} />
         <Text title="Alle mit * markierten Felder sind Pflichtfelder. Bitte fülle sie aus." type="center" />
 

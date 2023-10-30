@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   buttonContainer: {
-    marginBottom: 20, // Add space between user info and the button
+    marginBottom: 20, 
   },
   deleteButton: {
     padding: 20,

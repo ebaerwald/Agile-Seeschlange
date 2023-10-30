@@ -17,7 +17,6 @@ export function NotificationsPage() {
     };
     requestPermissions();
 
-    // Load the switch state from AsyncStorage
     const loadSwitchState = async () => {
       try {
         const value = await AsyncStorage.getItem("notificationSwitchState");
@@ -36,7 +35,6 @@ export function NotificationsPage() {
   const toggleSwitch = async () => {
     setIsEnabled((previousState) => !previousState);
 
-    // Save the switch state to AsyncStorage
     try {
       await AsyncStorage.setItem(
         "notificationSwitchState",

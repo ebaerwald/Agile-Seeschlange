@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Switch } from "react-native"; // Add Switch
+import { StyleSheet, Text, View, Switch } from "react-native"; 
 import { ThemeChanger } from "../components/ThemeChanger";
 import { useTheme } from "../hooks/useTheme";
 import { useThemeContext } from "../components/ThemeContext";
 
 const AussehenPage = () => {
-  const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext(); // Call useThemeContext as a function
+  const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext(); 
   const currentTheme = useTheme({ currentAppColorScheme });
   const styles = themedStyle(currentTheme);
 
@@ -22,19 +22,19 @@ const AussehenPage = () => {
 
   const handleTiefseeChange = (value) => {
     if (value) {
-      setCurrentAppColorScheme("dark"); // Set the app theme to dark
+      setCurrentAppColorScheme("dark"); 
     }
   };
 
   const handleAutomatischChange = (value) => {
     if (value) {
-      setCurrentAppColorScheme("auto"); // Set the app theme to auto
+      setCurrentAppColorScheme("auto"); 
     }
   };
 
   const handleOberflacheChange = (value) => {
     if (value) {
-      setCurrentAppColorScheme("light"); // Set the app theme to light
+      setCurrentAppColorScheme("light"); 
     }
   };
 

@@ -24,29 +24,33 @@ export function SettingsPage() {
     navigation.navigate("KontoPage");
   };
 
-  const memoryDataButton = () => {
-    navigation.navigate("MemoryDataPage");
+  const datenschutzButton = () => {
+    navigation.navigate("LegalPage");
+  };
+
+  const faqButton = () => {
+    navigation.navigate("FaqPage");
   };
 
   return (
     <View style={styles.container}>
       <HeaderText title={"Einstellungen"} type={"center"} />
-      <SnakeImage size={"small"} />
+      <SnakeImage size={"big"} />
 
       <TouchableOpacity style={styles.button} onPress={kontoButton}>
         <Text style={styles.buttonText}>Konto</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Datenschutz</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={memoryDataButton}>
-        <Text style={styles.buttonText}>Speicher und Daten</Text>
+      <TouchableOpacity style={styles.button} onPress={aussehenButton}>
+        <Text style={styles.buttonText}>Aussehen</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={notificationButton}>
         <Text style={styles.buttonText}>Mitteilungen</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={aussehenButton}>
-        <Text style={styles.buttonText}>Aussehen</Text>
+      <TouchableOpacity style={styles.button} onPress={datenschutzButton}>
+        <Text style={styles.buttonText}>Rechtliches</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={faqButton}>
+        <Text style={styles.buttonText}>Fragen und Antworten</Text>
       </TouchableOpacity>
     </View>
   );
@@ -70,7 +74,7 @@ const themedStyle = (currentTheme) =>
     },
     buttonText: {
       fontSize: 18,
-      color: "ffffff",
+      color: "#000000",
       fontWeight: "bold",
     },
   });

@@ -36,7 +36,7 @@ const themedStyle = (currentTheme) =>
       marginTop: 10,
     },
     titleText: {
-      color: currentTheme.textColor,
+      color: "black",
       fontSize: 12,
     },
   });

@@ -19,6 +19,8 @@ exports.createAnswer = async (req, res, next) => {
       IsMostHelpfull,
       files,
     } = req.body;
+
+    console.log(body);
     //check if empty
     if (!title || !answerOwner || !parentThread) {
       responseMgt.faild("title,answerOwner ord parentThread are empty", res);

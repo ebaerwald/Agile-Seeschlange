@@ -80,20 +80,43 @@ exports.updateUser = async (req, res, next) => {
 };
 exports.addfavoritequestion = async (req, res, next) => {
   try {
-    const { userObject, threadId } = req.body;
+    const { googleUserId, threadId } = req.body;
 
-    if (!userObject.googleUserId) {
+    if (!googleUserId) {
       res.status(401).send("Please provide email and password");
       console.log("Unauthoriced login");
     } else {
       const user = await User.findOne({
-        googleUserId: userObject.googleUserId,
+        googleUserId: googleUserId,
       });
       const currentThread = await Thread.findById(threadId);
       user.favoriteThreads.push(currentThread._id);
+      user.save();
       if (user) {
         responseMgt.success(user, res);
-        console.log(`Deactivated User:${user._id}`);
+        console.log(`updated Favorite QUestion User:${user._id}`);
+      } else {
+        responseMgt.faild(user, res);
+      }
+    }
+  } catch (err) {
+    throw new Error(err, res);
+  }
+};
+exports.getfavoritequestions = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    if (!id) {
+      res.status(401).send("Please provide email and password");
+      console.log("Unauthoriced login");
+    } else {
+      const user = await User.findById({
+        _id: id,
+      }).populate("favoriteThreads");
+      if (user) {
+        responseMgt.success(user.favoriteThreads, res);
+        console.log(`Get favorite questen from:${user._id}`);
       } else {
         responseMgt.faild(user, res);
       }

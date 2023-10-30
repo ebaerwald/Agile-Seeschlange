@@ -6,7 +6,7 @@ export const tagStore = {
     describtion: null
 }
 
-const ipv4 = '10.25.3.174';
+const ipv4 = '92.168.178.6';
 const createTagRoute = 'http://' + ipv4 + ':3001/api/tag';
 const deleteTagRoute = 'http://' + ipv4 + ':3001/api/tag';
 const updateTagRoute = 'http://' + ipv4 + ':3001/api/tag';

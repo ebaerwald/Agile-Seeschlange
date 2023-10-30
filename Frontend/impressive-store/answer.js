@@ -25,7 +25,7 @@ export const answersStore = {
 
 // const getAnswersFromQuestionRoute = ''; // bei den Threads
 
-const ipv4 = '10.25.3.174';
+const ipv4 = '92.168.178.6';
 const createAnswerRoute = 'http://' + ipv4 + ':3001/api/answer'; //post pass id
 const updateAnswerRoute = 'http://' + ipv4 + ':3001/api/answer'; //put
 const deleteAnswerRoute = 'http://' + ipv4 + ':3001/api/answer'; //del pass id

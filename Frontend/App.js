@@ -69,7 +69,6 @@ export default function App() {
       </FrontendTestStack.Navigator>
     );
   }
-
   const Tab = createBottomTabNavigator();
   const initialStore = {
     usersStore: usersStore,
@@ -83,6 +82,7 @@ export default function App() {
     tagStore: tagStore,
     tagsStore: tagsStore
   };
+  
   return (
     <ImpProvider store={initialStore}>
     <ThemeProvider>

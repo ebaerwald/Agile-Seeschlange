@@ -22,6 +22,7 @@ const LoginPage = ({ navigation }) => {
       googleUserId: '1234567890',
     });
     console.log(res);
+    console.log(user.getUser)
     navigation.navigate('Menue');
   };
 
@@ -63,7 +64,10 @@ const LoginPage = ({ navigation }) => {
 
       <Text title="Dieses Produkt wurde von ANG, TID, ERB, SMH entwickelt." type="center" />
 
+
+
       </View>
+
       </Background>
   );
 };

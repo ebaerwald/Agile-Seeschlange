@@ -5,25 +5,45 @@ import * as answer from "../impressive-store/answer";
 import * as tag from "../impressive-store/tag";
 import { impContext } from "../impressive-store/provider";
 
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useRef } from "react";
 import { StyleSheet, View, ScrollView, Text, Button } from 'react-native';
 import Background from '../components/Background';
 
 const TestBackendPage = () => {
 
     const { imp } = useContext(impContext);
-    useEffect(() => {
-        console.log(imp);
-    }, [imp]);
+    //const questions = useRef(questions.getQuestions(imp))
+
+   // useEffect(() => {
+        //console.log(imp);
+        //question.getQuestions(imp);
+          
+
+//    }, []);
+
 
     return (
       <ScrollView>
-        <Background showFooter={true} showBurgerBun={true}>
+        <Background>
           <View style={styles.outerBox}>
+
+{/*
+          {
+            questions.current.map((question) => {
+              return (
+                <View key={question._id}>
+                  <Text>{question.id}</Text>
+                  <Text>{question.title}</Text>
+                  <Text>{question.text}</Text>
+                </View>
+              )
+            })
+          }
+*/}
             <Text>Username: {imp.userStore.username}</Text>
             <Text>Email: {imp.userStore.email}</Text>
             <Text>Google User ID: {imp.userStore.googleUserId}</Text>
-            <Text>{JSON.stringify(imp.questionsStore)}</Text>
+            <Text>{JSON.stringify(imp.questionsStore)}</Text> 
             <Text>{JSON.stringify(imp.groupsStore)}</Text>
             <Button
               title="Test"
@@ -47,6 +67,14 @@ const TestBackendPage = () => {
               
               }}
             />
+                          <Button
+                title="Get Questions"
+                onPress={
+                  async() => {
+                    question.getQuestions(imp);
+                  }
+                }
+                />
             <Button 
               title="Get User"
               onPress={async() => {
@@ -73,6 +101,29 @@ const TestBackendPage = () => {
                   })
               }}
               />
+
+            <Button
+                title="Create Question"
+                onPress={
+                  async() => {
+                    question.createQuestion(imp, {
+                      title: 'Super Titel',
+                       text: 'Lorem Impsum dolor sit amet',
+                       views: 500, 
+                       score: 10
+                    });
+                  }
+                }
+              />
+              <Button
+               title="Get Question"
+                onPress={
+                  async() => {
+                    const res = await question.getQuestion(imp, '65393f82702a94d7bc2256dd');
+                    console.log(res);
+                  }
+                }
+                />
             {/* <Button
               title="Add favorite Question"
               onPress={

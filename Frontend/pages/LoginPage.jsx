@@ -7,28 +7,32 @@ import Background from '../components/Background';
 import HeaderText from '../components/HeaderText';
 import Text from '../components/Text';
 
+import * as user from "../impressive-store/user";
+import { impContext } from "../impressive-store/provider";
+import { useContext } from "react";
 
 const LoginPage = ({ navigation }) => {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const { imp } = useContext(impContext);
 
-  const handleLoginButtonClick = () => {
-    // Hier die Logik für den Login-Button
-    console.log('Login-Button wurde geklickt');
-    console.log('E-Mail:', email);
-    console.log('Passwort:', password);
+  const handleLoginButtonClick = async() => {
+    const res = await user.getUser(imp, {
+      name: username,
+      googleUserId: '1234567890',
+    });
+    console.log(res);
+    console.log(user.getUser)
     navigation.navigate('Menue');
   };
 
   const handleRegisterButtonClick = () => {
-    // Hier die Logik für den Registrieren-Button
-    console.log('Register-Button wurde geklickt');
     navigation.navigate('Register');
   };
 
   return (
-    <Background showFooter={false} showBurgerBun={false}>
-      {/* Inhalt der Seite */}
+
+    <Background>
       <View style={styles.outerBox}>
 
         <SnakeImage size="small" />
@@ -38,8 +42,8 @@ const LoginPage = ({ navigation }) => {
         <Text title="Gib deine Daten an, um die Weltmeere zu betreten und Weisheit zu finden, um anderen Seeschlangen zu helfen." type="center" />
 
 
-        {/* Eingabefelder für E-Mail und Passwort */}
-        <DataInputField placeholder="E-Mail*" value={email} onChangeText={text => setEmail(text)} />
+        {/* Eingabefelder für Username und Passwort */}
+        <DataInputField placeholder="Username*" value={username} onChangeText={text => setUsername(text)} />
         <DataInputField placeholder="Passwort*" value={password} onChangeText={text => setPassword(text)} />
 
         <Text title=" Alle mit * markierten Felder sind Pflichtfelder. Bitte fülle sie aus." type="center" />
@@ -60,8 +64,11 @@ const LoginPage = ({ navigation }) => {
 
       <Text title="Dieses Produkt wurde von ANG, TID, ERB, SMH entwickelt." type="center" />
 
+
+
       </View>
-    </Background>
+
+      </Background>
   );
 };
 
@@ -71,6 +78,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     padding: 10,
+    marginTop: 25,
   },
 });
 

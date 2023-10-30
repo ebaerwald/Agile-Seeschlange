@@ -19,7 +19,7 @@ export const groupsStore = {
 // TODO: Replace these with the backend routes
 // * Pay attention to the HTTP method, which is the last argument in the passId and passObject functions
 
-const ipv4 = '10.25.3.174';
+const ipv4 = '192.168.178.67';
 const getGroupRoute = 'http://' + ipv4 + ':3001/api/getGroup'; //get //groupId //finished
 const getGroupsRoute = 'http://' + ipv4 + ':3001/api/getGroups'; //get // random groups //finished
 

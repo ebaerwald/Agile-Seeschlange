@@ -11,7 +11,7 @@ const SplashScreen = ({ navigation }) => {
   const handleLoginButtonClick = () => {
     // Hier Logik für den Login-Button
     console.log('Login-Button wurde geklickt');
-    navigation.navigate('Menue');
+    navigation.navigate('LoginPage');
   };
 
   const handleRegisterButtonClick = () => {
@@ -21,7 +21,7 @@ const SplashScreen = ({ navigation }) => {
   };
 
   return (
-    <Background showFooter={false} showBurgerBun={true}>
+    <Background >
       <View style={styles.outerBox}>
         <View>
         <SnakeImage size="!small" />

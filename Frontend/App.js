@@ -16,7 +16,7 @@ import { NotificationsPage } from "./pages/NotificationsPage";
 import { KontoPage } from "./pages/KontoPage";
 import { MemoryDataPage } from "./pages/MemoryDataPage";
 import FaqPage from "./pages/FaqPage";
-
+import { ThemeProvider } from "./components/ThemeContext";
 //Impressive Store
 // import { ImpProvider } from "./impressive-store/provider";
 // import { answerStore, answersStore } from "./impressive-store/answer";
@@ -103,7 +103,7 @@ export default function App() {
   //   answerStore: answerStore,
   // };
   return (
-    // <ImpProvider store={initialStore}>
+    <ThemeProvider>
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
@@ -134,6 +134,7 @@ export default function App() {
         <Tab.Screen name="Einstellungen" component={EinstellungenStackScreen} />
       </Tab.Navigator>
     </NavigationContainer>
+    </ThemeProvider>
 
     // <NavigationContainer>
     //     <NativeStack.Navigator initialRouteName={'FrontendTestScreen'}>

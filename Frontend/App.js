@@ -18,7 +18,8 @@ import FaqPage from "./pages/FaqPage";
 import { useTheme, ThemeProvider } from "./components/ThemeContext";
 import { TestBackendPage } from "./pages/test-backend";
 import LegalPage from "./pages/LegalPage";
-
+import * as Splash from "expo-splash-screen";
+import { useEffect } from "react";
 //Impressive Store
 import { ImpProvider } from "./impressive-store/provider";
 import { answerStore, answersStore } from "./impressive-store/answer";
@@ -31,6 +32,13 @@ import { userStore, usersStore } from "./impressive-store/user";
 export default function App() {
   const EinstellungenStack = createStackNavigator();
   const FrontendTestStack = createStackNavigator();
+
+  useEffect(() => {
+    // Hide the splash screen after the specified duration (3 seconds in this example)
+    Splash.hideAsync().catch(() => {
+      /* handle error if splash screen is not hidden */
+    });
+  }, []);
 
   function EinstellungenStackScreen() {
     return (

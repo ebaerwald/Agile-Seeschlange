@@ -4,10 +4,11 @@ import HeaderText from "../components/HeaderText";
 import SnakeImage from "../components/SnakeImage";
 import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "../hooks/useTheme";
+import { useThemeContext } from "../components/ThemeContext";
 
 export function SettingsPage() {
   const navigation = useNavigation();
-  const [currentAppColorScheme, setCurrentAppColorScheme] = useState("auto");
+  const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();
   const currentTheme = useTheme({ currentAppColorScheme });
   const styles = themedStyle(currentTheme);
 

@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Switch } from "react-native"; 
-import { ThemeChanger } from "../components/ThemeChanger";
+import { StyleSheet, Text, View, Switch } from "react-native";
 import { useTheme } from "../hooks/useTheme";
 import { useThemeContext } from "../components/ThemeContext";
+import SubHeaderText from "../components/Text";
 
 const AussehenPage = () => {
-  const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext(); 
+  const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();
   const currentTheme = useTheme({ currentAppColorScheme });
   const styles = themedStyle(currentTheme);
 
@@ -22,30 +21,33 @@ const AussehenPage = () => {
 
   const handleTiefseeChange = (value) => {
     if (value) {
-      setCurrentAppColorScheme("dark"); 
+      setCurrentAppColorScheme("dark");
+      setTiefseeActive(true);
+      setAutomatischActive(false);
+      setOberflacheActive(false);
     }
   };
 
   const handleAutomatischChange = (value) => {
     if (value) {
-      setCurrentAppColorScheme("auto"); 
+      setCurrentAppColorScheme("auto");
+      setTiefseeActive(false);
+      setAutomatischActive(true);
+      setOberflacheActive(false);
     }
   };
 
   const handleOberflacheChange = (value) => {
     if (value) {
-      setCurrentAppColorScheme("light"); 
+      setCurrentAppColorScheme("light");
+      setTiefseeActive(false);
+      setAutomatischActive(false);
+      setOberflacheActive(true);
     }
   };
 
   return (
     <View style={styles.container}>
-      <ThemeChanger
-        currentAppColorScheme={currentAppColorScheme}
-        onChange={setCurrentAppColorScheme}
-      />
-      <StatusBar style={currentTheme.statusBarStyle} />
-
       <View style={styles.switchContainer}>
         <Text style={styles.switchLabel}>Tiefsee</Text>
         <Switch value={tiefseeActive} onValueChange={handleTiefseeChange} />
@@ -89,6 +91,7 @@ const themedStyle = (currentTheme) =>
     switchLabel: {
       fontSize: 16,
       marginRight: 10,
+      color: currentTheme.textColor,
     },
   });
 

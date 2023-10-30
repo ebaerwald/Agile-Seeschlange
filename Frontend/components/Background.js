@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
 import Footer from "./Footer";
 import { useTheme } from "../hooks/useTheme";
+import { useThemeContext } from "../components/ThemeContext";
 
 const Background = ({ children, showFooter, showBurgerBun }) => {
   const handleBurgerMenuClick = () => {
     console.log("Button Burgermenü wurde geklickt");
   };
-  const [currentAppColorScheme, setCurrentAppColorScheme] = useState("auto");
+  const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();
   const currentTheme = useTheme({ currentAppColorScheme });
   const styles = themedStyle(currentTheme);
 

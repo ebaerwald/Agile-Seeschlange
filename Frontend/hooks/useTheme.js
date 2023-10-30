@@ -9,7 +9,7 @@ const theme = {
   },
   dark: {
     backgroundColor: "#2D2B2B",
-    textColor: "#e5e5e5",
+    textColor: "#ffffff",
     borderColor: "#e5e5e5",
     statusBarStyle: "light",
   },

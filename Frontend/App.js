@@ -32,6 +32,7 @@ import { userStore, usersStore } from "./impressive-store/user";
 // ----------------------
 
 export default function App() {
+  
   const EinstellungenStack = createStackNavigator();
   const FrontendTestStack = createStackNavigator();
 
@@ -48,6 +49,7 @@ export default function App() {
         <EinstellungenStack.Screen name="NotificationsPage" omponent={NotificationsPage} />
         <EinstellungenStack.Screen name="KontoPage" component={KontoPage} />
         <EinstellungenStack.Screen name="MemoryDataPage" component={MemoryDataPage} />
+
       </EinstellungenStack.Navigator>
     );
   }

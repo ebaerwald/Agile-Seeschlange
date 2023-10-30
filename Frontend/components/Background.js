@@ -1,5 +1,7 @@
+
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+
 
 
 const Background = ({ children }) => {
@@ -9,6 +11,7 @@ const Background = ({ children }) => {
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   backgroundContainer: {
@@ -20,5 +23,6 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
   },
 });
+
 
 export default Background;

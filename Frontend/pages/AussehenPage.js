@@ -102,7 +102,7 @@ const themedStyle = (currentTheme) =>
     },
     icon: {
       marginRight: 10,
-      color: currentTheme.textColor, // Customize the icon color
+      color: currentTheme.textColor,
     },
     switchLabel: {
       fontSize: 16,

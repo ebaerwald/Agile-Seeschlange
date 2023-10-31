@@ -13,12 +13,14 @@ import HeaderText from "../components/HeaderText";
 import Background from "../components/Background";
 import * as user from "../impressive-store/user";
 import { impContext } from "../impressive-store/provider";
+import { useTheme } from "../hooks/useTheme";
+import { useThemeContext } from "../components/ThemeContext";
+import SubHeaderText from "../components/Text";
 
 export function KontoPage() {
-  const { imp } = useContext(impContext);
-  useEffect(() => {
-    console.log(imp);
-  }, [imp]);
+  const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();
+  const currentTheme = useTheme({ currentAppColorScheme });
+  const styles = themedStyle(currentTheme);
 
   const userTest = {
     firstName: "Jane",
@@ -39,13 +41,6 @@ export function KontoPage() {
           text: "Löschen",
           style: "destructive",
           onPress: () => {
-            {
-              async () => {
-                user.deleteUser(imp, {
-                  googleUserId: "1234567890",
-                });
-              };
-            }
             Alert.alert("Konto gelöscht", "Dein Konto wurde gelöscht");
           },
         },
@@ -59,7 +54,9 @@ export function KontoPage() {
         <View style={styles.topContent}>
           <SnakeImage size={"big"}></SnakeImage>
           <HeaderText title={"Dein Konto"}></HeaderText>
-          <Text>Hier findest du all deine nautischen Daten!</Text>
+          <Text style={styles.textt}>
+            Hier findest du all deine nautischen Daten!
+          </Text>
           <View style={styles.userInfoContainer}>
             <View style={styles.userInfoRow}>
               <Text style={styles.userInfoLabel}>Dein Name:</Text>
@@ -93,8 +90,8 @@ export function KontoPage() {
           <Button
             title="Konto löschen"
             onPress={handleDeleteUser}
-            color="red" // Set the button color to red
-            style={styles.deleteButton} // Add custom style for the button
+            color="red"
+            style={styles.deleteButton}
           />
         </View>
       </ScrollView>
@@ -102,41 +99,48 @@ export function KontoPage() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    padding: 20,
-  },
-  topContent: {
-    flex: 1,
-    alignItems: "center",
-  },
-  userInfoContainer: {
-    marginTop: 20,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    padding: 10,
-    borderRadius: 5,
-  },
-  userInfoRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 10,
-  },
-  userInfoLabel: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  userInfoText: {
-    fontSize: 16,
-  },
-  buttonContainer: {
-    marginBottom: 20, 
-  },
-  deleteButton: {
-    padding: 20,
-  },
-});
+const themedStyle = (currentTheme) =>
+  StyleSheet.create({
+    textt: {
+      color: currentTheme.textColor,
+    },
+    container: {
+      flex: 1,
+      alignItems: "center",
+      padding: 20,
+    },
+    topContent: {
+      flex: 1,
+      alignItems: "center",
+    },
+    userInfoContainer: {
+      marginTop: 20,
+      borderWidth: 1,
+      borderColor: "#ccc",
+      padding: 10,
+      borderRadius: 5,
+      color: currentTheme.textColor,
+    },
+    userInfoRow: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      marginBottom: 10,
+    },
+    userInfoLabel: {
+      fontSize: 16,
+      fontWeight: "bold",
+      color: currentTheme.textColor,
+    },
+    userInfoText: {
+      fontSize: 16,
+      color: currentTheme.textColor,
+    },
+    buttonContainer: {
+      marginBottom: 20,
+    },
+    deleteButton: {
+      padding: 20,
+    },
+  });
 
 export default KontoPage;

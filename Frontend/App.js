@@ -55,21 +55,12 @@ export default function App() {
         initialRouteName="Setting"
         screenOptions={{ headerShown: false }}
       >
-        {/* Login und RegisterRoutem */}
-        <EinstellungenStack.Screen name="Splash" component={SplashScreen} />
-        {/* Routen rund um die Einstellungen und um das Konto */}
         <EinstellungenStack.Screen name="Setting" component={SettingsPage} />
-        <EinstellungenStack.Screen name="Archiv" component={ArchivPage} />
-        <EinstellungenStack.Screen name="Law" component={LawPage} />
-
-        {/* Routen zum Testen und sonstiger Müll, der noch gelöscht werden müsste */}
+        <EinstellungenStack.Screen name="Splash" component={SplashScreen} />
+        <EinstellungenStack.Screen name="ArchivPage" component={ArchivPage} />
         <EinstellungenStack.Screen
           name="TestImpStoreBackend"
           component={TestBackendPage}
-        />
-        <EinstellungenStack.Screen
-          name="EinstellungenPage"
-          component={SettingsPage}
         />
         <EinstellungenStack.Screen
           name="AussehenPage"
@@ -92,7 +83,7 @@ export default function App() {
         initialRouteName="Home"
         screenOptions={{ headerShown: false }}
       >
-        <QuestionStack.Screen name="Home" component={MenuePage} />
+        <QuestionStack.Screen name="HomePage" component={MenuePage} />
         <QuestionStack.Screen
           name="SingleQuestion"
           component={SingleQuestionPage}
@@ -135,19 +126,11 @@ export default function App() {
                     iconName = focused ? "home-outline" : "home";
                   } else if (route.name === "Einstellungen") {
                     iconName = focused ? "settings-outline" : "settings";
-                  } else if (route.name === "Groups") {
-                    iconName = focused ? "people-outline" : "people";
-                  } else if (route.name === "Explore") {
-                    iconName = focused ? "eye-outline" : "eye";
-                  } else if (route.name === "Neue Frage posten") {
+                  } else if (route.name === "Seeschlange") {
+                    iconName = focused ? "person-outline" : "person";
+                  } else if (route.name === "Neue Frage") {
                     iconName = focused ? "help-circle-outline" : "help-circle";
-                  } else if (route.name === "Neue Frage posten") {
-                    iconName = focused
-                      ? "return-up-back-outline"
-                      : "help-circle";
                   }
-
-                  // You can return any component that you like here!
                   return <Ionicons name={iconName} size={size} color={color} />;
                 },
                 tabBarActiveTintColor: "#72C770",
@@ -155,11 +138,8 @@ export default function App() {
               })}
             >
               <Tab.Screen name="Home" component={QuestionStackScreen} />
-              <Tab.Screen name="Splash" component={SplashScreen} />
-              <Tab.Screen
-                name="Neue Frage posten"
-                component={NewQuestionPage}
-              />
+              <Tab.Screen name="Seeschlange" component={KontoPage} />
+              <Tab.Screen name="Neue Frage" component={NewQuestionPage} />
               <Tab.Screen
                 name="Einstellungen"
                 component={EinstellungenStackScreen}

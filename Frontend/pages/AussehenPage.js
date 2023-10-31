@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, Switch } from "react-native";
 import { useTheme } from "../hooks/useTheme";
 import { useThemeContext } from "../components/ThemeContext";
-import SubHeaderText from "../components/Text";
+import SnakeImage from "../components/SnakeImage";
 
 const AussehenPage = () => {
   const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();
@@ -48,19 +48,24 @@ const AussehenPage = () => {
 
   return (
     <View style={styles.container}>
+      <SnakeImage size={"big"}></SnakeImage>
+      <Text style={styles.header}>
+        Entscheide selbst wie tief die Seeschlange schwimmt!
+      </Text>
+      <View style={styles.separator} />
       <View style={styles.switchContainer}>
         <Text style={styles.switchLabel}>Tiefsee</Text>
         <Switch value={tiefseeActive} onValueChange={handleTiefseeChange} />
       </View>
-
+      <View style={styles.separator} />
       <View style={styles.switchContainer}>
-        <Text style={styles.switchLabel}>Automatisch</Text>
+        <Text style={styles.switchLabel}>Systemeinstellungen</Text>
         <Switch
           value={automatischActive}
           onValueChange={handleAutomatischChange}
         />
       </View>
-
+      <View style={styles.separator} />
       <View style={styles.switchContainer}>
         <Text style={styles.switchLabel}>Oberfläche</Text>
         <Switch
@@ -68,6 +73,7 @@ const AussehenPage = () => {
           onValueChange={handleOberflacheChange}
         />
       </View>
+      <View style={styles.separator} />
     </View>
   );
 };
@@ -92,6 +98,17 @@ const themedStyle = (currentTheme) =>
       fontSize: 16,
       marginRight: 10,
       color: currentTheme.textColor,
+    },
+    header: {
+      color: currentTheme.textColor,
+      fontSize: 15,
+    },
+    separator: {
+      borderBottomWidth: 1,
+      borderColor: currentTheme.textColor,
+      width: "70%",
+      alignSelf: "center",
+      marginVertical: 10,
     },
   });
 

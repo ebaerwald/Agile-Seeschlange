@@ -53,8 +53,8 @@ const NewQuestionPage = ({ navigation }) => {
   };
 
   return (
-    <ScrollView>
-      <Background>
+    <Background>
+      <ScrollView>
         {/* Inhalt der Seite */}
         <View style={styles.outerBox}>
           <SnakeImage size="small" />
@@ -112,8 +112,8 @@ const NewQuestionPage = ({ navigation }) => {
             text="Frage im Meer stellen!"
           />
         </View>
-      </Background>
-    </ScrollView>
+      </ScrollView>
+    </Background>
   );
 };
 

@@ -8,6 +8,7 @@ import CustomCheckbox from "../components/Checkbox"; // Importieren Sie die Cust
 import HeaderText from "../components/HeaderText";
 import Text from "../components/Text";
 import SingleQuestion from "../components/SingleQuestion";
+import config from '../config';
 
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -23,6 +24,7 @@ import * as question from "../impressive-store/question";
 import { useEffect, useContext } from "react";
 
 const SingleQuestionPage = ({ navigation }) => {
+  const ip = config.serverIP
   const dispatch = useDispatch();
   const { currLoading, currThreadId } = useSelector(
     (state) => state.currThreads
@@ -44,8 +46,9 @@ const SingleQuestionPage = ({ navigation }) => {
     const reqData = {
       method: "GET",
       maxBodyLength: Infinity,
-      url: "http://192.168.178.59:3001/api/thread/" + { id },
+      url: "http://" + { ip } + ":3001/api/thread/" + { id },
     };
+    console.log("senden erfolgreich")
     const { data } = await axios.request(reqData);
     setCurrentThreadWithAnswers(data);
     dispatch(setCurrLoading(false));
@@ -58,8 +61,8 @@ const SingleQuestionPage = ({ navigation }) => {
   };
 
   return (
-    <ScrollView>
-      <Background>
+    <Background>
+      <ScrollView>
         {/* Inhalt der Seite */}
         <View style={styles.outerBox}>
           <SnakeImage size="small" />
@@ -118,8 +121,8 @@ const SingleQuestionPage = ({ navigation }) => {
             text="Antwort im Meer senden!"
           />
         </View>
-      </Background>
-    </ScrollView>
+      </ScrollView>
+    </Background>
   );
 };
 

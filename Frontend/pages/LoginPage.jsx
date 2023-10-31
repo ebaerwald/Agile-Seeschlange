@@ -31,7 +31,6 @@ const LoginPage = ({ navigation }) => {
   };
 
   return (
-
     <Background>
       <View style={styles.outerBox}>
 

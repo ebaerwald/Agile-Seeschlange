@@ -9,6 +9,7 @@ import * as question from "../impressive-store/question";
 import * as answer from "../impressive-store/answer";
 import { impContext } from "../impressive-store/provider";
 import { useEffect, useContext } from "react";
+import config from '../config';
 
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -36,7 +37,7 @@ const MenuePage = ({ navigation }) => {
     const reqData = {
       method: "GET",
       maxBodyLength: Infinity,
-      url: `http://192.168.178.59:3001/api/threads`,
+      url: `http://${config.serverIP}:3001/api/threads`,
     };
     const { data } = await axios.request(reqData);
     console.log(data);
@@ -48,7 +49,7 @@ const MenuePage = ({ navigation }) => {
     const reqData = {
       method: "GET",
       maxBodyLength: Infinity,
-      url: `http://192.168.178.59:3001/api/user/favoritequestion/653644ae7340265526764d5c`, //TODO Take User id from store and put there instead of 653644...
+      url: `http://${config.serverIP}:3001/api/user/favoritequestion/653644ae7340265526764d5c`, //TODO Take User id from store and put there instead of 653644...
     };
     const { data: data2 } = await axios.request(reqData);
     console.log(data2);

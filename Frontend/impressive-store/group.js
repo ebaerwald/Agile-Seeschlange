@@ -1,5 +1,5 @@
 import { passId, passObject, passIdObject, passNone } from "./root";
-
+import config from '../config';
 export const groupStore = {
     id: null,
     name: null,
@@ -19,7 +19,7 @@ export const groupsStore = {
 // TODO: Replace these with the backend routes
 // * Pay attention to the HTTP method, which is the last argument in the passId and passObject functions
 
-const ipv4 = '192.168.178.67';
+const ipv4 = config.serverIP;
 const getGroupRoute = 'http://' + ipv4 + ':3001/api/getGroup'; //get //groupId //finished
 const getGroupsRoute = 'http://' + ipv4 + ':3001/api/getGroups'; //get // random groups //finished
 

@@ -43,8 +43,9 @@ const RegisterPage = ({ navigation }) => {
   };
 
   return (
-    <ScrollView>
-      <Background>
+
+    <Background>
+          <ScrollView>
         {/* Inhalt der Seite */}
         <View style={styles.outerBox}>
           <SnakeImage size="small" />
@@ -103,8 +104,9 @@ const RegisterPage = ({ navigation }) => {
             text="Bereits eine Seeschlange? Dann logge dich hier ein"
           />
         </View>
-      </Background>
-    </ScrollView>
+      </ScrollView>
+    </Background>
+
   );
 };
 

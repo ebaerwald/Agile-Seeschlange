@@ -38,8 +38,9 @@ const LawPage = ({ navigation }) => {
   };
 
   return (
-    <ScrollView>
-      <Background>
+
+    <Background>
+          <ScrollView>
         {/* Inhalt der Seite */}
         <View style={styles.outerBox}>
           <SnakeImage size="small" />
@@ -77,8 +78,8 @@ const LawPage = ({ navigation }) => {
 
           <Text title="Dieses Produkt wurde von ANG, TID, ERB, SMH entwickelt." type="center" />
         </View>
-      </Background>
-    </ScrollView>
+      </ScrollView>
+    </Background>
   );
 };
 

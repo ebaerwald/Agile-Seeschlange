@@ -89,7 +89,7 @@ export default function App() {
           component={SingleQuestionPage}
         />
         <QuestionStack.Screen
-          name="Neue Frage posten"
+          name="NewQuestion"
           component={NewQuestionPage}
         />
       </QuestionStack.Navigator>

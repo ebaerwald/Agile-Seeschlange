@@ -14,10 +14,13 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "scheme": "agile-seeschlange",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.agileSeeschlange.Frontend"
     },
     "android": {
+      "package": "com.agileSeeschlange.Frontend",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"

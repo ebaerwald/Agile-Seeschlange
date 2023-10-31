@@ -8,8 +8,37 @@ import { impContext } from "../impressive-store/provider";
 import { useEffect, useContext } from "react";
 import { StyleSheet, View, ScrollView, Text, Button } from 'react-native';
 import Background from '../components/Background';
+import * as WebBrowser from 'expo-web-browser';
+import { makeRedirectUri, useAuthRequest } from 'expo-auth-session';
+import * as React from 'react';
+
+WebBrowser.maybeCompleteAuthSession();
+
+const discovery = {
+  authorizationEndpoint: 'https://github.com/login/oauth/authorize',
+  tokenEndpoint: 'https://github.com/login/oauth/access_token',
+  revocationEndpoint: 'https://github.com/settings/connections/applications/96f22eaf46e6f1bcdb9f',
+};
 
 const TestBackendPage = () => {
+
+  const [request, response, promptAsync] = useAuthRequest(
+    {
+      clientId: '96f22eaf46e6f1bcdb9f',
+      scopes: ['identity'],
+      redirectUri: makeRedirectUri({
+        "scheme": "agile-seeschlange"
+      }),
+    },
+    discovery
+  );
+
+  React.useEffect(() => {
+    if (response?.type === 'success') {
+      const { code } = response.params;
+      console.log(code);
+    }
+  }, [response]);
 
     const { imp } = useContext(impContext);
     useEffect(() => {
@@ -20,6 +49,7 @@ const TestBackendPage = () => {
       <ScrollView>
         <Background showFooter={true} showBurgerBun={true}>
           <View style={styles.outerBox}>
+            <Text>{JSON.stringify(user)}</Text>
             <Text>Username: {imp.userStore.username}</Text>
             <Text>Email: {imp.userStore.email}</Text>
             <Text>Google User ID: {imp.userStore.googleUserId}</Text>
@@ -32,6 +62,13 @@ const TestBackendPage = () => {
                   ...imp.userStore,
                   username: "Test",
                 })
+              }}
+            />
+            <Button
+              title="Sign In with Google"
+              disabled={!request}
+              onPress={() => {
+                promptAsync();
               }}
             />
             <Button

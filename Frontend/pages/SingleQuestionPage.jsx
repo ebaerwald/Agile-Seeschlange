@@ -52,7 +52,7 @@ const SingleQuestionPage = ({ navigation }) => {
 
   const handleAnswerButtonClick = () => {
     // Hier Logik für den Antwortgeben-Button
-    console.log("AGB akzeptiert:", agbChecked);
+    console.log("AGB akzeptiert:", UserRightsChecked);
     //navigation.navigate('Menue');
   };
 
@@ -78,12 +78,14 @@ const SingleQuestionPage = ({ navigation }) => {
               />
             </>
           )}
-          {/* Eingabefelder für Vorname, Nachname, Geburtsdatum, E-Mail und Passwort */}
+
           <DataInputField
             placeholder="Deine Antwort*"
             value={giveAnswer}
             onChangeText={(text) => setAnswer(text)}
           />
+
+        {/*SMH Fragt: Kann der Button nicht raus?
 
           <Button
             title="Get Question"
@@ -99,6 +101,7 @@ const SingleQuestionPage = ({ navigation }) => {
               }
             }}
           />
+          */}
 
           <CustomCheckbox
             label="Hiermit stimme ich zu, dass meine Antwort veröffentlich wird*"

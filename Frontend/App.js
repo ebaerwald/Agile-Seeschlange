@@ -73,13 +73,12 @@ export default function App() {
   function QuestionStackScreen() {
     return (
       <QuestionStack.Navigator
-
+      initialRouteName="Home"
         screenOptions={{ headerShown: false }}
       >              
         <QuestionStack.Screen name="Home" component={MenuePage} />
         <QuestionStack.Screen name="SingleQuestion" component={SingleQuestionPage} />
         <QuestionStack.Screen name="Neue Frage posten" component={NewQuestionPage} />
-
       </QuestionStack.Navigator>
     );
   }

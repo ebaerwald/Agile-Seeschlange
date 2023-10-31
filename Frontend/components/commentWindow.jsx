@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, Modal, TextInput, Button, StyleSheet } from "react-native";
+import { useSelector } from "react-redux";
 
 const CommentWindow = ({
   isVisible,
@@ -7,10 +8,10 @@ const CommentWindow = ({
   onClose,
   answerId,
   parentAnswer,
-  parentTHread,
+  parentThread,
 }) => {
   const [comment, setComment] = useState();
-
+  const { currThreadId } = useSelector((state) => state.currThreads);
   return (
     <Modal visible={isVisible} animationType="slide">
       <View style={styles.container}>
@@ -22,7 +23,9 @@ const CommentWindow = ({
         />
         <Button
           title="Kommentieren"
-          onPress={() => onComment(comment, answerId)}
+          onPress={() =>
+            onComment(comment, answerId, "", parentAnswer, currThreadId)
+          }
         />
         <Button title="Abbrechen" onPress={onClose} />
       </View>

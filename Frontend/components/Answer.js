@@ -47,9 +47,10 @@ const Answer = ({
       parentAnswer,
       parentThread
     );
-    console.log("Kommentar hinzugefügt");
+    console.log("Kommentar hinzugefügt", parentAnswer, parentThread);
     closeCommentWindow();
   };
+
   async function addAnswerToObject(
     commentText,
     answerId,
@@ -60,11 +61,11 @@ const Answer = ({
     const reqData = {
       method: "POST",
       maxBodyLength: Infinity,
-      url: "http://192.168.178.59/api/answer",
+      url: `http://${config.serverIP}:3001/api/answer`,
       headers: {
         "Content-Type": "application/json",
       },
-      body: {
+      data: {
         title: "Miau",
         text: commentText,
         answerOwner: "651ab2ac507701e42608db16",
@@ -72,8 +73,8 @@ const Answer = ({
         parentThread: parentThread,
       },
     };
-    await axios.request(reqData);
     console.log(reqData);
+    await axios.request(reqData);
   }
   const handleLike = () => {
     console.log("Es wurde geliket");
@@ -154,7 +155,7 @@ const Answer = ({
           onComment={addComment}
           onClose={closeCommentWindow}
           answerId={currentAnswerId}
-          parentAnswer={parentAnswer}
+          parentAnswer={answerId}
           parentThread={parentThread}
         />
       </View>

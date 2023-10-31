@@ -55,24 +55,6 @@ const TestBackendPage = () => {
       <ScrollView>
         <Background>
           <View style={styles.outerBox}>
-<<<<<<< HEAD
-
-{/*
-          {
-            questions.current.map((question) => {
-              return (
-                <View key={question._id}>
-                  <Text>{question.id}</Text>
-                  <Text>{question.title}</Text>
-                  <Text>{question.text}</Text>
-                </View>
-              )
-            })
-          }
-*/}
-=======
-            <Text>{JSON.stringify(user)}</Text>
->>>>>>> origin/EB-OAuth2
             <Text>Username: {imp.userStore.username}</Text>
             <Text>Email: {imp.userStore.email}</Text>
             <Text>Google User ID: {imp.userStore.googleUserId}</Text>

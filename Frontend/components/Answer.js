@@ -4,6 +4,7 @@ import InteractionButton from "../components/InteractionButton"; // Importiere d
 
 import CommentWindow from "../components/commentWindow.jsx";
 import axios from "axios";
+import config from "../config";
 
 const Answer = ({
   user,
@@ -46,9 +47,10 @@ const Answer = ({
       parentAnswer,
       parentThread
     );
-    console.log("Kommentar hinzugefügt");
+    console.log("Kommentar hinzugefügt", parentAnswer, parentThread);
     closeCommentWindow();
   };
+
   async function addAnswerToObject(
     commentText,
     answerId,
@@ -59,7 +61,7 @@ const Answer = ({
     const reqData = {
       method: "POST",
       maxBodyLength: Infinity,
-      url: "http://192.168.178.59/api/answer",
+      url: `http://${config.serverIP}:3001/api/answer`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -71,6 +73,7 @@ const Answer = ({
         parentThread: parentThread,
       },
     };
+    console.log(reqData);
     await axios.request(reqData);
   }
   const handleLike = () => {
@@ -152,7 +155,7 @@ const Answer = ({
           onComment={addComment}
           onClose={closeCommentWindow}
           answerId={currentAnswerId}
-          parentAnswer={parentAnswer}
+          parentAnswer={answerId}
           parentThread={parentThread}
         />
       </View>

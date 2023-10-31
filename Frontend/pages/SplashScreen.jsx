@@ -11,7 +11,7 @@ const SplashScreen = ({ navigation }) => {
   const handleLoginButtonClick = () => {
     // Hier Logik für den Login-Button
     console.log('Login-Button wurde geklickt');
-    navigation.navigate('LoginPage');
+    navigation.navigate('Login');
   };
 
   const handleRegisterButtonClick = () => {

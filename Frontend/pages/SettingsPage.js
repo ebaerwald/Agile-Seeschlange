@@ -12,12 +12,11 @@ export function SettingsPage() {
   const styles = themedStyle(currentTheme);
 
   const aussehenButton = () => {
-    console.log("aussehen button gedrueckt");
     navigation.navigate("AussehenPage");
   };
 
   const notificationButton = () => {
-    navigation.navigate("NotificationsPage");
+    navigation.navigate("FAQ");
   };
 
   const kontoButton = () => {
@@ -25,8 +24,17 @@ export function SettingsPage() {
   };
 
   const memoryDataButton = () => {
-    navigation.navigate("MemoryDataPage");
+    navigation.navigate("Archiv");
   };
+
+  const TestImpStoreBackendButton = () => {
+    navigation.navigate("TestImpStoreBackend");
+  };
+
+  const lawButton = () => {
+    navigation.navigate("Law");
+  };
+
 
   return (
     <View style={styles.container}>
@@ -34,19 +42,22 @@ export function SettingsPage() {
       <SnakeImage size={"small"} />
 
       <TouchableOpacity style={styles.button} onPress={kontoButton}>
-        <Text style={styles.buttonText}>Konto</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Datenschutz</Text>
+        <Text style={styles.buttonText}>Kontoeinstellungen</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={memoryDataButton}>
-        <Text style={styles.buttonText}>Speicher und Daten</Text>
+        <Text style={styles.buttonText}>Mein Archiv</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={notificationButton}>
-        <Text style={styles.buttonText}>Mitteilungen</Text>
+        <Text style={styles.buttonText}>FAQ</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={lawButton}>
+        <Text style={styles.buttonText}>Rechtliche Informationen</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={aussehenButton}>
-        <Text style={styles.buttonText}>Aussehen</Text>
+        <Text style={styles.buttonText}>Theme</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={TestImpStoreBackendButton}>
+        <Text style={styles.buttonText}>Hier gehts zur Testseite des ImpStores</Text>
       </TouchableOpacity>
     </View>
   );

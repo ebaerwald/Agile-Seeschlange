@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SnakeImage from "../components/SnakeImage";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from "react-native";
 import HeaderText from "../components/HeaderText";
 import Background from "../components/Background";
 import { useTheme } from "../hooks/useTheme";
@@ -18,6 +18,22 @@ export function FaqPage() {
   const currentTheme = useTheme({ currentAppColorScheme });
   const styles = themedStyle(currentTheme);
 
+  const questions = [
+    "Gibt es einen Darkmode?",
+    "Wie sieht es mit dem Datenschutz aus?",
+    "Warum Seeschlange?",
+    "Wann kommen neue Features?",
+    "Wie kann ich Freunde einladen?",
+  ];
+  
+  const answers = [
+    "Aber natürlich gibt es einen Darkmode. Um diesen zu aktivieren gehe einfach in die Einstellung und Aktiviere den ‘TiefseeModus’.",
+    "Kritische Sache frag lieber mal Sascha",
+    "Hat Herr Paar ins Leben gerufen",
+    "Nach dem 5. Semester wahrscheinlich nie wieder",
+    "Hast du überhaupt welche?",
+  ];
+
   const toggleTextExpansion = (index) => {
     const updatedExpansionState = [...isTextExpanded];
     updatedExpansionState[index] = !updatedExpansionState[index];
@@ -25,8 +41,10 @@ export function FaqPage() {
   };
 
   return (
-    <View style={styles.container}>
+
       <Background>
+        <ScrollView>
+            <View style={styles.container}>
         <View>
           <SnakeImage />
         </View>
@@ -61,26 +79,12 @@ export function FaqPage() {
             </View>
           ))}
         </View>
+        </View>
+        </ScrollView>
       </Background>
-    </View>
+
   );
 }
-
-const questions = [
-  "Gibt es einen Darkmode?",
-  "Wie sieht es mit dem Datenschutz aus?",
-  "Warum Seeschlange?",
-  "Wann kommen neue Features?",
-  "Wie kann ich Freunde einladen?",
-];
-
-const answers = [
-  "Aber natürlich gibt es einen Darkmode. Um diesen zu aktivieren gehe einfach in die Einstellung und Aktiviere den ‘TiefseeModus’.",
-  "Kritische Sache frag lieber mal Sascha",
-  "Hat Herr Paar ins Leben gerufen",
-  "Nach dem 5. Semester wahrscheinlich nie wieder",
-  "Hast du überhaupt welche?",
-];
 
 const themedStyle = (currentTheme) =>
   StyleSheet.create({
@@ -98,7 +102,7 @@ const themedStyle = (currentTheme) =>
       borderWidth: 1,
       borderColor: "black",
       padding: 10,
-      backgroundColor: "#a4ea7a",
+      backgroundColor: "#72C770",
     },
     questionContainer: {
       flexDirection: "row",
@@ -112,7 +116,7 @@ const themedStyle = (currentTheme) =>
     faqAnswer: {
       fontSize: 16,
       marginTop: 5,
-      backgroundColor: "#72C770",
+      backgroundColor: "#a4ea7a",
       padding: 10,
       borderRadius: 5,
     },

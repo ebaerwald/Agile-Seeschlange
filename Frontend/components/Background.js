@@ -2,7 +2,9 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 
 const Background = ({ children }) => {
-  return <View style={styles.backgroundContainer}>{children}</View>;
+  return <View style={styles.backgroundContainer}>{children}
+  
+  </View>;
 };
 
 const styles = StyleSheet.create({

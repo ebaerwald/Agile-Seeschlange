@@ -125,7 +125,7 @@ const Question = ({
           </View>
         </View>
       )}
-      <View style={styles.menueContainer}>
+      <View style={styles.MenueContainer}>
         {/* Button zum Anzeigen/Ausblenden von Antworten */}
         {!newQuestion && (
           <TouchableOpacity
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     borderRadius: 1,
     marginLeft: 5,
   },
-  menueContainer: {
+  MenueContainer: {
     marginTop: 10,
     justifyContent: "center",
     alignItems: "center",

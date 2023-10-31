@@ -43,6 +43,8 @@ const LawPage = ({ navigation }) => {
           <ScrollView>
         {/* Inhalt der Seite */}
         <View style={styles.outerBox}>
+        <Text>EinstellungenScreen</Text>
+         <BackButton /> {/* Zeige den Zurück-Button in dieser Bildschirmkomponente an */}
           <SnakeImage size="small" />
           <HeaderText title="Hier findest du unsere Meeresbestimmungen" type="center" />
 

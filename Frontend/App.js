@@ -8,6 +8,7 @@ import { LoginPage } from "./pages/LoginPage";
 import { SplashScreen } from "./pages/SplashScreen";
 import { RegisterPage } from "./pages/RegisterPage";
 import { MenuePage } from "./pages/MenuePage";
+import { LawPage } from "./pages/LawPage";
 import { ArchivPage } from "./pages/ArchivPage";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { SettingsPage } from "./pages/SettingsPage";
@@ -21,6 +22,7 @@ import { TestBackendPage } from "./pages/test-backend";
 import { SingleQuestionPage } from "./pages/SingleQuestionPage";
 import { NewQuestionPage } from "./pages/NewQuestionPage";
 import { useState } from "react";
+
 
 //+++++*Redux Store++++++
 import { Provider } from "react-redux";
@@ -39,61 +41,49 @@ import { userStore, usersStore } from "./impressive-store/user";
 export default function App() {
   const EinstellungenStack = createStackNavigator();
   const FrontendTestStack = createStackNavigator();
+  const QuestionStack = createStackNavigator();
 
   function EinstellungenStackScreen() {
     return (
       <EinstellungenStack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
+      initialRouteName="Setting"
+        screenOptions={{ headerShown: false }}
       >
-        <EinstellungenStack.Screen
-          name="Einstellungen"
-          component={SettingsPage}
-        />
-        <EinstellungenStack.Screen
-          name="AussehenPage"
-          component={AussehenPage}
-        />
-        <EinstellungenStack.Screen
-          name="NotificationsPage"
-          component={NotificationsPage}
-        />
+        {/* Login und RegisterRoutem */}
+        <EinstellungenStack.Screen name="Splash" component={SplashScreen} />        
+        <FrontendTestStack.Screen name="LoginPage" component={LoginPage} />
+        <FrontendTestStack.Screen name="RegisterPage" component={RegisterPage} />
+
+        {/* Routen rund um die Einstellungen und um das Konto */}
+        <EinstellungenStack.Screen name="Setting" component={SettingsPage} />   
+        <EinstellungenStack.Screen name="AussehenPage" component={AussehenPage} />
+        <EinstellungenStack.Screen name="NotificationsPage" component={NotificationsPage} />
         <EinstellungenStack.Screen name="KontoPage" component={KontoPage} />
-        <EinstellungenStack.Screen
-          name="MemoryDataPage"
-          component={MemoryDataPage}
-        />
+        <EinstellungenStack.Screen name="Archiv" component={ArchivPage} />
+        <EinstellungenStack.Screen name="Law" component={LawPage} />
+        <EinstellungenStack.Screen name="FAQ" component={FaqPage} />
+
+        {/* Routen zum Testen und sonstiger Müll, der noch gelöscht werden müsste */}
+        <EinstellungenStack.Screen name="TestImpStoreBackend" component={TestBackendPage} />
+
       </EinstellungenStack.Navigator>
     );
   }
 
-  function FrontendTestStackScreen() {
+  function QuestionStackScreen() {
     return (
-      <FrontendTestStack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <FrontendTestStack.Screen
-          name={"FrontendTestScreen"}
-          component={FrontendTestScreen}
-        />
-        <FrontendTestStack.Screen name={"LoginPage"} component={LoginPage} />
-        <FrontendTestStack.Screen
-          name={"SplashScreen"}
-          component={SplashScreen}
-        />
-        <FrontendTestStack.Screen
-          name={"RegisterPage"}
-          component={RegisterPage}
-        />
-        <FrontendTestStack.Screen name={"MenuePage"} component={MenuePage} />
-        <FrontendTestStack.Screen name={"ArchivPage"} component={ArchivPage} />
-        <FrontendTestStack.Screen name={"FaqPage"} component={FaqPage} />
-      </FrontendTestStack.Navigator>
+      <QuestionStack.Navigator
+
+        screenOptions={{ headerShown: false }}
+      >              
+        <QuestionStack.Screen name="Home" component={MenuePage} />
+        <QuestionStack.Screen name="SingleQuestion" component={SingleQuestionPage} />
+        <QuestionStack.Screen name="Neue Frage posten" component={NewQuestionPage} />
+
+      </QuestionStack.Navigator>
     );
   }
+
   const Tab = createBottomTabNavigator();
   const initialStore = {
     usersStore: usersStore,
@@ -114,6 +104,7 @@ export default function App() {
         <ThemeProvider>
           <NavigationContainer>
             <Tab.Navigator
+            initialRouteName={true ? "Home" : "Splash"}
               screenOptions={({ route }) => ({
                 headerShown: false,
                 tabBarIcon: ({ focused, color, size }) => {
@@ -127,6 +118,10 @@ export default function App() {
                     iconName = focused ? "people-outline" : "people";
                   } else if (route.name === "Explore") {
                     iconName = focused ? "eye-outline" : "eye";
+                  } else if (route.name === "Neue Frage posten") {
+                    iconName= focused ? "help-circle-outline" : "help-circle";
+                  } else if (route.name === "Neue Frage posten") {
+                    iconName= focused ? "return-up-back-outline" : "help-circle";
                   }
 
                   // You can return any component that you like here!
@@ -136,25 +131,12 @@ export default function App() {
                 tabBarInactiveTintColor: "gray",
               })}
             >
-              <Tab.Screen name="Home" component={MenuePage} />
-              <Tab.Screen name="Groups" component={FrontendTestStackScreen} />
-              <Tab.Screen name="Explore" component={ArchivPage} />
-              <Tab.Screen
-                name="Einstellungen"
-                component={EinstellungenStackScreen}
-              />
-              <Tab.Screen name="TestBackend" component={TestBackendPage} />
-              <Tab.Screen name="Menue" component={MenuePage} />
-              <Tab.Screen name="Archiv" component={ArchivPage} />
-              <Tab.Screen name="NewQuestion" component={NewQuestionPage} />
-              <Tab.Screen
-                name="SingleQuestion"
-                component={SingleQuestionPage}
-              />
+              <Tab.Screen name="Home" component={QuestionStackScreen} />
               <Tab.Screen name="Splash" component={SplashScreen} />
-              <Tab.Screen name="Register" component={RegisterPage} />
-              <Tab.Screen name="Login" component={LoginPage} />
-            </Tab.Navigator>
+              <Tab.Screen name="Neue Frage posten" component={NewQuestionPage} />
+              <Tab.Screen name="Einstellungen" component={EinstellungenStackScreen} />
+
+          </Tab.Navigator>
           </NavigationContainer>
         </ThemeProvider>
       </ImpProvider>

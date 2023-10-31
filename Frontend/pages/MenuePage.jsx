@@ -61,7 +61,7 @@ const MenuePage = ({ navigation }) => {
     <Background>
       <ScrollView>
         <View style={styles.outerBox}>
-          <HeaderText title="Home" type="left" />
+          <HeaderText title="Menue" type="left" />
           <Searchbar
             onChangeText={(newText) => {
               console.log("Suchtext:", newText);

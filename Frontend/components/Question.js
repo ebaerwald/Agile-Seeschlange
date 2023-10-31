@@ -57,6 +57,7 @@ const Question = ({
   const handleShortPress = () => {
     if (!newQuestion) {
       dispatch(setCurrThreadId(questionId));
+
       navigation.navigate("SingleQuestion");
     } else console.log("Es ist eine neue Frage und hat keine Antworten");
   };

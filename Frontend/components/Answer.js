@@ -4,6 +4,7 @@ import InteractionButton from "../components/InteractionButton"; // Importiere d
 
 import CommentWindow from "../components/commentWindow.jsx";
 import axios from "axios";
+import config from "../config";
 
 const Answer = ({
   user,
@@ -63,7 +64,7 @@ const Answer = ({
       headers: {
         "Content-Type": "application/json",
       },
-      data: {
+      body: {
         title: "Miau",
         text: commentText,
         answerOwner: "651ab2ac507701e42608db16",
@@ -72,6 +73,7 @@ const Answer = ({
       },
     };
     await axios.request(reqData);
+    console.log(reqData);
   }
   const handleLike = () => {
     console.log("Es wurde geliket");

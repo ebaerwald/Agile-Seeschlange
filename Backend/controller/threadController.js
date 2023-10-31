@@ -105,7 +105,7 @@ exports.getThreadWithAnswers = async (req, res, next) => {
     const { id } = req.params;
     async function getThreadWithAnswers(_id) {
       try {
-        let thread = await Thread.findOne(_id);
+        let thread = await Thread.findOne({ _id });
 
         if (!thread) {
           return null;

@@ -8,7 +8,7 @@ import CustomCheckbox from "../components/Checkbox"; // Importieren Sie die Cust
 import HeaderText from "../components/HeaderText";
 import Text from "../components/Text";
 import SingleQuestion from "../components/SingleQuestion";
-import config from '../config';
+import config from "../config";
 
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -24,7 +24,7 @@ import * as question from "../impressive-store/question";
 import { useEffect, useContext } from "react";
 
 const SingleQuestionPage = ({ navigation }) => {
-  const ip = config.serverIP
+  const ip = config.serverIP;
   const dispatch = useDispatch();
   const { currLoading, currThreadId } = useSelector(
     (state) => state.currThreads
@@ -37,18 +37,14 @@ const SingleQuestionPage = ({ navigation }) => {
   const { imp } = useContext(impContext);
   useEffect(() => {
     reloadCurrThread(currThreadId);
-  }, []);
+  }, [currThreadId]);
 
   async function reloadCurrThread(currThreadId) {
-    console.log("reloadingg shit" + currThreadId);
-    const id = new String(currThreadId);
-    dispatch(setCurrLoading(true));
     const reqData = {
       method: "GET",
       maxBodyLength: Infinity,
-      url: "http://" + { ip } + ":3001/api/thread/" + { id },
+      url: `http://${ip}:3001/api/thread/${currThreadId}`,
     };
-    console.log("senden erfolgreich")
     const { data } = await axios.request(reqData);
     setCurrentThreadWithAnswers(data);
     dispatch(setCurrLoading(false));

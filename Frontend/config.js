@@ -1,9 +1,6 @@
-// Hier wird die individuelle IP-Adresse gesetzt
-
 export default {
-    serverIP: "192.168.178.67",
-  };
-
+  serverIP: "192.168.178.59",
+};
 
 // Die IP kann über import config from '.config.js' eingebunden werden, indem die Variable dann über config.serverIP gesetzt wird.
 
@@ -16,8 +13,6 @@ export default {
 // SingleQuestionPage.js
 // MenuPage.js
 
-
 // Wer hat welche IP für schnelleres eintragen:
 // SMH: 192.168.178.67
 // TID: 192.168.178.59
-  

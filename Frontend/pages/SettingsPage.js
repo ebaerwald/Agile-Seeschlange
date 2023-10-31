@@ -17,7 +17,7 @@ export function SettingsPage() {
   };
 
   const notificationButton = () => {
-    navigation.navigate("FAQ");
+    navigation.navigate("NotificationsPage");
   };
 
   const kontoButton = () => {
@@ -56,10 +56,7 @@ export function SettingsPage() {
         <Text style={styles.buttonText}>Aussehen</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={notificationButton}>
-        <Text style={styles.buttonText}>FAQ</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={lawButton}>
-        <Text style={styles.buttonText}>Rechtliche Informationen</Text>
+        <Text style={styles.buttonText}>Mitteilungen</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={datenschutzButton}>
         <Text style={styles.buttonText}>Rechtliches</Text>

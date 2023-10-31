@@ -57,26 +57,10 @@ export default function App() {
       >
         {/* Login und RegisterRoutem */}
         <EinstellungenStack.Screen name="Splash" component={SplashScreen} />
-        <FrontendTestStack.Screen name="LoginPage" component={LoginPage} />
-        <FrontendTestStack.Screen
-          name="RegisterPage"
-          component={RegisterPage}
-        />
-
         {/* Routen rund um die Einstellungen und um das Konto */}
         <EinstellungenStack.Screen name="Setting" component={SettingsPage} />
-        <EinstellungenStack.Screen
-          name="AussehenPage"
-          component={AussehenPage}
-        />
-        <EinstellungenStack.Screen
-          name="NotificationsPage"
-          component={NotificationsPage}
-        />
-        <EinstellungenStack.Screen name="KontoPage" component={KontoPage} />
         <EinstellungenStack.Screen name="Archiv" component={ArchivPage} />
         <EinstellungenStack.Screen name="Law" component={LawPage} />
-        <EinstellungenStack.Screen name="FAQ" component={FaqPage} />
 
         {/* Routen zum Testen und sonstiger Müll, der noch gelöscht werden müsste */}
         <EinstellungenStack.Screen

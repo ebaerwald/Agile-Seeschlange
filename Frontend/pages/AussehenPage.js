@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Switch } from "react-native";
 import { useTheme } from "../hooks/useTheme";
 import { useThemeContext } from "../components/ThemeContext";
 import SnakeImage from "../components/SnakeImage";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 const AussehenPage = () => {
   const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();
@@ -54,12 +55,14 @@ const AussehenPage = () => {
       </Text>
       <View style={styles.separator} />
       <View style={styles.switchContainer}>
+        <Ionicons name="moon" size={16} style={styles.icon} />
         <Text style={styles.switchLabel}>Tiefsee</Text>
         <Switch value={tiefseeActive} onValueChange={handleTiefseeChange} />
       </View>
       <View style={styles.separator} />
       <View style={styles.switchContainer}>
-        <Text style={styles.switchLabel}>Systemeinstellungen</Text>
+        <Ionicons name="contrast" size={16} style={styles.icon} />
+        <Text style={styles.switchLabel}>Automatisch</Text>
         <Switch
           value={automatischActive}
           onValueChange={handleAutomatischChange}
@@ -67,6 +70,7 @@ const AussehenPage = () => {
       </View>
       <View style={styles.separator} />
       <View style={styles.switchContainer}>
+        <Ionicons name="sunny" size={16} style={styles.icon} />
         <Text style={styles.switchLabel}>Oberfläche</Text>
         <Switch
           value={oberflacheActive}
@@ -93,10 +97,15 @@ const themedStyle = (currentTheme) =>
       flexDirection: "row",
       alignItems: "center",
       margin: 10,
+      justifyContent: "space-between",
+      width: "70%",
+    },
+    icon: {
+      marginRight: 10,
+      color: currentTheme.textColor, // Customize the icon color
     },
     switchLabel: {
       fontSize: 16,
-      marginRight: 10,
       color: currentTheme.textColor,
     },
     header: {

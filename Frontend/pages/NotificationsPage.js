@@ -62,7 +62,7 @@ export function NotificationsPage() {
         body: "Du warst schon lange nicht mehr hier, möchtest du nicht mal wieder reinschauen? 😥",
         data: { data: "goes here" },
       },
-      trigger: { seconds: 86400, repeats: true },
+      trigger: { seconds: 30, repeats: true },
     });
   }
 

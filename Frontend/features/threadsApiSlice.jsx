@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import config from "../config"; // Importiere die conf.js-Datei
 
 export const threadsApiSlice = createApi({
   reducerPath: "threadsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://192.168.178.59:3001/api",
+    baseUrl: `http://${config.serverIP}:3001/api`,
   }),
   endpoints: (builder) => ({
     getThreads: builder.query({

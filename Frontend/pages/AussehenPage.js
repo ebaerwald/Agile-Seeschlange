@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Switch } from "react-native"; // Add Switch
-import { ThemeChanger } from "../components/ThemeChanger";
+import { StyleSheet, Text, View, Switch } from "react-native";
 import { useTheme } from "../hooks/useTheme";
 import { useThemeContext } from "../components/ThemeContext";
+import SnakeImage from "../components/SnakeImage";
 
 const AussehenPage = () => {
-  const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext(); // Call useThemeContext as a function
+  const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();
   const currentTheme = useTheme({ currentAppColorScheme });
   const styles = themedStyle(currentTheme);
 
@@ -22,43 +21,51 @@ const AussehenPage = () => {
 
   const handleTiefseeChange = (value) => {
     if (value) {
-      setCurrentAppColorScheme("dark"); // Set the app theme to dark
+      setCurrentAppColorScheme("dark");
+      setTiefseeActive(true);
+      setAutomatischActive(false);
+      setOberflacheActive(false);
     }
   };
 
   const handleAutomatischChange = (value) => {
     if (value) {
-      setCurrentAppColorScheme("auto"); // Set the app theme to auto
+      setCurrentAppColorScheme("auto");
+      setTiefseeActive(false);
+      setAutomatischActive(true);
+      setOberflacheActive(false);
     }
   };
 
   const handleOberflacheChange = (value) => {
     if (value) {
-      setCurrentAppColorScheme("light"); // Set the app theme to light
+      setCurrentAppColorScheme("light");
+      setTiefseeActive(false);
+      setAutomatischActive(false);
+      setOberflacheActive(true);
     }
   };
 
   return (
     <View style={styles.container}>
-      <ThemeChanger
-        currentAppColorScheme={currentAppColorScheme}
-        onChange={setCurrentAppColorScheme}
-      />
-      <StatusBar style={currentTheme.statusBarStyle} />
-
+      <SnakeImage size={"big"}></SnakeImage>
+      <Text style={styles.header}>
+        Entscheide selbst wie tief die Seeschlange schwimmt!
+      </Text>
+      <View style={styles.separator} />
       <View style={styles.switchContainer}>
         <Text style={styles.switchLabel}>Tiefsee</Text>
         <Switch value={tiefseeActive} onValueChange={handleTiefseeChange} />
       </View>
-
+      <View style={styles.separator} />
       <View style={styles.switchContainer}>
-        <Text style={styles.switchLabel}>Automatisch</Text>
+        <Text style={styles.switchLabel}>Systemeinstellungen</Text>
         <Switch
           value={automatischActive}
           onValueChange={handleAutomatischChange}
         />
       </View>
-
+      <View style={styles.separator} />
       <View style={styles.switchContainer}>
         <Text style={styles.switchLabel}>Oberfläche</Text>
         <Switch
@@ -66,6 +73,7 @@ const AussehenPage = () => {
           onValueChange={handleOberflacheChange}
         />
       </View>
+      <View style={styles.separator} />
     </View>
   );
 };
@@ -89,6 +97,18 @@ const themedStyle = (currentTheme) =>
     switchLabel: {
       fontSize: 16,
       marginRight: 10,
+      color: currentTheme.textColor,
+    },
+    header: {
+      color: currentTheme.textColor,
+      fontSize: 15,
+    },
+    separator: {
+      borderBottomWidth: 1,
+      borderColor: currentTheme.textColor,
+      width: "70%",
+      alignSelf: "center",
+      marginVertical: 10,
     },
   });
 

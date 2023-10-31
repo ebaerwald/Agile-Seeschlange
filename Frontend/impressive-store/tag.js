@@ -1,4 +1,5 @@
 import { passId, passObject, passIdObject } from "./root";
+import config from '../config';
 
 export const tagStore = {
     id: null,
@@ -6,7 +7,7 @@ export const tagStore = {
     describtion: null
 }
 
-const ipv4 = '10.25.3.174';
+const ipv4 = config.serverIP;
 const createTagRoute = 'http://' + ipv4 + ':3001/api/tag';
 const deleteTagRoute = 'http://' + ipv4 + ':3001/api/tag';
 const updateTagRoute = 'http://' + ipv4 + ':3001/api/tag';

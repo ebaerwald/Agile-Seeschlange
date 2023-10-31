@@ -1,5 +1,6 @@
 import { passId, passObject, passIdObject } from "./root";
 import * as Crypto from 'expo-crypto';
+import config from '../config';
 
 export const userStore = {
     id: null,
@@ -16,7 +17,7 @@ export const usersStore = {
 // TODO: Replace these with the backend routes
 // * Pay attention to the HTTP method, which is the last argument in the passId and passObject functions
 
-const ipv4 = '10.25.3.174';
+const ipv4 = config.serverIP;
 const getUserRoute = 'http://' + ipv4 + ':3001/api/user'; // don not work, body is not allowed for ger requests
 const createUserRoute = 'http://' + ipv4 + ':3001/api/user/signup'; //finished
 const updateUserRoute = 'http://' + ipv4 + ':3001/api/user'; //finished waiting for commit

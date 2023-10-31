@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import Answer from "../components/Answer";
-import InteractionButton from "../components/InteractionButton";
-import DataInputField from "../components/DataInputField";
+import Answer from "./Answer";
+import InteractionButton from "./InteractionButton";
+import DataInputField from "./DataInputField";
 
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -11,7 +11,7 @@ import {
   setCurrLoading,
 } from "../features/Threads/currentThreadSlice.jsx";
 
-const Question = ({
+const SingleQuestion = ({
   subject,
   user,
   question,
@@ -56,17 +56,15 @@ const Question = ({
 
   const handleShortPress = () => {
     if (!newQuestion) {
+      console.log("Einfacher Klick wurde erkannt");
       dispatch(setCurrThreadId(questionId));
-
+      console.log(questionId);
       navigation.navigate("SingleQuestion");
     } else console.log("Es ist eine neue Frage und hat keine Antworten");
   };
 
   return (
-    <TouchableOpacity
-      style={styles.QuestionContainer}
-      onPress={handleShortPress}
-    >
+    <View style={styles.QuestionContainer} onPress={handleShortPress}>
       {/* Container für allgemeine Infos der Frage, wie z. B. welches Fach und welcher Benutzer gefragt hat */}
       <View style={styles.generalInfoContainer}>
         <View style={styles.userContainer}>
@@ -146,12 +144,14 @@ const Question = ({
                 answers={answer.answers}
                 newShowAnswers={showAnswers}
                 marginOffset={20}
+                answerId={answer._id}
+                parentThread={questionId}
               />
             ))}
           </View>
         )}
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 
@@ -238,4 +238,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Question;
+export default SingleQuestion;

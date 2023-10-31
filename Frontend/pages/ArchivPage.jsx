@@ -7,8 +7,9 @@ import Text from '../components/Text';
 
 const ArchivPage = ({ navigation }) => {
   return (
+
+  <Background>
     <ScrollView>
-    <Background showFooter={true} showBurgerBun={true}>
       <View style={styles.outerBox}>
       <HeaderText title="Archiv" type="left" />
 
@@ -17,8 +18,8 @@ const ArchivPage = ({ navigation }) => {
       <Question subject="Informatik" user="UserXY" question="Wie löse ich diese Aufgabe?" />
 
       </View>
-    </Background>
     </ScrollView>
+  </Background>
   );
 };
 
@@ -28,6 +29,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     padding: 2,
+    marginTop: 50,
   },
 });
 

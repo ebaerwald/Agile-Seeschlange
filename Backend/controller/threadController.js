@@ -103,9 +103,9 @@ exports.modifyThread = async (req, res, next) => {
 exports.getThreadWithAnswers = async (req, res, next) => {
   try {
     const { id } = req.params;
-    async function getThreadWithAnswers(threadId) {
+    async function getThreadWithAnswers(_id) {
       try {
-        let thread = await Thread.findById(threadId);
+        let thread = await Thread.findOne({ _id });
 
         if (!thread) {
           return null;
@@ -154,7 +154,7 @@ exports.getThreadWithAnswers = async (req, res, next) => {
 exports.getThreads = async (req, res, next) => {
   try {
     const threads = await Thread.find({})
-      .limit(50)
+      .limit(5)
       .select("title _id text")
       .exec();
 

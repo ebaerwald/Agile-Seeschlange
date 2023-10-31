@@ -1,17 +1,39 @@
-import React, { createContext, useContext, useState } from 'react';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 const ThemeContext = createContext();
 
-export const useThemeContext = () => {
-  return useContext(ThemeContext);
-};
+const ThemeProvider = ({ children }) => {
+  const [currentAppColorScheme, setCurrentAppColorScheme] = useState("auto");
 
-export const ThemeProvider = ({ children }) => {
-  const [currentAppColorScheme, setCurrentAppColorScheme] = useState('auto');
+  useEffect(() => {
+    const loadTheme = async () => {
+      const savedTheme = await AsyncStorage.getItem("appColorScheme");
+      if (savedTheme) {
+        setCurrentAppColorScheme(savedTheme);
+      }
+    };
+
+    loadTheme();
+  }, []);
+
+  useEffect(() => {
+    const saveTheme = async () => {
+      await AsyncStorage.setItem("appColorScheme", currentAppColorScheme);
+    };
+
+    saveTheme();
+  }, [currentAppColorScheme]);
 
   return (
-    <ThemeContext.Provider value={{ currentAppColorScheme, setCurrentAppColorScheme }}>
+    <ThemeContext.Provider
+      value={{ currentAppColorScheme, setCurrentAppColorScheme }}
+    >
       {children}
     </ThemeContext.Provider>
   );
 };
+
+const useThemeContext = () => useContext(ThemeContext);
+
+export { ThemeProvider, useThemeContext };

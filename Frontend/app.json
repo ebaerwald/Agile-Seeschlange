@@ -7,9 +7,17 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/seesnake.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#2D2B2B",
+      "hideExponentIcon": true,
+      "imageBackgroundSource": "#ffffff",
+      "imageBackgroundResizeMode": "contain",
+      "iconColor": "#000000",
+      "showSpinner": false,
+      "spinnerColor": "#009933",
+      "spinnerSize": 30,
+      "autoHide": 2000
     },
     "assetBundlePatterns": [
       "**/*"

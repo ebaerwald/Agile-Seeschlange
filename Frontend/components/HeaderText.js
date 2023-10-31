@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useTheme } from "../hooks/useTheme";
+import { useThemeContext } from "../components/ThemeContext";
 
 const HeaderText = ({ title, type }) => {
-  const [currentAppColorScheme, setCurrentAppColorScheme] = useState("auto");
+  const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();
   const currentTheme = useTheme({ currentAppColorScheme });
   const styles = themedStyle(currentTheme);
+
   const getTextAlign = () => {
     switch (type) {
       case "center":

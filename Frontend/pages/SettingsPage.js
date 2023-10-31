@@ -4,10 +4,11 @@ import HeaderText from "../components/HeaderText";
 import SnakeImage from "../components/SnakeImage";
 import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "../hooks/useTheme";
+import { useThemeContext } from "../components/ThemeContext";
 
 export function SettingsPage() {
   const navigation = useNavigation();
-  const [currentAppColorScheme, setCurrentAppColorScheme] = useState("auto");
+  const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();
   const currentTheme = useTheme({ currentAppColorScheme });
   const styles = themedStyle(currentTheme);
 
@@ -27,6 +28,14 @@ export function SettingsPage() {
     navigation.navigate("Archiv");
   };
 
+  const datenschutzButton = () => {
+    navigation.navigate("LegalPage");
+  };
+
+  const faqButton = () => {
+    navigation.navigate("FaqPage");
+  };
+
   const TestImpStoreBackendButton = () => {
     navigation.navigate("TestImpStoreBackend");
   };
@@ -35,17 +44,16 @@ export function SettingsPage() {
     navigation.navigate("Law");
   };
 
-
   return (
     <View style={styles.container}>
       <HeaderText title={"Einstellungen"} type={"center"} />
-      <SnakeImage size={"small"} />
+      <SnakeImage size={"big"} />
 
       <TouchableOpacity style={styles.button} onPress={kontoButton}>
-        <Text style={styles.buttonText}>Kontoeinstellungen</Text>
+        <Text style={styles.buttonText}>Konto</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={memoryDataButton}>
-        <Text style={styles.buttonText}>Mein Archiv</Text>
+      <TouchableOpacity style={styles.button} onPress={aussehenButton}>
+        <Text style={styles.buttonText}>Aussehen</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={notificationButton}>
         <Text style={styles.buttonText}>FAQ</Text>
@@ -53,11 +61,11 @@ export function SettingsPage() {
       <TouchableOpacity style={styles.button} onPress={lawButton}>
         <Text style={styles.buttonText}>Rechtliche Informationen</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={aussehenButton}>
-        <Text style={styles.buttonText}>Theme</Text>
+      <TouchableOpacity style={styles.button} onPress={datenschutzButton}>
+        <Text style={styles.buttonText}>Rechtliches</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={TestImpStoreBackendButton}>
-        <Text style={styles.buttonText}>Hier gehts zur Testseite des ImpStores</Text>
+      <TouchableOpacity style={styles.button} onPress={faqButton}>
+        <Text style={styles.buttonText}>Fragen und Antworten</Text>
       </TouchableOpacity>
     </View>
   );
@@ -81,7 +89,7 @@ const themedStyle = (currentTheme) =>
     },
     buttonText: {
       fontSize: 18,
-      color: "ffffff",
+      color: "#000000",
       fontWeight: "bold",
     },
   });

@@ -6,6 +6,13 @@ import SnakeImage from "../components/SnakeImage";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 const AussehenPage = () => {
+  const { imp } = useContext(ImpContext);
+
+  useEffect(() => {
+    if (!imp.userStore.id) {
+      navigation.navigate('Login');
+    }
+  }, []);
   const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();
   const currentTheme = useTheme({ currentAppColorScheme });
   const styles = themedStyle(currentTheme);

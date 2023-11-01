@@ -13,7 +13,12 @@ export function NotificationsPage() {
   const styles = themedStyle(currentTheme);
   const [isEnabled, setIsEnabled] = useState(false);
 
+  const { imp } = useContext(ImpContext);
+
   useEffect(() => {
+    if (!imp.userStore.id) {
+      navigation.navigate("Login");
+    }
     const requestPermissions = async () => {
       const { status } = await Notifications.requestPermissionsAsync();
       if (status !== "granted") {

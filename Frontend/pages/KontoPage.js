@@ -16,11 +16,21 @@ import { impContext } from "../impressive-store/provider";
 import { useTheme } from "../hooks/useTheme";
 import { useThemeContext } from "../components/ThemeContext";
 import SubHeaderText from "../components/Text";
+import { useNavigation } from "@react-navigation/native";
 
 export function KontoPage() {
   const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();
   const currentTheme = useTheme({ currentAppColorScheme });
   const styles = themedStyle(currentTheme);
+  const navigation = useNavigation();
+
+  const { imp } = useContext(impContext);
+
+  useEffect(() => {
+    if (!imp.userStore.id) {
+      navigation.navigate('Login');
+    }
+  }, []);
 
   const userTest = {
     firstName: "Jane",

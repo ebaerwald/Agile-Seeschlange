@@ -18,6 +18,12 @@ import { useThemeContext } from "../components/ThemeContext";
 const NewQuestionPage = ({ navigation }) => {
   const { imp } = useContext(impContext);
 
+  useEffect(() => {
+    if (!imp.userStore.id) {
+      navigation.navigate('Login');
+    }
+  }, []);
+
   const [text, setText] = useState("");
   const [title, setTitle] = useState("");
   const [UserRightsChecked, setUserRightsChecked] = useState(false); // Zustand für die AGB-Checkbox

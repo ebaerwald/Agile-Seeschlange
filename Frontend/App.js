@@ -73,6 +73,8 @@ export default function App() {
         <EinstellungenStack.Screen name="LegalPage" component={LegalPage} />
         <EinstellungenStack.Screen name="FaqPage" component={FaqPage} />
         <EinstellungenStack.Screen name="KontoPage" component={KontoPage} />
+        <EinstellungenStack.Screen name="Login" component={LoginPage} />
+        <EinstellungenStack.Screen name="Register" component={RegisterPage} />
       </EinstellungenStack.Navigator>
     );
   }
@@ -92,6 +94,8 @@ export default function App() {
           name="NewQuestion"
           component={NewQuestionPage}
         />
+        <QuestionStack.Screen name="Login" component={LoginPage} />
+        <QuestionStack.Screen name="Register" component={RegisterPage} />
       </QuestionStack.Navigator>
     );
   }

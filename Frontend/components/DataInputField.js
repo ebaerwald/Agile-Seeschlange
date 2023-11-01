@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
 
-const DataInputField = ({ placeholder, value, onChangeText, type = 'UserData' }) => {
+const DataInputField = ({ placeholder, value, onChangeText, type = 'UserData', secureTextEntry=false }) => {
   // Der Standardwert für `type` ist 'UserData', es sei denn, ein anderer Wert wird übergeben.
   const inputStyle =
     type === 'UserData' ? styles.userDataInput :
@@ -15,6 +15,7 @@ const DataInputField = ({ placeholder, value, onChangeText, type = 'UserData' })
         placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}
+        secureTextEntry={secureTextEntry}
       />
     </View>
   );

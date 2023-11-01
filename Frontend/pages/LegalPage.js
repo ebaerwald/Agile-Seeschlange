@@ -24,6 +24,14 @@ export function LegalPage() {
   const [showFrageErklaerung, setShowFrageErklaerung] = useState(false);
   const [showAntwortErklaerung, setShowAntwortErklaerung] = useState(false);
 
+  const { imp } = useContext(ImpContext);
+
+  useEffect(() => {
+    if (!imp.userStore.id) {
+      navigation.navigate('Login');
+    }
+  }, []);
+
   const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();
   const currentTheme = useTheme({ currentAppColorScheme });
   const styles = themedStyle(currentTheme);

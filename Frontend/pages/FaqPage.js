@@ -6,6 +6,14 @@ import Background from "../components/Background";
 import { useTheme } from "../hooks/useTheme";
 
 export function FaqPage() {
+  const { imp } = useContext(ImpContext);
+
+  useEffect(() => {
+    if (!imp.userStore.id) {
+      navigation.navigate('Login');
+    }
+  }, []);
+  
   const [isTextExpanded, setTextExpanded] = useState([
     false,
     false,

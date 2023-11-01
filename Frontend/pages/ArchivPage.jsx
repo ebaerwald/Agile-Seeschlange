@@ -6,6 +6,13 @@ import { useTheme } from "../hooks/useTheme";
 import { useThemeContext } from "../components/ThemeContext";
 
 const ArchivPage = ({ navigation }) => {
+  const { imp } = useContext(ImpContext);
+
+  useEffect(() => {
+    if (!imp.userStore.id) {
+      navigation.navigate('Login');
+    }
+  }, []);
   const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();
   const currentTheme = useTheme({ currentAppColorScheme });
   const styles = themedStyle(currentTheme);

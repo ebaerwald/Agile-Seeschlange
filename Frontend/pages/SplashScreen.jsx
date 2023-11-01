@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Button from '../components/Button';
 import Background from '../components/Background';
@@ -7,6 +7,13 @@ import HeaderText from '../components/HeaderText';
 import Text from '../components/Text';
 
 const SplashScreen = ({ navigation }) => {
+
+  const { imp } = useContext(impContext);
+  useEffect(() => {
+    if (!imp.userStore.id) {
+      navigation.navigate('Login');
+    }
+  }, []);
 
   const handleLoginButtonClick = () => {
     // Hier Logik für den Login-Button

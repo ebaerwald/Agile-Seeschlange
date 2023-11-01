@@ -79,7 +79,7 @@ const TestBackendPage = () => {
             <Button
               title="Create User"
               onPress={async() => {
-                user.createUser(imp, {
+                user.signUpUser(imp, {
                   "email": 'test@testuser.de',
                   "name": 'Test',
                   "lastName": 'User',

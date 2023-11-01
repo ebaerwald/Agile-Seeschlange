@@ -27,7 +27,11 @@ const MenuePage = ({ navigation }) => {
   const { threads, loading } = useSelector((state) => state.threads);
   const { favLoading, favThreads } = useSelector((state) => state.favThreads);
   const dispatch = useDispatch();
+
   useEffect(() => {
+    if (!imp.userStore.id) {
+      navigation.navigate('Login');
+    }
     reloadThreads();
     reloadFavThreads(imp.userStore.userId);
   }, []);

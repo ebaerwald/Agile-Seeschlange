@@ -17,6 +17,14 @@ const LawPage = ({ navigation }) => {
   const [showFrageErklaerung, setShowFrageErklaerung] = useState(false);
   const [showAntwortErklaerung, setShowAntwortErklaerung] = useState(false);
 
+  const { imp } = useContext(ImpContext);
+
+  useEffect(() => {
+    if (!imp.userStore.id) {
+      navigation.navigate('Login');
+    }
+  }, []);
+
   const handleGoBackButtonClick = () => {
     // navigation.navigate('Menue');
   };

@@ -1,16 +1,25 @@
-import React, { useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import HeaderText from "../components/HeaderText";
 import SnakeImage from "../components/SnakeImage";
 import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "../hooks/useTheme";
 import { useThemeContext } from "../components/ThemeContext";
+import { impContext } from "../impressive-store/provider";
 
 export function SettingsPage() {
   const navigation = useNavigation();
   const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();
   const currentTheme = useTheme({ currentAppColorScheme });
   const styles = themedStyle(currentTheme);
+
+  const { imp } = useContext(impContext);
+
+  useEffect(() => {
+    if (!imp.userStore.id) {
+      navigation.navigate('Login');
+    }
+  }, []);
 
   const aussehenButton = () => {
     navigation.navigate("AussehenPage");

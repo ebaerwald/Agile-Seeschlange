@@ -39,6 +39,12 @@ const SingleQuestionPage = ({ navigation }) => {
     reloadCurrThread(currThreadId);
   }, [currThreadId]);
 
+  useEffect(() => {
+    if (!imp.userStore.id) {
+      navigation.navigate('Login');
+    }
+  }, []);
+
   async function reloadCurrThread(currThreadId) {
     const reqData = {
       method: "GET",

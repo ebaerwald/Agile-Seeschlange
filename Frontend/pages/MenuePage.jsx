@@ -9,7 +9,7 @@ import * as question from "../impressive-store/question";
 import * as answer from "../impressive-store/answer";
 import { impContext } from "../impressive-store/provider";
 import { useEffect, useContext } from "react";
-import config from '../config';
+import config from "../config";
 
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";

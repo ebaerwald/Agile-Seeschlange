@@ -24,8 +24,8 @@ export function SettingsPage() {
     navigation.navigate("KontoPage");
   };
 
-  const memoryDataButton = () => {
-    navigation.navigate("Archiv");
+  const ArchivButton = () => {
+    navigation.navigate("ArchivPage");
   };
 
   const datenschutzButton = () => {
@@ -38,10 +38,6 @@ export function SettingsPage() {
 
   const TestImpStoreBackendButton = () => {
     navigation.navigate("TestImpStoreBackend");
-  };
-
-  const lawButton = () => {
-    navigation.navigate("Law");
   };
 
   return (
@@ -63,6 +59,9 @@ export function SettingsPage() {
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={faqButton}>
         <Text style={styles.buttonText}>Fragen und Antworten</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={ArchivButton}>
+        <Text style={styles.buttonText}>Archiv</Text>
       </TouchableOpacity>
     </View>
   );

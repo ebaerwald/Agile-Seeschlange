@@ -16,7 +16,7 @@ const themedStyle = (currentTheme) =>
   StyleSheet.create({
     backgroundContainer: {
       flex: 1,
-      backgroundColor: "rgba(31, 85, 167, 0.30)",
+      backgroundColor: currentTheme.backgroundColor,
       padding: 10,
       flexDirection: "row",
       justifyContent: "flex-start",

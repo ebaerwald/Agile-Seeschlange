@@ -4,8 +4,13 @@ import * as Notifications from "expo-notifications";
 import Background from "../components/Background";
 import SnakeImage from "../components/SnakeImage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useTheme } from "../hooks/useTheme";
+import { useThemeContext } from "../components/ThemeContext";
 
 export function NotificationsPage() {
+  const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();
+  const currentTheme = useTheme({ currentAppColorScheme });
+  const styles = themedStyle(currentTheme);
   const [isEnabled, setIsEnabled] = useState(false);
 
   useEffect(() => {
@@ -57,7 +62,7 @@ export function NotificationsPage() {
         body: "Du warst schon lange nicht mehr hier, möchtest du nicht mal wieder reinschauen? 😥",
         data: { data: "goes here" },
       },
-      trigger: { seconds: 86400, repeats: true },
+      trigger: { seconds: 30, repeats: true },
     });
   }
 
@@ -66,6 +71,9 @@ export function NotificationsPage() {
       <View style={styles.container}>
         <SnakeImage size={"big"}></SnakeImage>
         <Text style={styles.title}>Mitteilungen Einschalten</Text>
+        <Text style={styles.text}>
+          Schalte die Mitteilungen ein, damit du tägliche Reminders erhälts.
+        </Text>
         <Switch
           trackColor={{ false: "#767577", true: "#81b0ff" }}
           thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
@@ -73,30 +81,30 @@ export function NotificationsPage() {
           onValueChange={toggleSwitch}
           value={isEnabled}
         />
-        <Text style={styles.text}>
-          Schalte die Mitteilungen ein, damit du tägliche Reminders erhälts.
-        </Text>
       </View>
     </Background>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  title: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10,
-  },
-  text: {
-    textAlign: "center",
-    color: "#333333",
-    marginBottom: 5,
-  },
-});
+const themedStyle = (currentTheme) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    title: {
+      fontSize: 20,
+      textAlign: "center",
+      margin: 10,
+      color: currentTheme.textColor,
+    },
+    text: {
+      textAlign: "center",
+      color: "#333333",
+      marginBottom: 5,
+      color: currentTheme.textColor,
+    },
+  });
 
 export default NotificationsPage;

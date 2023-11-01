@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {
   signup,
+  login,
   delet,
   getUserIniformation,
   updateUser,
@@ -11,6 +12,7 @@ const {
 
 router.route("/user/addfavoritequestion").put(addfavoritequestion);
 router.route("/user/signup").post(signup); //Ready and Teste
+router.route("/user/login").post(login); //Ready and Teste
 router.route("/user").delete(delet); //Ready and Teste
 router.route("/user/:id").put(updateUser);
 router.route("/user/:id").get(getUserIniformation);

@@ -5,25 +5,168 @@ const responseMgt = require("../helper/responseMgt");
 //user signup
 exports.signup = async (req, res, next) => {
   try {
-    const { name, email, googleUserId, lastName } = req.body;
-    //check if empty
-    if (!email || !googleUserId) {
-      throw new Error("Please fill all the fields");
-    }
-    const user = await User.create({
-      name,
-      email,
-      googleUserId,
-      lastName,
-    });
-    user.save();
-    if (user) {
-      responseMgt.success(user, res);
-      console.log(`created User:${user._id}`);
+    console.log(req.body);
+    const { name, email, googleUserId, lastName, access_token, password } =
+      req.body;
+    if (!(!email || !name || !password)) {
+      //if Register with email, name and password
+      const user = await User.create({
+        name,
+        email,
+        password,
+      });
+      user.save();
+      if (user) {
+        responseMgt.success(user, res);
+        console.log(`created User:${user._id}`);
+      } else {
+        console.log("Create failed");
+        responseMgt.faild(user, res);
+      }
+    } else if (!!access_token) {
+      console.log("else fall");
+
+      //if Register with Github accestoken
+      fetch("https://api.github.com/user", {
+        method: "GET",
+        headers: {
+          Authorization: `token ${access_token}`,
+          Accept: "application/json",
+        },
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error(`Request failed with status: ${response.status}`);
+          }
+        })
+        .then((userData) => {
+          console.log(userData);
+          async () => {
+            const res = await user.signUpUser(imp, {
+              name: userData.login,
+              email: userData.email,
+              githubId: user.hashPassword(userData.id),
+            });
+            if (!res) {
+              setErrorMessage("GitHub LogIn failed!");
+              return;
+            }
+          };
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+
+      const user = await User.create({
+        name,
+        email,
+        password,
+      });
+      user.save();
+      if (user) {
+        responseMgt.success(user, res);
+        console.log(`created User:${user._id}`);
+      } else {
+        responseMgt.faild(user, res);
+      }
     } else {
-      responseMgt.faild(user, res);
+      console.log("Letzter fall");
     }
   } catch (err) {
+    console.log("Catch fall");
+    console.log(err);
+    console.log(password);
+
+    res.status(500).send(err);
+  }
+};
+exports.login = async (req, res, next) => {
+  try {
+    console.log(req.body);
+    const { name, email, access_token, password } = req.body;
+    if (!(!email || !password)) {
+      //Login with email and password
+      const user = await User.findOne({
+        email,
+        password,
+      });
+      if (user) {
+        responseMgt.success(user, res);
+        console.log(`Authorized Loggin: ${user._id}`);
+      } else {
+        console.log("Login failed");
+        responseMgt.faild(user, res);
+      }
+    } else if (!(!name || !password)) {
+      //Login with name and password
+      const user = await User.findOne({
+        name,
+        password,
+      });
+      if (user) {
+        responseMgt.success(user, res);
+        console.log(`Authorized Loggin: ${user._id}`);
+      } else {
+        console.log("Login failed");
+        responseMgt.faild(user, res);
+      }
+    } else if (!!access_token) {
+      s;
+      //Login with Github accestoken
+      fetch("https://api.github.com/user", {
+        method: "GET",
+        headers: {
+          Authorization: `token ${access_token}`,
+          Accept: "application/json",
+        },
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error(`Request failed with status: ${response.status}`);
+          }
+        })
+        .then((userData) => {
+          console.log(userData);
+          async () => {
+            const res = await user.signUpUser(imp, {
+              name: userData.login,
+              email: userData.email,
+              githubId: user.hashPassword(userData.id),
+            });
+            if (!res) {
+              setErrorMessage("GitHub LogIn failed!");
+              return;
+            }
+          };
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+
+      const user = await User.create({
+        name,
+        email,
+        password,
+      });
+      user.save();
+      if (user) {
+        responseMgt.success(user, res);
+        console.log(`created User:${user._id}`);
+      } else {
+        responseMgt.faild(user, res);
+      }
+    } else {
+      console.log("Letzter fall");
+    }
+  } catch (err) {
+    console.log("Catch fall");
+    console.log(err);
+    console.log(password);
+
     res.status(500).send(err);
   }
 };

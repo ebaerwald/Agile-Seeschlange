@@ -67,39 +67,16 @@ const LoginPage = ({ navigation }) => {
           .then((data) => {
             const access_token = data.split('&')[0].split('=')[1];
             console.log(access_token);
-           console.log(data);
-           fetch("https://api.github.com/user", {
-              method: "GET",
-              headers: {
-                "Authorization": `token ${access_token}`,
-                "Accept": "application/json",
-              },
-            })
-              .then((response) => {
-                if (response.ok) {
-                  return response.json();
-                } else {
-                  throw new Error(`Request failed with status: ${response.status}`);
-                }
-              })
-              .then((userData) => {
-                console.log(userData);
-                async() => {
-                  const res = await user.signUpUser(imp, {
-                    name: userData.login,
-                    email: userData.email,
-                    githubId: user.hashPassword(userData.id),
-                  });
-                  if (!res)
-                  {
-                    setErrorMessage('GitHub LogIn failed!');
-                    return;
-                  }
-                }
-              })
-              .catch((error) => {
-                console.error("Error:", error);
+            async() => {
+              const res = await user.signUpUser(imp, {
+                access_token: access_token,
               });
+              if (!res)
+              {
+                setErrorMessage('GitHub LogIn failed!');
+                return;
+              }
+            }
           })
           .catch((error) => {
             console.error('Error:', error);

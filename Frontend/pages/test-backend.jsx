@@ -60,6 +60,13 @@ const TestBackendPage = () => {
             <Text>Google User ID: {imp.userStore.googleUserId}</Text>
             <Text>{JSON.stringify(imp.questionsStore)}</Text> 
             <Text>{JSON.stringify(imp.groupsStore)}</Text>
+            <Button 
+              title="Hash This Password"
+              onPress={async() => {
+                const res = await user.hashPassword('test12345');
+                console.log(res);
+              }}
+              />
             <Button
               title="Test"
               onPress={() => {

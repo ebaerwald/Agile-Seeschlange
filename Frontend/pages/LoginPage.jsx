@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native'; // Importieren Sie CheckBox von react-native
+import { ScrollView, StyleSheet, View } from 'react-native'; // Importieren Sie CheckBox von react-native
 import Button from '../components/Button';
 import DataInputField from '../components/DataInputField';
 import SnakeImage from '../components/SnakeImage';
@@ -121,6 +121,7 @@ const LoginPage = ({ navigation }) => {
 
   return (
     <Background>
+      <ScrollView>
       <View style={styles.outerBox}>
 
         <SnakeImage size="small" />
@@ -181,7 +182,7 @@ const LoginPage = ({ navigation }) => {
               />
               <Button 
                 text="Login with GitHub"
-                iconType="github"
+                iconType="GitHub"
                 onPress={() => promptAsync()}
                 disabled={!request}
               />
@@ -218,7 +219,7 @@ const LoginPage = ({ navigation }) => {
 
 
       </View>
-
+      </ScrollView>
       </Background>
   );
 };

@@ -5,6 +5,8 @@ import loginIcon from '../assets/LoginInIcon.png';
 import registerIcon from '../assets/SignInIcon.png';
 import AnswerSnake from '../assets/AnswerSnake.png';
 import QuestionIcon from '../assets/question-mark.png';
+import SendIcon from '../assets/SendIcon.png';
+import GitHubIcon from '../assets/GitHubIcon.png';
 
 const Button = ({ onPress, iconType, text }) => {
   const getIconSource = () => {
@@ -16,7 +18,11 @@ const Button = ({ onPress, iconType, text }) => {
       return AnswerSnake;
     } else if (iconType === 'newQuestion') {
       return QuestionIcon;
-    } 
+    } else if (iconType === 'Send') {
+      return SendIcon;
+    } else if (iconType === 'GitHub') {
+      return GitHubIcon;
+    }
     else {
       return require('../assets/DefaultIcon.png');
     }

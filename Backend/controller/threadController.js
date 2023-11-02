@@ -6,7 +6,7 @@ const responseMgt = require("../helper/responseMgt");
 
 exports.createThread = async (req, res, next) => {
   try {
-    const { title, text, tags, views, groupId, files, score } = req.body;
+    const { title, text, tags, views, groupId, files, score, image } = req.body;
     console.log(req.body);
     //check if empty
     if (!title || !text) {
@@ -22,6 +22,7 @@ exports.createThread = async (req, res, next) => {
         views,
         files,
         score,
+        image,
       });
     } else {
       thread = await Thread.create({
@@ -32,6 +33,7 @@ exports.createThread = async (req, res, next) => {
         groupId: group._id,
         files,
         score,
+        image,
       });
     }
 

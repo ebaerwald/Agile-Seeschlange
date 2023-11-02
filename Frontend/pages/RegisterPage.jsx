@@ -12,9 +12,7 @@ import * as user from "../impressive-store/user";
 import { impContext } from "../impressive-store/provider";
 import { useEffect, useContext } from "react";
 
-
 const RegisterPage = ({ navigation }) => {
-
   const { imp } = useContext(impContext);
 
   const [username, setUsername] = useState("");
@@ -27,7 +25,7 @@ const RegisterPage = ({ navigation }) => {
     navigation.navigate("Login");
   };
 
-  const handleRegisterButtonClick = async() => {
+  const handleRegisterButtonClick = async () => {
     if (!agbChecked || !datenschutzChecked) {
       // Überprüfen, ob beide Checkboxen angehakt sind
       alert("Bitte stimme unseren Bestimmungen zu.");
@@ -35,17 +33,16 @@ const RegisterPage = ({ navigation }) => {
       const res = await user.createUser(imp, {
         email: email,
         name: username,
-        googleUserId: '1234567890',
+        googleUserId: "1234567890",
       });
       console.log(res);
-      navigation.navigate("Menue");
+      navigation.navigate("MenuePage");
     }
   };
 
   return (
-
     <Background>
-          <ScrollView>
+      <ScrollView>
         {/* Inhalt der Seite */}
         <View style={styles.outerBox}>
           <SnakeImage size="small" />
@@ -106,7 +103,6 @@ const RegisterPage = ({ navigation }) => {
         </View>
       </ScrollView>
     </Background>
-
   );
 };
 

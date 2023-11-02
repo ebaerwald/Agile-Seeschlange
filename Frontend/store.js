@@ -4,6 +4,7 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import threadsReducer from "../Frontend/features/Threads/threadsSlice.jsx";
 import FavoriteThreadsReducer from "../Frontend/features/Threads/favoriteThreadsSlice.jsx";
 import CurrThreadsReducer from "../Frontend/features/Threads/currentThreadSlice.jsx";
+import ImagePicer from "../Frontend/features/ImagePicer/imageSlice.jsx";
 import { threadsApiSlice } from "./features/threadsApiSlice.jsx";
 
 // import authReducer from "../features/auth/authSlice";
@@ -13,6 +14,7 @@ const store = configureStore({
     threads: threadsReducer,
     favThreads: FavoriteThreadsReducer,
     currThreads: CurrThreadsReducer,
+    imagePicer: ImagePicer,
     // [recipesApiSlice.reducerPath]: recipesApiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>

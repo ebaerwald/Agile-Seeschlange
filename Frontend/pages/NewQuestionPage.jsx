@@ -15,12 +15,19 @@ import * as ImagePicker from "expo-image-picker";
 import { useTheme } from "../hooks/useTheme";
 import { useThemeContext } from "../components/ThemeContext";
 
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setImage } from "../features/ImagePicer/imageSlice";
+import * as FileSystem from "expo-file-system";
+
 const NewQuestionPage = ({ navigation }) => {
   const { imp } = useContext(impContext);
+  const dispatch = useDispatch();
+  const { image } = useSelector((state) => state.imagePicer);
 
   useEffect(() => {
-    if (!imp.userStore.id) {
-      navigation.navigate('Login');
+    if (!imp.userStore._id) {
+      navigation.navigate("Login");
     }
   }, []);
 
@@ -43,6 +50,7 @@ const NewQuestionPage = ({ navigation }) => {
     });
     if (!result.canceled) {
       setSelectedImage(result.assets[0].uri);
+      dispatch(setImage(result.assets[0].uri));
     } else {
       alert("You did not select any image.");
     }
@@ -52,14 +60,29 @@ const NewQuestionPage = ({ navigation }) => {
     if (!UserRightsChecked) {
       alert("Bitte stimme unseren Bestimmungen zu.");
     } else {
+      const base64Image = await imageToBase64(image);
       const res = await question.createQuestion(imp, {
         title: title,
         text: text,
-        image: selectedImage,
+        image: base64Image,
       });
       console.log(res);
       //console.log(imp)
-      navigation.navigate("Menue");
+      navigation.navigate("MenuePage");
+    }
+  };
+  const imageToBase64 = async (localUri) => {
+    try {
+      // Read the image file from local storage
+      const imageFile = await FileSystem.readAsStringAsync(localUri, {
+        encoding: FileSystem.EncodingType.Base64,
+      });
+
+      // Return the Base64 representation of the image
+      return `data:image/jpeg;base64,${imageFile}`;
+    } catch (error) {
+      console.error("Error converting image to Base64:", error);
+      return null;
     }
   };
 

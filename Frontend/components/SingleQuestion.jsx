@@ -10,6 +10,7 @@ import {
   setCurrThreadId,
   setCurrLoading,
 } from "../features/Threads/currentThreadSlice.jsx";
+import { Image } from "react-native";
 
 const SingleQuestion = ({
   subject,
@@ -19,6 +20,7 @@ const SingleQuestion = ({
   newQuestion,
   questionId,
   answers,
+  image,
 }) => {
   const dispatch = useDispatch();
   const { currLoading, currThreadId } = useSelector(
@@ -122,6 +124,11 @@ const SingleQuestion = ({
               onPress={handleSuperlike}
             />
           </View>
+        </View>
+      )}
+      {image && (
+        <View>
+          <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
         </View>
       )}
       <View style={styles.MenueContainer}>

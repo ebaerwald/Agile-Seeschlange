@@ -86,14 +86,12 @@ export default function App() {
         screenOptions={{ headerShown: false }}
       >
         <QuestionStack.Screen name="HomePage" component={MenuePage} />
+        <QuestionStack.Screen name="MenuePage" component={MenuePage} />
         <QuestionStack.Screen
           name="SingleQuestion"
           component={SingleQuestionPage}
         />
-        <QuestionStack.Screen
-          name="NewQuestion"
-          component={NewQuestionPage}
-        />
+        <QuestionStack.Screen name="NewQuestion" component={NewQuestionPage} />
         <QuestionStack.Screen name="Login" component={LoginPage} />
         <QuestionStack.Screen name="Register" component={RegisterPage} />
       </QuestionStack.Navigator>

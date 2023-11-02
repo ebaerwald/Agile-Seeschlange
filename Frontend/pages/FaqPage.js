@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import SnakeImage from "../components/SnakeImage";
-import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import HeaderText from "../components/HeaderText";
 import Background from "../components/Background";
 import { useTheme } from "../hooks/useTheme";
@@ -9,11 +15,11 @@ export function FaqPage() {
   const { imp } = useContext(ImpContext);
 
   useEffect(() => {
-    if (!imp.userStore.id) {
-      navigation.navigate('Login');
+    if (!imp.userStore._id) {
+      navigation.navigate("Login");
     }
   }, []);
-  
+
   const [isTextExpanded, setTextExpanded] = useState([
     false,
     false,
@@ -33,7 +39,7 @@ export function FaqPage() {
     "Wann kommen neue Features?",
     "Wie kann ich Freunde einladen?",
   ];
-  
+
   const answers = [
     "Aber natürlich gibt es einen Darkmode. Um diesen zu aktivieren gehe einfach in die Einstellung und Aktiviere den ‘TiefseeModus’.",
     "Kritische Sache frag lieber mal Sascha",
@@ -49,48 +55,46 @@ export function FaqPage() {
   };
 
   return (
-
-      <Background>
-        <ScrollView>
-            <View style={styles.container}>
-        <View>
-          <SnakeImage />
-        </View>
-        <HeaderText title="FAQ" type="center" />
-        <View style={styles.faqItemContainer}>
-          {questions.map((question, index) => (
-            <View
-              key={index}
-              style={[
-                styles.centeredFaqItem,
-                {
-                  borderTopLeftRadius: index === 0 ? 10 : 0,
-                  borderTopRightRadius: index === 0 ? 10 : 0,
-                  borderBottomLeftRadius:
-                    index === questions.length - 1 ? 10 : 0,
-                  borderBottomRightRadius:
-                    index === questions.length - 1 ? 10 : 0,
-                },
-              ]}
-            >
-              <View style={styles.questionContainer}>
-                <Text style={styles.faqQuestion}>{question}</Text>
-                <TouchableOpacity onPress={() => toggleTextExpansion(index)}>
-                  <Text style={styles.toggleButton}>
-                    {isTextExpanded[index] ? "▲" : "▼"}
-                  </Text>
-                </TouchableOpacity>
+    <Background>
+      <ScrollView>
+        <View style={styles.container}>
+          <View>
+            <SnakeImage />
+          </View>
+          <HeaderText title="FAQ" type="center" />
+          <View style={styles.faqItemContainer}>
+            {questions.map((question, index) => (
+              <View
+                key={index}
+                style={[
+                  styles.centeredFaqItem,
+                  {
+                    borderTopLeftRadius: index === 0 ? 10 : 0,
+                    borderTopRightRadius: index === 0 ? 10 : 0,
+                    borderBottomLeftRadius:
+                      index === questions.length - 1 ? 10 : 0,
+                    borderBottomRightRadius:
+                      index === questions.length - 1 ? 10 : 0,
+                  },
+                ]}
+              >
+                <View style={styles.questionContainer}>
+                  <Text style={styles.faqQuestion}>{question}</Text>
+                  <TouchableOpacity onPress={() => toggleTextExpansion(index)}>
+                    <Text style={styles.toggleButton}>
+                      {isTextExpanded[index] ? "▲" : "▼"}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+                {isTextExpanded[index] && (
+                  <Text style={styles.faqAnswer}>{answers[index]}</Text>
+                )}
               </View>
-              {isTextExpanded[index] && (
-                <Text style={styles.faqAnswer}>{answers[index]}</Text>
-              )}
-            </View>
-          ))}
+            ))}
+          </View>
         </View>
-        </View>
-        </ScrollView>
-      </Background>
-
+      </ScrollView>
+    </Background>
   );
 }
 

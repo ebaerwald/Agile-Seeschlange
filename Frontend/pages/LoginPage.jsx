@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native'; // Importieren Sie CheckBox von react-native
-import Button from '../components/Button';
-import DataInputField from '../components/DataInputField';
-import SnakeImage from '../components/SnakeImage';
-import Background from '../components/Background';
-import HeaderText from '../components/HeaderText';
-import Text from '../components/Text';
+import React, { useEffect, useState } from "react";
+import { ScrollView, StyleSheet, View } from "react-native"; // Importieren Sie CheckBox von react-native
+import Button from "../components/Button";
+import DataInputField from "../components/DataInputField";
+import SnakeImage from "../components/SnakeImage";
+import Background from "../components/Background";
+import HeaderText from "../components/HeaderText";
+import Text from "../components/Text";
 
 import * as user from "../impressive-store/user";
 import { impContext } from "../impressive-store/provider";
@@ -111,33 +111,41 @@ const LoginPage = ({ navigation }) => {
         return;
       }
     }
-    navigation.navigate("Menue");
+    navigation.navigate("MenuePage");
   };
 
   return (
     <Background>
       <ScrollView>
-      <View style={styles.outerBox}>
-        <SnakeImage size="small" />
+        <View style={styles.outerBox}>
+          <SnakeImage size="small" />
 
-        <HeaderText title="Seeschlange" type="center" />
+          <HeaderText title="Seeschlange" type="center" />
 
-        <Text
-          title="Gib deine Daten an, um die Weltmeere zu betreten und Weisheit zu finden, um anderen Seeschlangen zu helfen."
-          type="center"
-        />
+          <Text
+            title="Gib deine Daten an, um die Weltmeere zu betreten und Weisheit zu finden, um anderen Seeschlangen zu helfen."
+            type="center"
+          />
 
-        {/* Eingabefelder für Username und Passwort */}
-        <View>
-          
-        </View>
-        {
-          action === 'register' && (
+          {/* Eingabefelder für Username und Passwort */}
+          <View></View>
+          {action === "register" && (
             <>
-              <View style={{width: '100%', marginTop: 10, marginBottom: 10}}>
-                <DataInputField placeholder="Username*" value={username} onChangeText={text => setUsername(text)} />
-                <DataInputField placeholder="Email*" value={email} onChangeText={text => setEmail(text)} />
-                <DataInputField placeholder="Passwort*" value={password} onChangeText={text => setPassword(text)} 
+              <View style={{ width: "100%", marginTop: 10, marginBottom: 10 }}>
+                <DataInputField
+                  placeholder="Username*"
+                  value={username}
+                  onChangeText={(text) => setUsername(text)}
+                />
+                <DataInputField
+                  placeholder="Email*"
+                  value={email}
+                  onChangeText={(text) => setEmail(text)}
+                />
+                <DataInputField
+                  placeholder="Passwort*"
+                  value={password}
+                  onChangeText={(text) => setPassword(text)}
                   secureTextEntry={true}
                 />
                 <Text>{errorMessage}</Text>
@@ -147,7 +155,7 @@ const LoginPage = ({ navigation }) => {
                 iconType="Send"
                 onPress={() => handleLoginRegister()}
               />
-              <Button 
+              <Button
                 text="Login with GitHub"
                 iconType="GitHub"
                 onPress={() => promptAsync()}
@@ -156,17 +164,22 @@ const LoginPage = ({ navigation }) => {
               <Button
                 text="Login"
                 iconType="Login"
-                onPress={() => setAction('login')}
+                onPress={() => setAction("login")}
               />
             </>
-          )
-        }
-        {
-          action === 'login' && (
+          )}
+          {action === "login" && (
             <>
-              <View style={{width: '100%', marginTop: 10, marginBottom: 10}}>
-                <DataInputField placeholder="Username or Email*" value={usernameOrEmail} onChangeText={text => setUsernameOrEmail(text)} />
-                <DataInputField placeholder="Passwort*" value={password} onChangeText={text => setPassword(text)}
+              <View style={{ width: "100%", marginTop: 10, marginBottom: 10 }}>
+                <DataInputField
+                  placeholder="Username or Email*"
+                  value={usernameOrEmail}
+                  onChangeText={(text) => setUsernameOrEmail(text)}
+                />
+                <DataInputField
+                  placeholder="Passwort*"
+                  value={password}
+                  onChangeText={(text) => setPassword(text)}
                   secureTextEntry={true}
                 />
                 <Text>{errorMessage}</Text>
@@ -176,7 +189,7 @@ const LoginPage = ({ navigation }) => {
                 iconType="Send"
                 onPress={() => handleLoginRegister()}
               />
-              <Button 
+              <Button
                 text="Login with GitHub"
                 iconType="GitHub"
                 onPress={() => promptAsync()}
@@ -185,41 +198,40 @@ const LoginPage = ({ navigation }) => {
               <Button
                 text="Register"
                 iconType="Register"
-                onPress={() => setAction('register')}
+                onPress={() => setAction("register")}
               />
             </>
-          )
-        }
+          )}
 
-        {/* <DataInputField placeholder="Username*" value={username} onChangeText={text => setUsername(text)} />
+          {/* <DataInputField placeholder="Username*" value={username} onChangeText={text => setUsername(text)} />
         <DataInputField placeholder="Passwort*" value={password} onChangeText={text => setPassword(text)} /> */}
 
-        <Text
-          title=" Alle mit * markierten Felder sind Pflichtfelder. Bitte fülle sie aus."
-          type="center"
-        />
+          <Text
+            title=" Alle mit * markierten Felder sind Pflichtfelder. Bitte fülle sie aus."
+            type="center"
+          />
 
-        {/* Login-Button */}
-        {/* <Button
+          {/* Login-Button */}
+          {/* <Button
         onPress={handleLoginButtonClick}
         iconType="Login"
         text="Sign In"
       /> */}
 
-        {/* Registrieren-Button */}
-        {/* <Button
+          {/* Registrieren-Button */}
+          {/* <Button
         onPress={handleRegisterButtonClick}
         iconType="Register"
         text="Noch keine Seeschlange? Dann registriere dich ein!"
       /> */}
 
-        <Text
-          title="Dieses Produkt wurde von ANG, TID, ERB, SMH entwickelt."
-          type="center"
-        />
-      </View>
+          <Text
+            title="Dieses Produkt wurde von ANG, TID, ERB, SMH entwickelt."
+            type="center"
+          />
+        </View>
       </ScrollView>
-      </Background>
+    </Background>
   );
 };
 

@@ -68,7 +68,7 @@ const Answer = ({
       data: {
         title: "Miau",
         text: commentText,
-        answerOwner: "651ab2ac507701e42608db16",
+        answerOwner: newAnswerOwner,
         parentAnswer: parentAnswer,
         parentThread: parentThread,
       },

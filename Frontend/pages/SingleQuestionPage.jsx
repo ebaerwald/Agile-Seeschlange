@@ -40,8 +40,9 @@ const SingleQuestionPage = ({ navigation }) => {
   }, [currThreadId]);
 
   useEffect(() => {
-    if (!imp.userStore.id) {
-      navigation.navigate('Login');
+    console.log("Imp.Store " + JSON.stringify(imp.userStore));
+    if (!imp.userStore._id) {
+      navigation.navigate("Login");
     }
   }, []);
 
@@ -55,10 +56,47 @@ const SingleQuestionPage = ({ navigation }) => {
     setCurrentThreadWithAnswers(data);
     dispatch(setCurrLoading(false));
   }
-
-  const handleAnswerButtonClick = () => {
+  async function addAnswerToObject(
+    commentText,
+    answerId,
+    newAnswerOwner,
+    parentAnswer,
+    parentThread
+  ) {
+    const reqData = {
+      method: "POST",
+      maxBodyLength: Infinity,
+      url: `http://${config.serverIP}:3001/api/answer`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        title: "Miau",
+        text: commentText,
+        answerOwner: newAnswerOwner,
+        parentAnswer: parentAnswer,
+        parentThread: parentThread,
+      },
+    };
+    console.log(reqData);
+    await axios.request(reqData);
+  }
+  const handleAnswerButtonClick = (
+    commentText,
+    answerId,
+    newAnswerOwner,
+    parentAnswer,
+    parentThread
+  ) => {
     // Hier Logik für den Antwortgeben-Button
     console.log("AGB akzeptiert:", UserRightsChecked);
+    addAnswerToObject(
+      commentText,
+      answerId,
+      newAnswerOwner,
+      parentAnswer,
+      parentThread
+    );
     //navigation.navigate('Menue');
   };
 
@@ -77,6 +115,7 @@ const SingleQuestionPage = ({ navigation }) => {
                 question={currentThreadWithAnswers.text}
                 showAnswers={true}
                 answers={currentThreadWithAnswers.answers}
+                image={currentThreadWithAnswers.image}
               />
               <Text
                 title="Eine Seeschlange hat diese Frage gepostet und braucht Deine Hilfe. Du weißt eine Antwort? Super! Poste deine Antwort und hilf anderen Seeschlangen!"
@@ -91,7 +130,7 @@ const SingleQuestionPage = ({ navigation }) => {
             onChangeText={(text) => setAnswer(text)}
           />
 
-        {/*SMH Fragt: Kann der Button nicht raus?
+          {/*SMH Fragt: Kann der Button nicht raus?
 
           <Button
             title="Get Question"
@@ -119,9 +158,14 @@ const SingleQuestionPage = ({ navigation }) => {
             type="center"
           />
 
-          {/* Registrieren-Button */}
           <Button
-            onPress={handleAnswerButtonClick}
+            onPress={handleAnswerButtonClick(
+              giveAnswer,
+              null,
+              imp.userStore._id,
+              "",
+              currThreadId
+            )}
             iconType="Answer"
             text="Antwort im Meer senden!"
           />

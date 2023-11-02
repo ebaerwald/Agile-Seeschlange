@@ -9,8 +9,8 @@ const ArchivPage = ({ navigation }) => {
   const { imp } = useContext(ImpContext);
 
   useEffect(() => {
-    if (!imp.userStore.id) {
-      navigation.navigate('Login');
+    if (!imp.userStore._id) {
+      navigation.navigate("Login");
     }
   }, []);
   const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();

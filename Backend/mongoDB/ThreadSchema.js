@@ -12,6 +12,7 @@ const ThreadSchema = new mongoose.Schema({
   score: Number,
   views: Number,
   closed: Boolean,
+  image: String,
   groupId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Group",

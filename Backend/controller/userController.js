@@ -17,6 +17,7 @@ exports.signup = async (req, res, next) => {
       });
       user.save();
       if (user) {
+        console.log(user);
         responseMgt.success(user, res);
         console.log(`created User:${user._id}`);
       } else {
@@ -66,6 +67,7 @@ exports.signup = async (req, res, next) => {
       });
       user.save();
       if (user) {
+        console.log(user);
         responseMgt.success(user, res);
         console.log(`created User:${user._id}`);
       } else {
@@ -93,19 +95,21 @@ exports.login = async (req, res, next) => {
         password,
       });
       if (user) {
+        console.log(user);
         responseMgt.success(user, res);
         console.log(`Authorized Loggin: ${user._id}`);
       } else {
         console.log("Login failed");
         responseMgt.faild(user, res);
       }
-    } else if (!(!name || !password)) {
+    } else if (name && password) {
       //Login with name and password
       const user = await User.findOne({
-        name,
-        password,
+        name: name,
+        password: password,
       });
       if (user) {
+        console.log(user);
         responseMgt.success(user, res);
         console.log(`Authorized Loggin: ${user._id}`);
       } else {
@@ -154,6 +158,7 @@ exports.login = async (req, res, next) => {
       });
       user.save();
       if (user) {
+        console.log(user);
         responseMgt.success(user, res);
         console.log(`created User:${user._id}`);
       } else {

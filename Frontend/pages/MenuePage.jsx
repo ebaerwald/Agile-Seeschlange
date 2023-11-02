@@ -29,11 +29,12 @@ const MenuePage = ({ navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!imp.userStore.id) {
-      navigation.navigate('Login');
+    console.log("imp store Menue Page: " + JSON.stringify(imp.userStore));
+    if (!imp.userStore._id) {
+      navigation.navigate("Login");
     }
     reloadThreads();
-    reloadFavThreads(imp.userStore.userId);
+    reloadFavThreads(imp.userStore._id);
   }, []);
 
   async function reloadThreads() {

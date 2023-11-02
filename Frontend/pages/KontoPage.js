@@ -27,8 +27,8 @@ export function KontoPage() {
   const { imp } = useContext(impContext);
 
   useEffect(() => {
-    if (!imp.userStore.id) {
-      navigation.navigate('Login');
+    if (!imp.userStore._id) {
+      navigation.navigate("Login");
     }
   }, []);
 

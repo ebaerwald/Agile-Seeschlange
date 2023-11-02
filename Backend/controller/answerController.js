@@ -36,14 +36,13 @@ exports.createAnswer = async (req, res, next) => {
     } catch (err) {}
 
     const thread = await Thread.findById(parentThread);
-    const user = await User.findById(answerOwner);
     if (!parentAnswer) {
       answer = await Answer.create({
-        answerOwner: user._id,
+        answerOwner: answerOwner,
         title,
         text,
-        parentThread: thread._id,
-        parentAnswer: thread._id,
+        parentThread: parentThread,
+        parentAnswer: parentThread,
         tags: tagIds,
         score,
         IsMostHelpfull,
@@ -52,11 +51,11 @@ exports.createAnswer = async (req, res, next) => {
     } else {
       const parentAnser = await Answer.findById(parentAnswer);
       answer = await Answer.create({
-        answerOwner: user._id,
+        answerOwner: answerOwner,
         parentAnswer: parentAnser._id,
         title,
         text,
-        parentThread: thread._id,
+        parentThread: parentThread,
         tags,
         score,
         IsMostHelpfull,

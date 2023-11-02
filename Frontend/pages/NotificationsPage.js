@@ -16,7 +16,7 @@ export function NotificationsPage() {
   const { imp } = useContext(ImpContext);
 
   useEffect(() => {
-    if (!imp.userStore.id) {
+    if (!imp.userStore._id) {
       navigation.navigate("Login");
     }
     const requestPermissions = async () => {

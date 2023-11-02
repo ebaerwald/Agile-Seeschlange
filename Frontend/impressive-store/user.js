@@ -20,6 +20,7 @@ export const usersStore = {
 const ipv4 = config.serverIP;
 const getUserRoute = "http://" + ipv4 + ":3001/api/user"; // don not work, body is not allowed for ger requests
 const signUpUserRoute = "http://" + ipv4 + ":3001/api/user/signup"; //finished
+const logInUserRoute = "http://" + ipv4 + ":3001/api/user/login"; //finished
 const updateUserRoute = "http://" + ipv4 + ":3001/api/user"; //finished waiting for commit
 const addFavoriteQuestionRoute =
   "http://" + ipv4 + ":3001/api/user/addfavoritequestion"; //finished
@@ -36,6 +37,20 @@ export async function getUser(imp, object) {
 export async function signUpUser(imp, object) {
   try {
     const user = await passObject(signUpUserRoute, object, "POST"); // object: {email, name, lastname, googleUserId} works
+    imp.set.userStore(user);
+    return user;
+  }
+  catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
+export async function logInUser(imp, object)
+{
+  try 
+  {
+    const user = await passObject(logInUserRoute, object, "POST"); 
     imp.set.userStore(user);
     return user;
   }

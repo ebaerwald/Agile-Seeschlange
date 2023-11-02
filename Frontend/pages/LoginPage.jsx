@@ -102,7 +102,7 @@ const LoginPage = ({ navigation }) => {
       const userInfo = usernameOrEmail.includes("@")
         ? { email: usernameOrEmail }
         : { name: usernameOrEmail };
-      const res = await user.signUpUser(imp, {
+      const res = await user.logInUser(imp, {
         ...userInfo,
         password: await user.hashPassword(password),
       });

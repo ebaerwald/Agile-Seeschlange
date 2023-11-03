@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Answer from "../components/Answer";
 import InteractionButton from "../components/InteractionButton";
 import DataInputField from "../components/DataInputField";
+import axios from "axios";
 
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -10,6 +11,7 @@ import {
   setCurrThreadId,
   setCurrLoading,
 } from "../features/Threads/currentThreadSlice.jsx";
+import { useEffect, useContext } from "react";
 
 const Question = ({
   subject,
@@ -20,6 +22,8 @@ const Question = ({
   questionId,
   answers,
 }) => {
+  const { imp } = useContext(impContext);
+
   const dispatch = useDispatch();
   const { currLoading, currThreadId } = useSelector(
     (state) => state.currThreads
@@ -36,13 +40,43 @@ const Question = ({
     useState("superlike");
 
   const handleLike = () => {
-    setLikeCount(likeCount + 1);
     console.log("Button Like wurde geklickt");
+    sendLikeRequest(imp.userStore._id, currThreadId);
   };
+  async function sendLikeRequest(userId, currThreadId) {
+    const reqData = {
+      method: "POST",
+      maxBodyLength: Infinity,
+      url: `http://${config.serverIP}:3001/api/thread/like/${currThreadId}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        userId,
+      },
+    };
+    console.log(reqData);
+    await axios.request(reqData);
+  }
+  async function sendDislikeRequest(userId, threadId) {
+    const reqData = {
+      method: "POST",
+      maxBodyLength: Infinity,
+      url: `http://${config.serverIP}:3001/api/thread/dislike/${threadId}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        userId,
+      },
+    };
+    console.log(reqData);
+    await axios.request(reqData);
+  }
 
   const handleDislike = () => {
-    setDislikeCount(dislikeCount + 1);
     console.log("Button Dislike wurde geklickt");
+    sendDislikeRequest(imp.userStore._id, currThreadId);
   };
 
   const handleSuperlike = () => {

@@ -169,3 +169,45 @@ exports.getThreads = async (req, res, next) => {
     responseMgt.faild(err, res);
   }
 };
+exports.likeThread = async (req, res, next) => {
+  const { id } = req.params;
+  const { userId } = req.body;
+  try {
+    await Thread.findByIdAndUpdate(id, { $pull: { dislikes: userId } });
+
+    const thread = await Thread.findByIdAndUpdate(
+      id,
+      { $push: { likes: userId } },
+      { new: true }
+    );
+
+    if (thread) {
+      responseMgt.success(thread, res);
+    } else {
+      responseMgt.faild("Something went wrong", res);
+    }
+  } catch (err) {
+    responseMgt.faild(err, res);
+  }
+};
+exports.dislikeThread = async (req, res, next) => {
+  const { id } = req.params;
+  const { userId } = req.body;
+  try {
+    await Thread.findByIdAndUpdate(id, { $pull: { likes: userId } });
+
+    const thread = await Thread.findByIdAndUpdate(
+      id,
+      { $push: { dislikes: userId } },
+      { new: true }
+    );
+
+    if (thread) {
+      responseMgt.success(thread, res);
+    } else {
+      responseMgt.faild("Something went wrong", res);
+    }
+  } catch (err) {
+    responseMgt.faild(err, res);
+  }
+};

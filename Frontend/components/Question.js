@@ -4,6 +4,8 @@ import Answer from "../components/Answer";
 import InteractionButton from "../components/InteractionButton";
 import DataInputField from "../components/DataInputField";
 import axios from "axios";
+import { impContext } from "../impressive-store/provider.jsx";
+import config from "../config.js";
 
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -41,13 +43,13 @@ const Question = ({
 
   const handleLike = () => {
     console.log("Button Like wurde geklickt");
-    sendLikeRequest(imp.userStore._id, currThreadId);
+    sendLikeRequest(imp.userStore._id, questionId);
   };
-  async function sendLikeRequest(userId, currThreadId) {
+  async function sendLikeRequest(userId, questionId) {
     const reqData = {
       method: "POST",
       maxBodyLength: Infinity,
-      url: `http://${config.serverIP}:3001/api/thread/like/${currThreadId}`,
+      url: `http://${config.serverIP}:3001/api/thread/like/${questionId}`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -56,7 +58,8 @@ const Question = ({
       },
     };
     console.log(reqData);
-    await axios.request(reqData);
+    const res = await axios.request(reqData);
+    // console.log(res.data);
   }
   async function sendDislikeRequest(userId, threadId) {
     const reqData = {
@@ -71,12 +74,13 @@ const Question = ({
       },
     };
     console.log(reqData);
-    await axios.request(reqData);
+    const res = await axios.request(reqData);
+    // console.log(res.data);
   }
 
   const handleDislike = () => {
     console.log("Button Dislike wurde geklickt");
-    sendDislikeRequest(imp.userStore._id, currThreadId);
+    sendDislikeRequest(imp.userStore._id, questionId);
   };
 
   const handleSuperlike = () => {

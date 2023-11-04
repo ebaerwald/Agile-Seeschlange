@@ -60,7 +60,11 @@ const NewQuestionPage = ({ navigation }) => {
     if (!UserRightsChecked) {
       alert("Bitte stimme unseren Bestimmungen zu.");
     } else {
-      const base64Image = await imageToBase64(image);
+      let base64Image = null;
+      if (image)
+      {
+        base64Image = await imageToBase64(image);
+      }
       const res = await question.createQuestion(imp, {
         title: title,
         text: text,

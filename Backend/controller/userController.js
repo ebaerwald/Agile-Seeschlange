@@ -24,62 +24,57 @@ exports.signup = async (req, res, next) => {
         console.log("Create failed");
         responseMgt.faild(user, res);
       }
-    } else if (!!access_token) {
+    } else if (access_token) {
       console.log("else fall");
 
       //if Register with Github accestoken
-      fetch("https://api.github.com/user", {
+      const response = await fetch("https://api.github.com/user", {
         method: "GET",
         headers: {
           Authorization: `token ${access_token}`,
           Accept: "application/json",
         },
-      })
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            throw new Error(`Request failed with status: ${response.status}`);
-          }
-        })
-        .then((userData) => {
-          console.log(userData);
-          async () => {
-            const res = await user.signUpUser(imp, {
-              name: userData.login,
-              email: userData.email,
-              githubId: user.hashPassword(userData.id),
-            });
-            if (!res) {
-              setErrorMessage("GitHub LogIn failed!");
-              return;
-            }
-          };
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-
-      const user = await User.create({
-        name,
-        email,
-        password,
       });
-      user.save();
-      if (user) {
-        console.log(user);
-        responseMgt.success(user, res);
-        console.log(`created User:${user._id}`);
-      } else {
-        responseMgt.faild(user, res);
+
+      const userData = await response.json();
+      const newEmail = userData.email ? userData.email : "no@email.de";
+      const userExists = await User.findOne({
+        googleUserId: userData.id,
+      });
+      if (!userExists) {
+        const githubUser = await User.create({
+          name: userData.login,
+          email: newEmail,
+          googleUserId: userData.id,
+        })
+        githubUser.save();
+        if (githubUser) {
+          console.log(githubUser);
+          responseMgt.success(githubUser, res);
+          console.log(`created User:${githubUser._id}`);
+        } else {
+          console.log("Create failed");
+          responseMgt.faild(githubUser, res);
+        }
       }
+      else
+      {
+        if (userExists) {
+          console.log(userExists);
+          responseMgt.success(userExists, res);
+          console.log(`created User:${userExists._id}`);
+        } else {
+          console.log("Create failed");
+          responseMgt.faild(userExists, res);
+        }
+      }
+      
     } else {
       console.log("Letzter fall");
     }
   } catch (err) {
     console.log("Catch fall");
     console.log(err);
-    console.log(password);
 
     res.status(500).send(err);
   }

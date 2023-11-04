@@ -5,7 +5,6 @@ import SnakeImage from "../components/SnakeImage";
 import Background from "../components/Background";
 import HeaderText from "../components/HeaderText";
 import SubHeaderText from "../components/SubHeaderText";
-import Text from "../components/Text";
 import AGB from "../components/AGB";
 import Datenschutzerklearung from "../components/Datenschutz";
 import FrageHochladenErklaerung from "../components/fragenErklaerung";
@@ -97,7 +96,7 @@ const LawPage = ({ navigation }) => {
             iconType="Default"
             text="Klicke um zurückzukehren."
           />
-          <Text
+          <SubHeaderText
             title="Dieses Produkt wurde von ANG, TID, ERB, SMH entwickelt."
             type="center"
           />

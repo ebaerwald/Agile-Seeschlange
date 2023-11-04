@@ -17,7 +17,7 @@ const SubHeaderText = ({ title, type }) => {
       case "right":
         return "right";
       default:
-        return "center";
+        return "center"; // Standardwert: zentriert
     }
   };
 
@@ -38,8 +38,9 @@ const themedStyle = (currentTheme) =>
       marginTop: 10,
     },
     titleText: {
-      color: "black",
-      fontSize: 12,
+      color: currentTheme.textColor,
+      fontWeight: "bold",
+      fontSize: 16, // Passe die Schriftgröße an, falls erforderlich
     },
   });
 

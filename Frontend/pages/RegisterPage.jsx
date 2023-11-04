@@ -6,7 +6,7 @@ import SnakeImage from "../components/SnakeImage";
 import Background from "../components/Background";
 import CustomCheckbox from "../components/Checkbox"; // Importieren Sie die CustomCheckbox-Komponente
 import HeaderText from "../components/HeaderText";
-import Text from "../components/Text";
+import SubHeaderText from "../components/SubHeaderText";
 import { ScrollView } from "react-native";
 import * as user from "../impressive-store/user";
 import { impContext } from "../impressive-store/provider";
@@ -48,7 +48,7 @@ const RegisterPage = ({ navigation }) => {
           <SnakeImage size="small" />
 
           <HeaderText title="Seeschlange" type="center" />
-          <Text
+          <SubHeaderText
             title="Gib deine Daten an, um die Weltmeere zu betreten und Weisheit zu finden, um anderen Seeschlangen zu helfen."
             type="center"
           />
@@ -82,7 +82,7 @@ const RegisterPage = ({ navigation }) => {
             onValueChange={(value) => setDatenschutzChecked(value)}
           />
 
-          <Text
+          <SubHeaderText
             title="Alle mit * markierten Felder sind Pflichtfelder. Bitte fülle sie aus."
             type="center"
           />

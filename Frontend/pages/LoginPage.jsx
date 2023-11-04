@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, View } from "react-native"; // Importieren Sie CheckBox von react-native
+import { ScrollView, StyleSheet, View, Text } from "react-native"; // Importieren Sie CheckBox von react-native
 import Button from "../components/Button";
 import DataInputField from "../components/DataInputField";
 import SnakeImage from "../components/SnakeImage";
 import Background from "../components/Background";
 import HeaderText from "../components/HeaderText";
-import Text from "../components/Text";
-
+import SubHeaderText from "../components/SubHeaderText";
 import * as user from "../impressive-store/user";
 import { impContext } from "../impressive-store/provider";
 import { useContext } from "react";
 import * as WebBrowser from "expo-web-browser";
 import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
+import { useTheme } from "../hooks/useTheme";
+import { useThemeContext } from "../components/ThemeContext";
 
 const client_secret = "c8ddd91ff2112a4c3edf79b4afd78261fbb62da6";
 
@@ -44,7 +45,9 @@ const LoginPage = ({ navigation }) => {
     },
     discovery
   );
-
+  const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();
+  const currentTheme = useTheme({ currentAppColorScheme });
+  const styles = themedStyle(currentTheme);
   useEffect(() => {
     if (response?.type === "success") {
       setErrorMessage("Sucessfully logged in!");
@@ -122,7 +125,7 @@ const LoginPage = ({ navigation }) => {
 
           <HeaderText title="Seeschlange" type="center" />
 
-          <Text
+          <SubHeaderText
             title="Gib deine Daten an, um die Weltmeere zu betreten und Weisheit zu finden, um anderen Seeschlangen zu helfen."
             type="center"
           />
@@ -131,7 +134,14 @@ const LoginPage = ({ navigation }) => {
           <View></View>
           {action === "register" && (
             <>
-              <View style={{ width: "100%", marginTop: 10, marginBottom: 10 }}>
+              <View
+                style={{
+                  width: "100%",
+                  marginTop: 10,
+                  marginBottom: 10,
+                  color: currentTheme.textColor,
+                }}
+              >
                 <DataInputField
                   placeholder="Username*"
                   value={username}
@@ -148,7 +158,7 @@ const LoginPage = ({ navigation }) => {
                   onChangeText={(text) => setPassword(text)}
                   secureTextEntry={true}
                 />
-                <Text>{errorMessage}</Text>
+                <Text style={styles.textt}>{errorMessage}</Text>
               </View>
               <Button
                 text="Send"
@@ -181,8 +191,9 @@ const LoginPage = ({ navigation }) => {
                   value={password}
                   onChangeText={(text) => setPassword(text)}
                   secureTextEntry={true}
+                  style={styles.textt}
                 />
-                <Text>{errorMessage}</Text>
+                <Text style={styles.textt}>{errorMessage}</Text>
               </View>
               <Button
                 text="Send"
@@ -206,7 +217,7 @@ const LoginPage = ({ navigation }) => {
           {/* <DataInputField placeholder="Username*" value={username} onChangeText={text => setUsername(text)} />
         <DataInputField placeholder="Passwort*" value={password} onChangeText={text => setPassword(text)} /> */}
 
-          <Text
+          <SubHeaderText
             title=" Alle mit * markierten Felder sind Pflichtfelder. Bitte fülle sie aus."
             type="center"
           />
@@ -225,7 +236,7 @@ const LoginPage = ({ navigation }) => {
         text="Noch keine Seeschlange? Dann registriere dich ein!"
       /> */}
 
-          <Text
+          <SubHeaderText
             title="Dieses Produkt wurde von ANG, TID, ERB, SMH entwickelt."
             type="center"
           />
@@ -235,14 +246,18 @@ const LoginPage = ({ navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  outerBox: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    padding: 10,
-    marginTop: 25,
-  },
-});
+const themedStyle = (currentTheme) =>
+  StyleSheet.create({
+    textt: {
+      color: currentTheme.textColor,
+    },
+    outerBox: {
+      flex: 1,
+      flexDirection: "column",
+      alignItems: "center",
+      padding: 10,
+      marginTop: 25,
+    },
+  });
 
 export { LoginPage };

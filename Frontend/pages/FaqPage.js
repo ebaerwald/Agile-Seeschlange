@@ -43,11 +43,11 @@ export function FaqPage({ navigation }) {
   ];
 
   const answers = [
-    "Aber natürlich gibt es einen Darkmode. Um diesen zu aktivieren gehe einfach in die Einstellung und Aktiviere den ‘TiefseeModus’.",
-    "Kritische Sache frag lieber mal Sascha",
-    "Hat Herr Paar ins Leben gerufen",
-    "Nach dem 5. Semester wahrscheinlich nie wieder",
-    "Hast du überhaupt welche?",
+    "Aber natürlich gibt es einen Darkmode. Um diesen zu aktivieren gehe einfach in die Einstellung unter Aussehen und Aktiviere den ‘TiefseeModus’.",
+    "Guck dir unsere Datenschutz-Erklärung an ;)",
+    "Warum nicht?",
+    "Jedes Jahr",
+    "Du gehst zu ihnen hin und empfielst ihnen so die App.",
   ];
 
   const toggleTextExpansion = (index) => {

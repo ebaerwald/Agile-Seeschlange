@@ -4,7 +4,7 @@ import Button from "../components/Button";
 import Background from "../components/Background";
 import SnakeImage from "../components/SnakeImage";
 import HeaderText from "../components/HeaderText";
-import Text from "../components/Text";
+import SubHeaderText from "../components/SubHeaderText";
 
 const SplashScreen = ({ navigation }) => {
   const { imp } = useContext(impContext);
@@ -34,7 +34,7 @@ const SplashScreen = ({ navigation }) => {
         </View>
 
         <HeaderText title="Seeschlange" type="center" />
-        <Text
+        <SubHeaderText
           title="Herzlichen Willkommen auf den Weltmeeren des unendlichen Wissens!"
           type="center"
         />
@@ -53,7 +53,7 @@ const SplashScreen = ({ navigation }) => {
           text="Noch keine Seeschlange? Dann registriere dich hier!"
         />
 
-        <Text
+        <SubHeaderText
           title="Dieses Produkt wurde von ANG, TID, ERB, SMH entwickelt."
           type="center"
         />

@@ -36,7 +36,7 @@ const MenuePage = ({ navigation }) => {
       reloadThreads();
       reloadFavThreads(imp.userStore._id);
     }
-  }, [imp.userStore._id]);
+  }, [imp.userStore._id, imp.questionStore]);
 
   async function reloadThreads() {
     dispatch(setLoading(true));

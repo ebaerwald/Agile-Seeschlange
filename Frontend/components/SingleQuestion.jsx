@@ -127,7 +127,7 @@ const SingleQuestion = ({
         </View>
       )}
       {image && (
-        <View>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}> 
           <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
         </View>
       )}

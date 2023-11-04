@@ -65,6 +65,7 @@ const NewQuestionPage = ({ navigation }) => {
         title: title,
         text: text,
         image: base64Image,
+        userId: imp.userStore._id,
       });
       console.log(res);
       //console.log(imp)

@@ -93,7 +93,7 @@ const MenuePage = ({ navigation }) => {
                   <View style={styles.fragenContainer}>
                     <Question
                       subject={item.title}
-                      user={item.title}
+                      user={item.userId.name}
                       question={item.text}
                       navigation={navigation}
                       questionId={item._id}

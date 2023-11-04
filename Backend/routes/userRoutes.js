@@ -8,9 +8,11 @@ const {
   updateUser,
   addfavoritequestion,
   getfavoritequestions,
+  deletefavoritequestion,
 } = require("../controller/userController");
 
 router.route("/user/addfavoritequestion").put(addfavoritequestion);
+router.route("/user/deletefavoritequestion").post(deletefavoritequestion);
 router.route("/user/signup").post(signup); //Ready and Teste
 router.route("/user/login").post(login); //Ready and Teste
 router.route("/user").delete(delet); //Ready and Teste

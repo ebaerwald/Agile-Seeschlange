@@ -2,6 +2,7 @@ const Thread = require("../mongoDB/ThreadSchema");
 const Answer = require("../mongoDB/AnswerSchema");
 const Group = require("../mongoDB/groupSchema");
 const Tag = require("../mongoDB/TagsSchema");
+const User = require("../mongoDB/UserSchema");
 const responseMgt = require("../helper/responseMgt");
 
 exports.createThread = async (req, res, next) => {
@@ -105,6 +106,8 @@ exports.modifyThread = async (req, res, next) => {
 exports.getThreadWithAnswers = async (req, res, next) => {
   try {
     const { id } = req.params;
+    const { userId } = req.body;
+    console.log(req.body);
     async function getThreadWithAnswers(_id) {
       try {
         let thread = await Thread.findOne({ _id });
@@ -143,6 +146,12 @@ exports.getThreadWithAnswers = async (req, res, next) => {
     }
 
     const responseMsg = await getThreadWithAnswers(id);
+    const currThread = await Thread.findById(id);
+    responseMsg.likes = currThread.likes.length;
+    responseMsg.dislikes = currThread.dislikes.length;
+    const currUser = await User.findById(userId);
+    responseMsg.isSuperlike = currUser.favoriteThreads.includes(currThread._id);
+
     if (responseMsg) {
       responseMgt.success(responseMsg, res);
     } else {
@@ -167,5 +176,56 @@ exports.getThreads = async (req, res, next) => {
     }
   } catch (err) {
     responseMgt.faild(err, res);
+  }
+};
+exports.likeThread = async (req, res, next) => {
+  const { id } = req.params;
+  const { userId } = req.body;
+  try {
+    await Thread.findByIdAndUpdate(id, { $pull: { dislikes: userId } });
+    await Thread.findByIdAndUpdate(id, { $pull: { likes: userId } });
+
+    const thread = await Thread.findByIdAndUpdate(
+      id,
+      { $push: { likes: userId } },
+      { new: true }
+    );
+
+    if (thread) {
+      responseMgt.success(
+        { dislikes: thread.dislikes.length, likes: thread.likes.length },
+        res
+      );
+    } else {
+      responseMgt.faild("Something went wrong", res);
+    }
+  } catch (err) {
+    responseMgt.faild(err, res);
+  }
+};
+exports.dislikeThread = async (req, res, next) => {
+  const { id } = req.params;
+  const { userId } = req.body;
+  try {
+    await Thread.findByIdAndUpdate(id, { $pull: { likes: userId } });
+    await Thread.findByIdAndUpdate(id, { $pull: { dislikes: userId } });
+
+    const thread = await Thread.findByIdAndUpdate(
+      id,
+      { $push: { dislikes: userId } },
+      { new: true }
+    );
+
+    if (thread) {
+      responseMgt.success(
+        { dislikes: thread.dislikes.length, likes: thread.likes.length },
+        res
+      );
+    } else {
+      responseMgt.faild("Something went wrong", res);
+    }
+  } catch (err) {
+    responseMgt.faild(err, res);
+    w;
   }
 };

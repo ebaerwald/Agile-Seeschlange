@@ -48,10 +48,14 @@ const SingleQuestionPage = ({ navigation }) => {
 
   async function reloadCurrThread(currThreadId) {
     const reqData = {
-      method: "GET",
+      method: "POST",
       maxBodyLength: Infinity,
       url: `http://${ip}:3001/api/thread/${currThreadId}`,
+      data: {
+        userId: imp.userStore._id,
+      },
     };
+
     const { data } = await axios.request(reqData);
     setCurrentThreadWithAnswers(data);
     dispatch(setCurrLoading(false));
@@ -116,6 +120,9 @@ const SingleQuestionPage = ({ navigation }) => {
                 showAnswers={true}
                 answers={currentThreadWithAnswers.answers}
                 image={currentThreadWithAnswers.image}
+                likes={currentThreadWithAnswers.likes}
+                dislikes={currentThreadWithAnswers.dislikes}
+                isSuperlike={currentThreadWithAnswers.isSuperlike}
               />
               <Text
                 title="Eine Seeschlange hat diese Frage gepostet und braucht Deine Hilfe. Du weißt eine Antwort? Super! Poste deine Antwort und hilf anderen Seeschlangen!"

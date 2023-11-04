@@ -9,6 +9,18 @@ const ThreadSchema = new mongoose.Schema({
       ref: "Tag",
     },
   ],
+  likes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
+  dislikes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
   score: Number,
   views: Number,
   closed: Boolean,

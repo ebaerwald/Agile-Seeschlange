@@ -228,18 +228,41 @@ exports.updateUser = async (req, res, next) => {
 };
 exports.addfavoritequestion = async (req, res, next) => {
   try {
-    const { googleUserId, threadId } = req.body;
+    const { userId: id, threadId } = req.body;
 
-    if (!googleUserId) {
+    if (!id) {
       res.status(401).send("Please provide email and password");
       console.log("Unauthoriced login");
     } else {
-      const user = await User.findOne({
-        googleUserId: googleUserId,
+      await User.findByIdAndUpdate(id, {
+        $pull: { favoriteThreads: threadId },
       });
-      const currentThread = await Thread.findById(threadId);
-      user.favoriteThreads.push(currentThread._id);
-      user.save();
+      const user = await User.findByIdAndUpdate(id, {
+        $push: { favoriteThreads: threadId },
+      });
+
+      if (user) {
+        responseMgt.success(user, res);
+        console.log(`updated Favorite QUestion User:${user._id}`);
+      } else {
+        responseMgt.faild(user, res);
+      }
+    }
+  } catch (err) {
+    throw new Error(err, res);
+  }
+};
+exports.deletefavoritequestion = async (req, res, next) => {
+  try {
+    const { userId: id, threadId } = req.body;
+
+    if (!id) {
+      res.status(401).send("Please provide email and password");
+      console.log("Unauthoriced login");
+    } else {
+      await User.findByIdAndUpdate(id, {
+        $pull: { favoriteThreads: threadId },
+      });
       if (user) {
         responseMgt.success(user, res);
         console.log(`updated Favorite QUestion User:${user._id}`);

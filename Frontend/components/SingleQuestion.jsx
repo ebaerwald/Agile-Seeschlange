@@ -3,8 +3,12 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Answer from "./Answer";
 import InteractionButton from "./InteractionButton";
 import DataInputField from "./DataInputField";
+import { impContext } from "../impressive-store/provider.jsx";
+import { useEffect, useContext } from "react";
 
 import { useSelector } from "react-redux";
+import config from "../config.js";
+import axios from "axios";
 import { useDispatch } from "react-redux";
 import {
   setCurrThreadId,
@@ -21,40 +25,110 @@ const SingleQuestion = ({
   questionId,
   answers,
   image,
+  likes,
+  dislikes,
+  isSuperlike,
 }) => {
   const dispatch = useDispatch();
   const { currLoading, currThreadId } = useSelector(
     (state) => state.currThreads
   );
-  const [likeCount, setLikeCount] = useState(0);
-  const [dislikeCount, setDislikeCount] = useState(0);
-  const [superlikeCount, setSuperlikeCount] = useState(0);
+  const { imp } = useContext(impContext);
+  const [likeCount, setLikeCount] = useState(likes);
+  const [dislikeCount, setDislikeCount] = useState(dislikes);
   const [showAnswers, setShowAnswers] = useState(true);
   const [fach, setFach] = useState("");
   const [answer, setAnswer] = useState("");
+  const stringSuperlike = isSuperlike ? "superlikePushed" : "superlike";
   const [interactionButtonTypeStar, setInteractionButtonTypeStar] =
     useState("star");
   const [interactionButtonTypeSuperlike, setInteractionButtonTypeSuperlike] =
-    useState("superlike");
-
-  const handleLike = () => {
-    setLikeCount(likeCount + 1);
-    console.log("Button Like wurde geklickt");
-  };
+    useState(stringSuperlike);
 
   const handleDislike = () => {
-    setDislikeCount(dislikeCount + 1);
     console.log("Button Dislike wurde geklickt");
+    sendDislikeRequest(imp.userStore._id, currThreadId);
   };
+
+  const handleLike = () => {
+    console.log("Button Like wurde geklickt");
+    sendLikeRequest(imp.userStore._id, currThreadId);
+  };
+  async function sendLikeRequest(userId, currThreadId) {
+    const reqData = {
+      method: "POST",
+      maxBodyLength: Infinity,
+      url: `http://${config.serverIP}:3001/api/thread/like/${currThreadId}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        userId,
+      },
+    };
+    console.log(reqData);
+    const res = await axios.request(reqData);
+    setDislikeCount(res.data.dislikes);
+    setLikeCount(res.data.likes);
+  }
+  async function sendDislikeRequest(userId, threadId) {
+    const reqData = {
+      method: "POST",
+      maxBodyLength: Infinity,
+      url: `http://${config.serverIP}:3001/api/thread/dislike/${threadId}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        userId,
+      },
+    };
+    const res = await axios.request(reqData);
+    setDislikeCount(res.data.dislikes);
+    setLikeCount(res.data.likes);
+  }
 
   const handleSuperlike = () => {
     if (interactionButtonTypeSuperlike === "superlike") {
       setInteractionButtonTypeSuperlike("superlikePushed");
+      sendSuperlikeRequest(imp.userStore._id, currThreadId);
     } else {
       setInteractionButtonTypeSuperlike("superlike");
+      sendSuperlikedeleteRequest(imp.userStore._id, currThreadId);
     }
     console.log("Superlike wurde geklickt");
   };
+
+  async function sendSuperlikeRequest(userId, threadId) {
+    const reqData = {
+      method: "PUT",
+      maxBodyLength: Infinity,
+      url: `http://${config.serverIP}:3001/api/user/addfavoritequestion`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        userId,
+        threadId,
+      },
+    };
+    const res = await axios.request(reqData);
+  }
+  async function sendSuperlikedeleteRequest(userId, threadId) {
+    const reqData = {
+      method: "POST",
+      maxBodyLength: Infinity,
+      url: `http://${config.serverIP}:3001/api/user/deletefavoritequestion`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        userId,
+        threadId,
+      },
+    };
+    const res = await axios.request(reqData);
+  }
 
   const handleShortPress = () => {
     if (!newQuestion) {

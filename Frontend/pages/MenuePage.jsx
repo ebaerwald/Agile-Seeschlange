@@ -32,10 +32,11 @@ const MenuePage = ({ navigation }) => {
     console.log("imp store Menue Page: " + JSON.stringify(imp.userStore));
     if (!imp.userStore._id) {
       navigation.navigate("Login");
+    } else {
+      reloadThreads();
+      reloadFavThreads(imp.userStore._id);
     }
-    reloadThreads();
-    reloadFavThreads(imp.userStore._id);
-  }, []);
+  }, [imp.userStore._id]);
 
   async function reloadThreads() {
     dispatch(setLoading(true));
@@ -54,7 +55,7 @@ const MenuePage = ({ navigation }) => {
     const reqData = {
       method: "GET",
       maxBodyLength: Infinity,
-      url: `http://${config.serverIP}:3001/api/user/favoritequestion/653644ae7340265526764d5c`, //TODO Take User id from store and put there instead of 653644...
+      url: `http://${config.serverIP}:3001/api/user/favoritequestion/${imp.userStore._id}`, //TODO Take User id from store and put there instead of 653644...
     };
     const { data: data2 } = await axios.request(reqData);
     console.log(data2);

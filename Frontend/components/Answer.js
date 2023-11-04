@@ -76,19 +76,6 @@ const Answer = ({
     console.log(reqData);
     await axios.request(reqData);
   }
-  const handleLike = () => {
-    console.log("Es wurde geliket");
-    setLikeCount(likeCount + 1);
-  };
-
-  const handleDislike = () => {
-    console.log("Es wurde gedisliket");
-    setDislikeCount(dislikeCount + 1);
-  };
-
-  const handleSuperlike = () => {
-    console.log("Es wurde gesuperliket");
-  };
 
   const handleComment = () => {
     console.log("Es wurde kommentiert");
@@ -110,28 +97,6 @@ const Answer = ({
         </View>
         <View style={styles.answerContainer}>
           <Text>{answer}</Text>
-        </View>
-        {/* Interaktionscontainer */}
-        <View style={styles.interactionContainer}>
-          <View style={styles.interactionButtonContainer}>
-            <InteractionButton label="Like" type="like" onPress={handleLike} />
-            <Text>{likeCount}</Text>
-          </View>
-          <View style={styles.interactionButtonContainer}>
-            <Text>{dislikeCount}</Text>
-            <InteractionButton
-              label="Dislike"
-              type="dislike"
-              onPress={handleDislike}
-            />
-          </View>
-          <View style={styles.interactionButtonContainer}>
-            <InteractionButton
-              label="Superlike"
-              type="superlike"
-              onPress={handleSuperlike}
-            />
-          </View>
         </View>
         {answers &&
           answers.map((answer, index) => (

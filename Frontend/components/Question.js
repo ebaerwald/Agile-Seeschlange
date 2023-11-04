@@ -41,57 +41,6 @@ const Question = ({
   const [interactionButtonTypeSuperlike, setInteractionButtonTypeSuperlike] =
     useState("superlike");
 
-  const handleLike = () => {
-    console.log("Button Like wurde geklickt");
-    sendLikeRequest(imp.userStore._id, questionId);
-  };
-  async function sendLikeRequest(userId, questionId) {
-    const reqData = {
-      method: "POST",
-      maxBodyLength: Infinity,
-      url: `http://${config.serverIP}:3001/api/thread/like/${questionId}`,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: {
-        userId,
-      },
-    };
-    console.log(reqData);
-    const res = await axios.request(reqData);
-    // console.log(res.data);
-  }
-  async function sendDislikeRequest(userId, threadId) {
-    const reqData = {
-      method: "POST",
-      maxBodyLength: Infinity,
-      url: `http://${config.serverIP}:3001/api/thread/dislike/${threadId}`,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: {
-        userId,
-      },
-    };
-    console.log(reqData);
-    const res = await axios.request(reqData);
-    // console.log(res.data);
-  }
-
-  const handleDislike = () => {
-    console.log("Button Dislike wurde geklickt");
-    sendDislikeRequest(imp.userStore._id, questionId);
-  };
-
-  const handleSuperlike = () => {
-    if (interactionButtonTypeSuperlike === "superlike") {
-      setInteractionButtonTypeSuperlike("superlikePushed");
-    } else {
-      setInteractionButtonTypeSuperlike("superlike");
-    }
-    console.log("Superlike wurde geklickt");
-  };
-
   const handleShortPress = () => {
     if (!newQuestion) {
       dispatch(setCurrThreadId(questionId));
@@ -140,30 +89,6 @@ const Question = ({
           />
         )}
       </View>
-
-      {/* Interaktionscontainer für Frage */}
-      {!newQuestion && (
-        <View style={styles.interactionContainer}>
-          <View style={styles.interactionButtonContainer}>
-            <InteractionButton label="Like" type="like" onPress={handleLike} />
-            <Text>{likeCount}</Text>
-          </View>
-          <View style={styles.interactionButtonContainer}>
-            <Text>{dislikeCount}</Text>
-            <InteractionButton
-              label="Dislike"
-              type="dislike"
-              onPress={handleDislike}
-            />
-          </View>
-          <View style={styles.interactionButtonContainer}>
-            <InteractionButton
-              type={interactionButtonTypeSuperlike}
-              onPress={handleSuperlike}
-            />
-          </View>
-        </View>
-      )}
       <View style={styles.MenueContainer}>
         {/* Button zum Anzeigen/Ausblenden von Antworten */}
         {!newQuestion && (

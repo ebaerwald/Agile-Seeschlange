@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Switch } from "react-native";
 import * as Notifications from "expo-notifications";
 import Background from "../components/Background";
@@ -6,14 +6,16 @@ import SnakeImage from "../components/SnakeImage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useTheme } from "../hooks/useTheme";
 import { useThemeContext } from "../components/ThemeContext";
+import { useEffect, useContext } from "react";
+import { impContext } from "../impressive-store/provider";
 
-export function NotificationsPage() {
+export function NotificationsPage({ navigation }) {
   const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();
   const currentTheme = useTheme({ currentAppColorScheme });
   const styles = themedStyle(currentTheme);
   const [isEnabled, setIsEnabled] = useState(false);
 
-  const { imp } = useContext(ImpContext);
+  const { imp } = useContext(impContext);
 
   useEffect(() => {
     if (!imp.userStore._id) {

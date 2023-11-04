@@ -17,14 +17,16 @@ import FrageHochladenErklaerung from "../components/fragenErklaerung";
 import AntwortErklaerung from "../components/antwortErklaerung";
 import { useTheme } from "../hooks/useTheme";
 import { useThemeContext } from "../components/ThemeContext";
+import { useEffect, useContext } from "react";
+import { impContext } from "../impressive-store/provider";
 
-export function LegalPage() {
+export function LegalPage({ navigation }) {
   const [showAGB, setShowAGB] = useState(false);
   const [showDatenschutz, setShowDatenschutz] = useState(false);
   const [showFrageErklaerung, setShowFrageErklaerung] = useState(false);
   const [showAntwortErklaerung, setShowAntwortErklaerung] = useState(false);
 
-  const { imp } = useContext(ImpContext);
+  const { imp } = useContext(impContext);
 
   useEffect(() => {
     if (!imp.userStore._id) {

@@ -10,9 +10,11 @@ import {
 import HeaderText from "../components/HeaderText";
 import Background from "../components/Background";
 import { useTheme } from "../hooks/useTheme";
+import { useEffect, useContext } from "react";
+import { impContext } from "../impressive-store/provider";
 
-export function FaqPage() {
-  const { imp } = useContext(ImpContext);
+export function FaqPage({ navigation }) {
+  const { imp } = useContext(impContext);
 
   useEffect(() => {
     if (!imp.userStore._id) {

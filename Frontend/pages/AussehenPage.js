@@ -4,9 +4,11 @@ import { useTheme } from "../hooks/useTheme";
 import { useThemeContext } from "../components/ThemeContext";
 import SnakeImage from "../components/SnakeImage";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { impContext } from "../impressive-store/provider";
+import { useEffect, useContext } from "react";
 
 const AussehenPage = () => {
-  const { imp } = useContext(ImpContext);
+  const { imp } = useContext(impContext);
 
   useEffect(() => {
     if (!imp.userStore._id) {

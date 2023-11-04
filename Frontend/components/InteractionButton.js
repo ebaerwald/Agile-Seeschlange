@@ -1,57 +1,59 @@
-import React from 'react';
-import { TouchableOpacity, Image, StyleSheet, View } from 'react-native';
+import React from "react";
+import { TouchableOpacity, Image, StyleSheet, View } from "react-native";
 
 const InteractionButton = ({ type, onPress }) => {
   let iconSource;
 
   // Je nachdem welchen Interaktionsbutton-Typ du möchtest, setze das entsprechende Icon
   switch (type) {
-    case 'like':
-      iconSource = require('../assets/ThumbsUpIcon.png');
+    case "like":
+      iconSource = require("../assets/ThumbsUpIcon.png");
       break;
-    case 'dislike':
-      iconSource = require('../assets/ThumbsDownIcon.png');
+    case "dislike":
+      iconSource = require("../assets/ThumbsDownIcon.png");
       break;
-    case 'superlike':
-      iconSource = require('../assets/HeartIcon.png');
+    case "superlike":
+      iconSource = require("../assets/HeartIcon.png");
       break;
-      case 'superlikePushed':
-        iconSource = require('../assets/HeartSolidIcon.png');
-        break;
-    case 'comment':
-      iconSource = require('../assets/CommentIcon.png');
+    case "superlikePushed":
+      iconSource = require("../assets/HeartSolidIcon.png");
       break;
-    case 'star':
-      iconSource = require('../assets/StarIcon.png');
+    case "comment":
+      iconSource = require("../assets/CommentIcon.png");
       break;
-    case 'starPushed':
-        iconSource = require('../assets/StarSolidIcon.png');
+    case "star":
+      iconSource = require("../assets/StarIcon.png");
+      break;
+    case "starPushed":
+      iconSource = require("../assets/StarSolidIcon.png");
+      break;
+    case "delete":
+      iconSource = require("../assets/IMG_0518.png");
       break;
 
     default:
       // Fallback, falls der Typ nicht erkannt wird
-      iconSource = require('../assets/DefaultIcon.png');
+      iconSource = require("../assets/DefaultIcon.png");
       break;
   }
-  
 
   return (
     <View style={styles.interactionContainer}>
-    <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Image source={iconSource} style={styles.icon} />
-    </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={onPress}>
+        <Image source={iconSource} style={styles.icon} />
+      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   interactionContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   button: {
-    backgroundColor: '#72c770', // Hintergrundfarbe des Buttons
+    backgroundColor: "#72c770", // Hintergrundfarbe des Buttons
     padding: 2,
     marginHorizontal: 2,
   },

@@ -11,6 +11,7 @@ import { impContext } from "../impressive-store/provider";
 import { useContext } from "react";
 import * as WebBrowser from "expo-web-browser";
 import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
+// import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "../hooks/useTheme";
 import { useThemeContext } from "../components/ThemeContext";
 
@@ -45,44 +46,39 @@ const LoginPage = ({ navigation }) => {
     },
     discovery
   );
-  const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();
+    const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();
   const currentTheme = useTheme({ currentAppColorScheme });
   const styles = themedStyle(currentTheme);
-  useEffect(() => {
-    if (response?.type === "success") {
-      setErrorMessage("Sucessfully logged in!");
-      const { code } = response.params;
-      console.log(code);
-      fetch("https://github.com/login/oauth/access_token", {
+  async function githubLogin(code)
+  {
+    console.log(code);
+      const res = await fetch("https://github.com/login/oauth/access_token", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
         body: `client_id=96f22eaf46e6f1bcdb9f&client_secret=${client_secret}&code=${code}`,
-      })
-        .then((response) => {
-          if (response.ok) {
-            return response.text();
-          } else {
-            throw new Error(`Request failed with status: ${response.status}`);
-          }
-        })
-        .then((data) => {
-          const access_token = data.split("&")[0].split("=")[1];
-          console.log(access_token);
-          async () => {
-            const res = await user.signUpUser(imp, {
-              access_token: access_token,
-            });
-            if (!res) {
-              setErrorMessage("GitHub LogIn failed!");
-              return;
-            }
-          };
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+      });
+
+      const text = await res.text();
+      const access_token = text.split("&")[0].split("=")[1];
+      console.log(access_token);
+      const response = await user.signUpUser(imp, {
+        access_token: access_token,
+      });
+      if (!response) {
+        setErrorMessage("GitHub LogIn failed!");
+        return;
+      }
+      navigation.navigate("MenuePage");
+  }
+
+  useEffect(() => {
+    if (response?.type === "success") {
+      setErrorMessage("Sucessfully logged in!");
+      const { code } = response.params;
+      githubLogin(code);
+
     } else {
       setErrorMessage(
         "GitHub LogIn failed! Error: " + response?.error || "unknown error"

@@ -111,6 +111,9 @@ exports.getThreadWithAnswers = async (req, res, next) => {
     const { id } = req.params;
     const { userId } = req.body;
     console.log(req.body);
+    let tmpThread = await Thread.findById(id);
+    tmpThread = tmpThread.toJSON();
+    const originalUserId = tmpThread.userId;
     async function getThreadWithAnswers(_id) {
       try {
         let thread = await Thread.findOne({ _id });
@@ -154,6 +157,7 @@ exports.getThreadWithAnswers = async (req, res, next) => {
     responseMsg.dislikes = currThread.dislikes.length;
     const currUser = await User.findById(userId);
     responseMsg.isSuperlike = currUser.favoriteThreads.includes(currThread._id);
+    responseMsg.userId = originalUserId;
 
     if (responseMsg) {
       responseMgt.success(responseMsg, res);

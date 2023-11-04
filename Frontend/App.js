@@ -142,7 +142,6 @@ export default function App() {
               <Tab.Screen name="Home" component={QuestionStackScreen} />
               <Tab.Screen name="Dein Konto" component={KontoPage} />
               <Tab.Screen name="Neue Frage" component={NewQuestionPage} />
-              <Tab.Screen name="MenüPage" component={MenuePage} />
               <Tab.Screen
                 name="Einstellungen"
                 component={EinstellungenStackScreen}

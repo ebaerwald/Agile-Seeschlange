@@ -54,6 +54,28 @@ const SingleQuestion = ({
     console.log("Button Like wurde geklickt");
     sendLikeRequest(imp.userStore._id, currThreadId);
   };
+
+  const handleDelete = (navigation) => {
+    console.log("Button Delete wurde geklickt");
+    sendDeleteRequest(currThreadId);
+  };
+  async function sendDeleteRequest(currThreadId) {
+    const reqData = {
+      method: "DELETE",
+      maxBodyLength: Infinity,
+      url: `http://${config.serverIP}:3001/api/thread/${currThreadId}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const res = await axios.request(reqData);
+    imp.set.questionStore(
+      {
+        reload: true,
+      }
+    );
+    navigation.navigate("HomePage");
+  }
   async function sendLikeRequest(userId, currThreadId) {
     const reqData = {
       method: "POST",
@@ -178,6 +200,13 @@ const SingleQuestion = ({
               onPress={handleSuperlike}
             />
           </View>
+          {imp.userStore._id === user && (
+            <InteractionButton
+              label="Löschen"
+              type="delete"
+              onPress={() => handleDelete(navigation)}
+            />
+          )}
         </View>
       )}
       {image && (

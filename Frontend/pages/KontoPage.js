@@ -69,30 +69,28 @@ export function KontoPage() {
           </Text>
           <View style={styles.userInfoContainer}>
             <View style={styles.userInfoRow}>
+              <Text style={styles.userInfoLabel}>User ID:</Text>
+              <Text style={styles.userInfoText}>{imp.userStore._id}</Text>
+            </View>
+            <View style={styles.userInfoRow}>
               <Text style={styles.userInfoLabel}>Dein Name:</Text>
-              <Text style={styles.userInfoText}>
-                {userTest.firstName} {userTest.lastName}
-              </Text>
+              <Text style={styles.userInfoText}>{imp.userStore.name}</Text>
             </View>
             <View style={styles.userInfoRow}>
               <Text style={styles.userInfoLabel}>Deine Mail:</Text>
-              <Text style={styles.userInfoText}>{userTest.email}</Text>
+              <Text style={styles.userInfoText}>{imp.userStore.email}</Text>
             </View>
             <View style={styles.userInfoRow}>
-              <Text style={styles.userInfoLabel}>Dein Geburtstag:</Text>
-              <Text style={styles.userInfoText}>21.03.2002</Text>
+              <Text style={styles.userInfoLabel}>Favoriten:</Text>
+              <Text style={styles.userInfoText}>
+                {imp.userStore.favoriteThreads.length}
+              </Text>
             </View>
             <View style={styles.userInfoRow}>
-              <Text style={styles.userInfoLabel}>Dein Alter:</Text>
-              <Text style={styles.userInfoText}>21</Text>
-            </View>
-            <View style={styles.userInfoRow}>
-              <Text style={styles.userInfoLabel}>Deine Telefonnummer:</Text>
-              <Text style={styles.userInfoText}>32423498123</Text>
-            </View>
-            <View style={styles.userInfoRow}>
-              <Text style={styles.userInfoLabel}>Dein Geschlecht:</Text>
-              <Text style={styles.userInfoText}>Weiblich</Text>
+              <Text style={styles.userInfoLabel}>erstellt am:</Text>
+              <Text style={styles.userInfoText}>
+                {getDateString(imp.userStore.createdAt)}
+              </Text>
             </View>
           </View>
         </View>
@@ -108,6 +106,16 @@ export function KontoPage() {
     </Background>
   );
 }
+
+const getDateString = (newDate) => {
+  const date = new Date(newDate);
+  const year = date.getFullYear();
+  let month = (1 + date.getMonth()).toString();
+  month = month.length > 1 ? month : "0" + month;
+  let day = date.getDate().toString();
+  day = day.length > 1 ? day : "0" + day;
+  return `${day}.${month}.${year}`;
+};
 
 const themedStyle = (currentTheme) =>
   StyleSheet.create({

@@ -1,5 +1,5 @@
 export default {
-  serverIP: "192.168.178.59",
+  serverIP: "10.25.1.74",
 };
 
 // Die IP kann über import config from '.config.js' eingebunden werden, indem die Variable dann über config.serverIP gesetzt wird.

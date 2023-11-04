@@ -32,12 +32,6 @@ export function KontoPage() {
     }
   }, []);
 
-  const userTest = {
-    firstName: "Jane",
-    lastName: "Doe",
-    email: "janedoe@example.com",
-  };
-
   const handleDeleteUser = () => {
     Alert.alert(
       "Dein Konto Löschen",

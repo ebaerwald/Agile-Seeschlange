@@ -115,8 +115,9 @@ const SingleQuestionPage = ({ navigation }) => {
             <>
               <SingleQuestion
                 subject={currentThreadWithAnswers.title}
-                user={currentThreadWithAnswers.title}
+                user={currentThreadWithAnswers.userId}
                 question={currentThreadWithAnswers.text}
+                navigation={navigation}
                 showAnswers={true}
                 answers={currentThreadWithAnswers.answers}
                 image={currentThreadWithAnswers.image}

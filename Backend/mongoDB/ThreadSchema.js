@@ -3,6 +3,10 @@ const mongoose = require("mongoose");
 const ThreadSchema = new mongoose.Schema({
   title: String,
   text: String,
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
   tags: [
     {
       type: mongoose.Schema.Types.ObjectId,

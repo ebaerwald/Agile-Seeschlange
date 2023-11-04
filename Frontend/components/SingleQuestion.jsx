@@ -142,27 +142,7 @@ const SingleQuestion = ({
   return (
     <View style={styles.QuestionContainer} onPress={handleShortPress}>
       {/* Container für allgemeine Infos der Frage, wie z. B. welches Fach und welcher Benutzer gefragt hat */}
-      <View style={styles.generalInfoContainer}>
-        <View style={styles.userContainer}>
-          {!newQuestion ? (
-            <Text>{`${user} fragt im Fach`} </Text>
-          ) : (
-            <Text>Du fragst im Fach: </Text>
-          )}
-        </View>
-        <View style={styles.fachContainer}>
-          {!newQuestion ? (
-            <Text>{subject}</Text>
-          ) : (
-            <DataInputField
-              placeholder="Dein Fach*"
-              value={fach}
-              onChangeText={(text) => setFach(text)}
-              type="Question"
-            />
-          )}
-        </View>
-      </View>
+      <View style={styles.generalInfoContainer}></View>
 
       <View style={styles.fragenContainer}>
         {!newQuestion ? (
@@ -201,7 +181,9 @@ const SingleQuestion = ({
         </View>
       )}
       {image && (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}> 
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
           <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
         </View>
       )}

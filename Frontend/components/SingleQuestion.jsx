@@ -69,6 +69,11 @@ const SingleQuestion = ({
       },
     };
     const res = await axios.request(reqData);
+    imp.set.questionStore(
+      {
+        reload: true,
+      }
+    );
     navigation.navigate("HomePage");
   }
   async function sendLikeRequest(userId, currThreadId) {

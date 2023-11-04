@@ -4,9 +4,11 @@ import Question from "../components/Question";
 import HeaderText from "../components/HeaderText";
 import { useTheme } from "../hooks/useTheme";
 import { useThemeContext } from "../components/ThemeContext";
+import { useEffect, useContext } from "react";
+import { impContext } from "../impressive-store/provider";
 
 const ArchivPage = ({ navigation }) => {
-  const { imp } = useContext(ImpContext);
+  const { imp } = useContext(impContext);
 
   useEffect(() => {
     if (!imp.userStore._id) {

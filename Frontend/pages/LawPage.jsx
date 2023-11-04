@@ -10,6 +10,8 @@ import AGB from "../components/AGB";
 import Datenschutzerklearung from "../components/Datenschutz";
 import FrageHochladenErklaerung from "../components/fragenErklaerung";
 import AntwortErklaerung from "../components/antwortErklaerung";
+import { useEffect, useContext } from "react";
+import { impContext } from "../impressive-store/provider";
 
 const LawPage = ({ navigation }) => {
   const [showAGB, setShowAGB] = useState(false);
@@ -17,7 +19,7 @@ const LawPage = ({ navigation }) => {
   const [showFrageErklaerung, setShowFrageErklaerung] = useState(false);
   const [showAntwortErklaerung, setShowAntwortErklaerung] = useState(false);
 
-  const { imp } = useContext(ImpContext);
+  const { imp } = useContext(impContext);
 
   useEffect(() => {
     if (!imp.userStore._id) {

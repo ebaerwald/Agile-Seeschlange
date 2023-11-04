@@ -101,7 +101,7 @@ const SingleQuestionPage = ({ navigation }) => {
       parentAnswer,
       parentThread
     );
-    //navigation.navigate('Menue');
+    navigation.navigate("HomePage");
   };
 
   return (
@@ -137,24 +137,6 @@ const SingleQuestionPage = ({ navigation }) => {
             onChangeText={(text) => setAnswer(text)}
           />
 
-          {/*SMH Fragt: Kann der Button nicht raus?
-
-          <Button
-            title="Get Question"
-            onPress={async () => {
-              try {
-                const res = await question.getQuestion(
-                  imp,
-                  "5f9e9b3b9b7b7b0b3c3c3c3c"
-                );
-                console.log(res);
-              } catch (error) {
-                console.error("Fehler beim Abrufen der Frage:", error);
-              }
-            }}
-          />
-          */}
-
           <CustomCheckbox
             label="Hiermit stimme ich zu, dass meine Antwort veröffentlich wird*"
             value={UserRightsChecked}
@@ -166,13 +148,15 @@ const SingleQuestionPage = ({ navigation }) => {
           />
 
           <Button
-            onPress={handleAnswerButtonClick(
-              giveAnswer,
-              null,
-              imp.userStore._id,
-              "",
-              currThreadId
-            )}
+            onPress={() =>
+              handleAnswerButtonClick(
+                giveAnswer,
+                null,
+                imp.userStore._id,
+                "",
+                currThreadId
+              )
+            }
             iconType="Answer"
             text="Antwort im Meer senden!"
           />

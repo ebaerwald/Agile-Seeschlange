@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, View, Text } from "react-native"; // Importieren Sie CheckBox von react-native
+import { ScrollView, StyleSheet, View, Text } from "react-native"; 
 import Button from "../components/Button";
 import DataInputField from "../components/DataInputField";
 import SnakeImage from "../components/SnakeImage";
 import Background from "../components/Background";
 import HeaderText from "../components/HeaderText";
 import SubHeaderText from "../components/SubHeaderText";
-import * as user from "../impressive-store/user";
 import { impContext } from "../impressive-store/provider";
 import { useContext } from "react";
-import * as WebBrowser from "expo-web-browser";
 import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
-// import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "../hooks/useTheme";
 import { useThemeContext } from "../components/ThemeContext";
-
+import * as user from "../impressive-store/user";
+import * as WebBrowser from "expo-web-browser";
 const client_secret = "c8ddd91ff2112a4c3edf79b4afd78261fbb62da6";
 
 const discovery = {
@@ -32,7 +30,6 @@ const LoginPage = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [usernameOrEmail, setUsernameOrEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
   const [action, setAction] = useState("register");
   const { imp } = useContext(impContext);
 
@@ -125,8 +122,6 @@ const LoginPage = ({ navigation }) => {
             title="Gib deine Daten an, um die Weltmeere zu betreten und Weisheit zu finden, um anderen Seeschlangen zu helfen."
             type="center"
           />
-
-          {/* Eingabefelder für Username und Passwort */}
           <View></View>
           {action === "register" && (
             <>
@@ -209,29 +204,10 @@ const LoginPage = ({ navigation }) => {
               />
             </>
           )}
-
-          {/* <DataInputField placeholder="Username*" value={username} onChangeText={text => setUsername(text)} />
-        <DataInputField placeholder="Passwort*" value={password} onChangeText={text => setPassword(text)} /> */}
-
           <SubHeaderText
             title=" Alle mit * markierten Felder sind Pflichtfelder. Bitte fülle sie aus."
             type="center"
           />
-
-          {/* Login-Button */}
-          {/* <Button
-        onPress={handleLoginButtonClick}
-        iconType="Login"
-        text="Sign In"
-      /> */}
-
-          {/* Registrieren-Button */}
-          {/* <Button
-        onPress={handleRegisterButtonClick}
-        iconType="Register"
-        text="Noch keine Seeschlange? Dann registriere dich ein!"
-      /> */}
-
           <SubHeaderText
             title="Dieses Produkt wurde von ANG, TID, ERB, SMH entwickelt."
             type="center"

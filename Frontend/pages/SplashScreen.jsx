@@ -15,13 +15,11 @@ const SplashScreen = ({ navigation }) => {
   }, []);
 
   const handleLoginButtonClick = () => {
-    // Hier Logik für den Login-Button
     console.log("Login-Button wurde geklickt");
     navigation.navigate("Login");
   };
 
   const handleRegisterButtonClick = () => {
-    // Hier die Logik für den Registrieren-Button
     console.log("Register-Button wurde geklickt");
     navigation.navigate("Register");
   };
@@ -32,27 +30,21 @@ const SplashScreen = ({ navigation }) => {
         <View>
           <SnakeImage size="!small" />
         </View>
-
         <HeaderText title="Seeschlange" type="center" />
         <SubHeaderText
           title="Herzlichen Willkommen auf den Weltmeeren des unendlichen Wissens!"
           type="center"
         />
-
-        {/* Login-Button */}
         <Button
           onPress={handleLoginButtonClick}
           iconType="Login"
           text="Willkommen zurück kleine Seeschlange!"
         />
-
-        {/* Registrieren-Button */}
         <Button
           onPress={handleRegisterButtonClick}
           iconType="Register"
           text="Noch keine Seeschlange? Dann registriere dich hier!"
         />
-
         <SubHeaderText
           title="Dieses Produkt wurde von ANG, TID, ERB, SMH entwickelt."
           type="center"

@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 import SnakeImage from "../components/SnakeImage";
-import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from "react-native";
 import HeaderText from "../components/HeaderText";
 import Background from "../components/Background";
 import { useTheme } from "../hooks/useTheme";

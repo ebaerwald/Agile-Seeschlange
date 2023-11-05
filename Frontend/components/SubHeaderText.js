@@ -1,12 +1,11 @@
-import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useTheme } from "../hooks/useTheme";
 import { useThemeContext } from "./ThemeContext";
 
 const SubHeaderText = ({ title, type }) => {
-  const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();
-  const currentTheme = useTheme({ currentAppColorScheme });
-  const styles = themedStyle(currentTheme);
+const { currentAppColorScheme } = useThemeContext();
+const currentTheme = useTheme({ currentAppColorScheme });
+const styles = themedStyle(currentTheme);
 
   const getTextAlign = () => {
     switch (type) {
@@ -17,7 +16,7 @@ const SubHeaderText = ({ title, type }) => {
       case "right":
         return "right";
       default:
-        return "center"; // Standardwert: zentriert
+        return "center";
     }
   };
 
@@ -40,7 +39,7 @@ const themedStyle = (currentTheme) =>
     titleText: {
       color: currentTheme.textColor,
       fontWeight: "bold",
-      fontSize: 16, // Passe die Schriftgröße an, falls erforderlich
+      fontSize: 16,
     },
   });
 

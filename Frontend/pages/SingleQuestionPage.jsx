@@ -9,31 +9,20 @@ import HeaderText from "../components/HeaderText";
 import Text from "../components/Text";
 import SingleQuestion from "../components/SingleQuestion";
 import config from "../config";
-
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import {
-  setCurrThreadId,
-  setCurrLoading,
-} from "../features/Threads/currentThreadSlice.jsx";
+import { setCurrLoading } from "../features/Threads/currentThreadSlice.jsx";
 import axios from "axios";
-
-//Imp-Store Questions
 import { impContext } from "../impressive-store/provider";
-import * as question from "../impressive-store/question";
 import { useEffect, useContext } from "react";
 
 const SingleQuestionPage = ({ navigation }) => {
   const ip = config.serverIP;
   const dispatch = useDispatch();
-  const { currLoading, currThreadId } = useSelector(
-    (state) => state.currThreads
-  );
+  const { currLoading, currThreadId } = useSelector( (state) => state.currThreads );
   const [giveAnswer, setAnswer] = useState("");
   const [UserRightsChecked, setUserRightsChecked] = useState(false);
-  const [currentThreadWithAnswers, setCurrentThreadWithAnswers] =
-    useState(false);
-
+  const [currentThreadWithAnswers, setCurrentThreadWithAnswers] = useState(false);
   const { imp } = useContext(impContext);
   useEffect(() => {
     reloadCurrThread(currThreadId);
@@ -62,7 +51,6 @@ const SingleQuestionPage = ({ navigation }) => {
   }
   async function addAnswerToObject(
     commentText,
-    answerId,
     newAnswerOwner,
     parentAnswer,
     parentThread
@@ -92,7 +80,6 @@ const SingleQuestionPage = ({ navigation }) => {
     parentAnswer,
     parentThread
   ) => {
-    // Hier Logik für den Antwortgeben-Button
     console.log("AGB akzeptiert:", UserRightsChecked);
     addAnswerToObject(
       commentText,
@@ -107,7 +94,6 @@ const SingleQuestionPage = ({ navigation }) => {
   return (
     <Background>
       <ScrollView>
-        {/* Inhalt der Seite */}
         <View style={styles.outerBox}>
           <SnakeImage size="small" />
           <HeaderText title="Die Frage" type="center" />
@@ -137,7 +123,6 @@ const SingleQuestionPage = ({ navigation }) => {
             value={giveAnswer}
             onChangeText={(text) => setAnswer(text)}
           />
-
           <CustomCheckbox
             label="Hiermit stimme ich zu, dass meine Antwort veröffentlich wird*"
             value={UserRightsChecked}
@@ -147,7 +132,6 @@ const SingleQuestionPage = ({ navigation }) => {
             title="Alle mit * markierten Felder sind Pflichtfelder. Bitte fülle sie aus."
             type="center"
           />
-
           <Button
             onPress={() =>
               handleAnswerButtonClick(

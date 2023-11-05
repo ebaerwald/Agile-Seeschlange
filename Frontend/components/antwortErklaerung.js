@@ -4,7 +4,7 @@ import { useTheme } from "../hooks/useTheme";
 import { useThemeContext } from "../components/ThemeContext";
 
 const AntwortErklaerung = () => {
-  const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();
+  const { currentAppColorScheme } = useThemeContext();
   const currentTheme = useTheme({ currentAppColorScheme });
   const styles = themedStyle(currentTheme);
   return (

@@ -12,14 +12,14 @@ const {
   getGroups,
 } = require("../controller/groupController");
 
-router.route("/group").post(createGroup); //Ready and Tested
-router.route("/group/:id").delete(deleteGroup); //Ready and Tested
-router.route("/group/:id").put(modifyGroup); //Ready and Tested
-router.route("/addUserToGroup").post(addUserToGroup); //Ready and Tested
-router.route("/deleteUserFromGroup").delete(deleteUserFromGroup); //Ready and Tested
-router.route("/addTagToGroup").post(addTagToGroup); //Ready and Tested
-router.route("/deleteTagFromGroup").delete(deleteTagFromGroup); //Ready and Tested
-router.route("/getGroup/:id").get(getGroup); //Ready and Tested
-router.route("/getGroups").get(getGroups); //Ready and Tested
+router.route("/group").post(createGroup); 
+router.route("/group/:id").delete(deleteGroup); 
+router.route("/group/:id").put(modifyGroup); 
+router.route("/addUserToGroup").post(addUserToGroup); 
+router.route("/deleteUserFromGroup").delete(deleteUserFromGroup); 
+router.route("/addTagToGroup").post(addTagToGroup); 
+router.route("/deleteTagFromGroup").delete(deleteTagFromGroup); 
+router.route("/getGroup/:id").get(getGroup); 
+router.route("/getGroups").get(getGroups); 
 
 module.exports = router;

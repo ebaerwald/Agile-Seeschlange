@@ -3,8 +3,6 @@ import { TouchableOpacity, Image, StyleSheet, View } from "react-native";
 
 const InteractionButton = ({ type, onPress }) => {
   let iconSource;
-
-  // Je nachdem welchen Interaktionsbutton-Typ du möchtest, setze das entsprechende Icon
   switch (type) {
     case "like":
       iconSource = require("../assets/ThumbsUpIcon.png");
@@ -32,7 +30,6 @@ const InteractionButton = ({ type, onPress }) => {
       break;
 
     default:
-      // Fallback, falls der Typ nicht erkannt wird
       iconSource = require("../assets/DefaultIcon.png");
       break;
   }
@@ -53,14 +50,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   button: {
-    backgroundColor: "#72c770", // Hintergrundfarbe des Buttons
+    backgroundColor: "#72c770",
     padding: 2,
     marginHorizontal: 2,
   },
   icon: {
     width: 20,
     height: 20,
-    // Weitere Stiloptionen für das Icon, wenn benötigt
   },
 });
 

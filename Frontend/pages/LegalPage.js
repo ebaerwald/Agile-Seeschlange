@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  TouchableOpacity,
-  Text,
-} from "react-native";
-import Button from "../components/Button";
+import { StyleSheet, View, ScrollView, TouchableOpacity, Text,} from "react-native";
 import SnakeImage from "../components/SnakeImage";
 import Background from "../components/Background";
 import HeaderText from "../components/HeaderText";
@@ -57,15 +50,12 @@ export function LegalPage({ navigation }) {
   return (
     <Background>
       <ScrollView>
-        {/* Inhalt der Seite */}
         <View style={styles.outerBox}>
-          {/* Zeige den Zurück-Button in dieser Bildschirmkomponente an */}
           <SnakeImage size="small" />
           <HeaderText
             title="Hier findest du unsere Meeresbestimmungen"
             type="center"
           />
-          {/* AGB Überschrift und Inhalt */}
           <TouchableOpacity onPress={toggleAGB}>
             <SubHeaderText
               title="Allgemeine Geschäftsbedingungen (AGB)"
@@ -73,7 +63,6 @@ export function LegalPage({ navigation }) {
             />
           </TouchableOpacity>
           {showAGB && <AGB />}
-          {/* Datenschutzerklärung Überschrift und Inhalt */}
           <TouchableOpacity onPress={toggleDatenschutz}>
             <SubHeaderText
               title="Allgemeine Datenschutzbestimmungen"
@@ -81,7 +70,6 @@ export function LegalPage({ navigation }) {
             />
           </TouchableOpacity>
           {showDatenschutz && <Datenschutzerklearung />}
-          {/* Frage Hochladen Erklärung Überschrift und Inhalt */}
           <TouchableOpacity onPress={toggleFrageErklaerung}>
             <SubHeaderText
               title="Erklärung zum Hochladen von Fragen"
@@ -89,7 +77,6 @@ export function LegalPage({ navigation }) {
             />
           </TouchableOpacity>
           {showFrageErklaerung && <FrageHochladenErklaerung />}
-          {/* Antwort Aktualisieren Erklärung Überschrift und Inhalt */}
           <TouchableOpacity onPress={toggleAntwortErklaerung}>
             <SubHeaderText
               title="Erklärung zur Aktualisierung von Antworten"

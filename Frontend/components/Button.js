@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Image, TouchableOpacity, Text, StyleSheet } from 'react-native';
-
 import loginIcon from '../assets/LoginInIcon.png';
 import registerIcon from '../assets/SignInIcon.png';
 import AnswerSnake from '../assets/AnswerSnake.png';

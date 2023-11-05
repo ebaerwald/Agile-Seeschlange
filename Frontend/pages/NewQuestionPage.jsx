@@ -1,24 +1,22 @@
 import React, { useState } from "react";
-import { StyleSheet, View, ScrollView, Text } from "react-native"; // Importieren Sie CheckBox von react-native
+import { StyleSheet, View, ScrollView, Text } from "react-native"; 
 import Button from "../components/Button";
+import ImageViewer from "../components/ImageViewer";
 import DataInputField from "../components/DataInputField";
 import SnakeImage from "../components/SnakeImage";
 import Background from "../components/Background";
-import CustomCheckbox from "../components/Checkbox"; // Importieren Sie die CustomCheckbox-Komponente
+import CustomCheckbox from "../components/Checkbox"; 
 import HeaderText from "../components/HeaderText";
-import Question from "../components/Question";
-import * as question from "../impressive-store/question";
 import { useEffect, useContext } from "react";
 import { impContext } from "../impressive-store/provider";
-import ImageViewer from "../components/ImageViewer";
-import * as ImagePicker from "expo-image-picker";
 import { useTheme } from "../hooks/useTheme";
 import { useThemeContext } from "../components/ThemeContext";
-
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { setImage } from "../features/ImagePicer/imageSlice";
 import * as FileSystem from "expo-file-system";
+import * as ImagePicker from "expo-image-picker";
+import * as question from "../impressive-store/question";
 
 const NewQuestionPage = ({ navigation }) => {
   const { imp } = useContext(impContext);
@@ -33,13 +31,12 @@ const NewQuestionPage = ({ navigation }) => {
 
   const [text, setText] = useState("");
   const [title, setTitle] = useState("");
-  const [UserRightsChecked, setUserRightsChecked] = useState(false); // Zustand für die AGB-Checkbox
+  const [UserRightsChecked, setUserRightsChecked] = useState(false);
 
-  // KameraFeature
   const PlaceholderImage = require("../assets/IMG_0517.png");
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();
+  const { currentAppColorScheme } = useThemeContext();
   const currentTheme = useTheme({ currentAppColorScheme });
   const styles = themedStyle(currentTheme);
 
@@ -72,18 +69,14 @@ const NewQuestionPage = ({ navigation }) => {
         userId: imp.userStore._id,
       });
       console.log(res);
-      //console.log(imp)
       navigation.navigate("MenuePage");
     }
   };
   const imageToBase64 = async (localUri) => {
     try {
-      // Read the image file from local storage
       const imageFile = await FileSystem.readAsStringAsync(localUri, {
         encoding: FileSystem.EncodingType.Base64,
       });
-
-      // Return the Base64 representation of the image
       return `data:image/jpeg;base64,${imageFile}`;
     } catch (error) {
       console.error("Error converting image to Base64:", error);
@@ -94,7 +87,6 @@ const NewQuestionPage = ({ navigation }) => {
   return (
     <Background>
       <ScrollView>
-        {/* Inhalt der Seite */}
         <View style={styles.outerBox}>
           <SnakeImage size="small" />
 
@@ -143,7 +135,6 @@ const NewQuestionPage = ({ navigation }) => {
           <Text style={styles.textt}>
             Alle mit * markierten Felder sind Pflichtfelder. Bitte fülle sie aus
           </Text>
-          {/* Registrieren-Button */}
           <Button
             onPress={handleAnswerButtonClick}
             iconType="Answer"

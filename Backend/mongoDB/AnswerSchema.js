@@ -37,5 +37,5 @@ const AnswerSchema = new mongoose.Schema({
 function hasChildElement(){
   
 }
-//exports schema to modles
+
 module.exports = mongoose.model("Answer", AnswerSchema);

@@ -106,7 +106,7 @@ export default function App() {
                     iconName = focused ? "home-outline" : "home";
                   } else if (route.name === "Einstellungen") {
                     iconName = focused ? "settings-outline" : "settings";
-                  } else if (route.name === "Seeschlange") {
+                  } else if (route.name === "Dein Konto") {
                     iconName = focused ? "person-outline" : "person";
                   } else if (route.name === "Neue Frage") {
                     iconName = focused ? "help-circle-outline" : "help-circle";

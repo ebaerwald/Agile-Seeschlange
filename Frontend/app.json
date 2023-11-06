@@ -4,7 +4,7 @@
     "slug": "Frontend",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/seesnake.png",
+    "icon": "./assets/snakeIcon.png",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/seesnake.png",

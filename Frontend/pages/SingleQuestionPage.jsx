@@ -19,10 +19,13 @@ import { useEffect, useContext } from "react";
 const SingleQuestionPage = ({ navigation }) => {
   const ip = config.serverIP;
   const dispatch = useDispatch();
-  const { currLoading, currThreadId } = useSelector( (state) => state.currThreads );
+  const { currLoading, currThreadId } = useSelector(
+    (state) => state.currThreads
+  );
   const [giveAnswer, setAnswer] = useState("");
   const [UserRightsChecked, setUserRightsChecked] = useState(false);
-  const [currentThreadWithAnswers, setCurrentThreadWithAnswers] = useState(false);
+  const [currentThreadWithAnswers, setCurrentThreadWithAnswers] =
+    useState(false);
   const { imp } = useContext(impContext);
   useEffect(() => {
     reloadCurrThread(currThreadId);
@@ -81,13 +84,7 @@ const SingleQuestionPage = ({ navigation }) => {
     parentThread
   ) => {
     console.log("AGB akzeptiert:", UserRightsChecked);
-    addAnswerToObject(
-      commentText,
-      answerId,
-      newAnswerOwner,
-      parentAnswer,
-      parentThread
-    );
+    addAnswerToObject(commentText, newAnswerOwner, parentAnswer, parentThread);
     navigation.navigate("HomePage");
   };
 

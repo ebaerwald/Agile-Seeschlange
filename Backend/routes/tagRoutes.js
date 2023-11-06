@@ -7,9 +7,9 @@ const {
   getTag,
 } = require("../controller/tagController");
 
-router.route("/tag").post(createTag); //Ready and Tested
-router.route("/tag/:id").delete(deleteTag); //Ready and Tested
-router.route("/tag/:id").put(modifyTag); //Ready and Tested
-router.route("/tag/:id").get(getTag); //Ready and Tested
+router.route("/tag").post(createTag); 
+router.route("/tag/:id").delete(deleteTag); 
+router.route("/tag/:id").put(modifyTag); 
+router.route("/tag/:id").get(getTag); 
 
 module.exports = router;

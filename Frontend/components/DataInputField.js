@@ -2,11 +2,10 @@ import React from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
 
 const DataInputField = ({ placeholder, value, onChangeText, type = 'UserData', secureTextEntry=false }) => {
-  // Der Standardwert für `type` ist 'UserData', es sei denn, ein anderer Wert wird übergeben.
   const inputStyle =
     type === 'UserData' ? styles.userDataInput :
     type === 'Question' || type === 'Answer' ? styles.noBorderInput :
-    styles.defaultInput; // Fallback für unbekannte `type`
+    styles.defaultInput;
 
   return (
     <View style={styles.inputContainer}>
@@ -34,7 +33,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   userDataInput: {
-    // Stile für UserData
+
   },
   noBorderInput: {
     borderWidth: 0,

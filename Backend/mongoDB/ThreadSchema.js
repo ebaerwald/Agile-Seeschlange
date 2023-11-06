@@ -45,5 +45,4 @@ const ThreadSchema = new mongoose.Schema({
   },
 });
 
-// Export schema to models
 module.exports = mongoose.model("Thread", ThreadSchema);

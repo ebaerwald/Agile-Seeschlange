@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import InteractionButton from "../components/InteractionButton"; // Importiere die Button-Komponente
-
 import CommentWindow from "../components/commentWindow.jsx";
 import axios from "axios";
 import config from "../config";
@@ -12,17 +10,13 @@ const Answer = ({
   answers,
   marginOffset,
   answerId,
-  parentAnswer,
   parentThread,
 }) => {
-  const [likeCount, setLikeCount] = useState(0);
-  const [dislikeCount, setDislikeCount] = useState(0);
-  const [superlikeCount, setSuperlikeCount] = useState(0);
+
   const [commentCount, setCommentCount] = useState(0);
-  const [showAnswers, setShowAnswers] = useState(true);
+  const [showAnswers] = useState(true);
   const [currentAnswerId, setcurrentAnswerId] = useState("");
   const [isCommentWindowVisible, setCommentWindowVisible] = useState(false);
-  const ipv4Address = process.env.API_HOST;
 
   const openCommentWindow = (answerId) => {
     setcurrentAnswerId(answerId);

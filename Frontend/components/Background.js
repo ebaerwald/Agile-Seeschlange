@@ -1,11 +1,11 @@
 import { StyleSheet } from "react-native";
 import React, { useState } from "react";
-import { View, Image, TouchableOpacity } from "react-native";
+import { View } from "react-native";
 import { useTheme } from "../hooks/useTheme";
 import { useThemeContext } from "../components/ThemeContext";
 
 const Background = ({ children }) => {
-  const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();
+  const { currentAppColorScheme } = useThemeContext();
   const currentTheme = useTheme({ currentAppColorScheme });
   const styles = themedStyle(currentTheme);
 

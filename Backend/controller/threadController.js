@@ -165,7 +165,7 @@ exports.getThreadWithAnswers = async (req, res, next) => {
       responseMgt.faild(responseMsg, res);
     }
   } catch (err) {
-    console.log("if this then you are FUCKED");
+    console.log("small error at GetTHreadsWithAnswer");
     responseMgt.faild(err, res);
   }
 };

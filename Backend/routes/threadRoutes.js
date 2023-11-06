@@ -10,12 +10,12 @@ const {
   dislikeThread,
 } = require("../controller/threadController");
 
-router.route("/thread").post(createThread); //Ready and Tested
-router.route("/thread/:id").delete(deleteThread); //Ready and Tested
-router.route("/thread/:id").put(modifyThread); // Ready and Tested
-router.route("/thread/like/:id").post(likeThread); // Ready and Tested
-router.route("/thread/dislike/:id").post(dislikeThread); // Ready and Tested
-router.route("/thread/:id").post(getThreadWithAnswers); //Ready and Tested
-router.route("/threads").get(getThreads); //Ready and Tested
+router.route("/thread").post(createThread); 
+router.route("/thread/:id").delete(deleteThread); 
+router.route("/thread/:id").put(modifyThread);
+router.route("/thread/like/:id").post(likeThread); 
+router.route("/thread/dislike/:id").post(dislikeThread); 
+router.route("/thread/:id").post(getThreadWithAnswers); 
+router.route("/threads").get(getThreads);
 
 module.exports = router;

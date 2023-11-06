@@ -49,17 +49,14 @@ const LawPage = ({ navigation }) => {
   return (
     <Background>
       <ScrollView>
-        {/* Inhalt der Seite */}
         <View style={styles.outerBox}>
           <Text>EinstellungenScreen</Text>
           <BackButton />{" "}
-          {/* Zeige den Zurück-Button in dieser Bildschirmkomponente an */}
           <SnakeImage size="small" />
           <HeaderText
             title="Hier findest du unsere Meeresbestimmungen"
             type="center"
           />
-          {/* AGB Überschrift und Inhalt */}
           <TouchableOpacity onPress={toggleAGB}>
             <SubHeaderText
               title="Allgemeine Geschäftsbedingungen (AGB)"
@@ -67,7 +64,6 @@ const LawPage = ({ navigation }) => {
             />
           </TouchableOpacity>
           {showAGB && <AGB />}
-          {/* Datenschutzerklärung Überschrift und Inhalt */}
           <TouchableOpacity onPress={toggleDatenschutz}>
             <SubHeaderText
               title="Allgemeine Datenschutzbestimmungen"
@@ -75,7 +71,6 @@ const LawPage = ({ navigation }) => {
             />
           </TouchableOpacity>
           {showDatenschutz && <Datenschutzerklearung />}
-          {/* Frage Hochladen Erklärung Überschrift und Inhalt */}
           <TouchableOpacity onPress={toggleFrageErklaerung}>
             <SubHeaderText
               title="Erklärung zum Hochladen von Fragen"
@@ -83,7 +78,6 @@ const LawPage = ({ navigation }) => {
             />
           </TouchableOpacity>
           {showFrageErklaerung && <FrageHochladenErklaerung />}
-          {/* Antwort Aktualisieren Erklärung Überschrift und Inhalt */}
           <TouchableOpacity onPress={toggleAntwortErklaerung}>
             <SubHeaderText
               title="Erklärung zur Aktualisierung von Antworten"

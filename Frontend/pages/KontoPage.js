@@ -1,21 +1,11 @@
 import { useEffect, useContext } from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  ScrollView,
-  Button,
-  Alert,
-} from "react-native";
+import { StyleSheet, View, Text, ScrollView, Button, Alert } from "react-native";
 import SnakeImage from "../components/SnakeImage";
 import HeaderText from "../components/HeaderText";
 import Background from "../components/Background";
-import * as user from "../impressive-store/user";
 import { impContext } from "../impressive-store/provider";
 import { useTheme } from "../hooks/useTheme";
 import { useThemeContext } from "../components/ThemeContext";
-import SubHeaderText from "../components/Text";
 import { useNavigation } from "@react-navigation/native";
 
 export function KontoPage() {

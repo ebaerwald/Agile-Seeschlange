@@ -2,10 +2,8 @@ import * as user from "../impressive-store/user";
 import * as question from "../impressive-store/question";
 import * as group from "../impressive-store/group";
 import * as answer from "../impressive-store/answer";
-import * as tag from "../impressive-store/tag";
 import { impContext } from "../impressive-store/provider";
-
-import { useEffect, useContext, useRef } from "react";
+import { useContext  } from "react";
 import { StyleSheet, View, ScrollView, Text, Button } from 'react-native';
 import Background from '../components/Background';
 import * as WebBrowser from 'expo-web-browser';

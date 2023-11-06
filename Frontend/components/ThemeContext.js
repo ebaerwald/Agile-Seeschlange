@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 const ThemeContext = createContext();
+const useThemeContext = () => useContext(ThemeContext);
 
 const ThemeProvider = ({ children }) => {
   const [currentAppColorScheme, setCurrentAppColorScheme] = useState("auto");
@@ -33,7 +34,5 @@ const ThemeProvider = ({ children }) => {
     </ThemeContext.Provider>
   );
 };
-
-const useThemeContext = () => useContext(ThemeContext);
 
 export { ThemeProvider, useThemeContext };

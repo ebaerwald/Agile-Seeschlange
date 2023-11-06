@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import HeaderText from "../components/HeaderText";
 import SnakeImage from "../components/SnakeImage";
@@ -9,10 +9,9 @@ import { impContext } from "../impressive-store/provider";
 
 export function SettingsPage() {
   const navigation = useNavigation();
-  const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();
+  const { currentAppColorScheme } = useThemeContext();
   const currentTheme = useTheme({ currentAppColorScheme });
   const styles = themedStyle(currentTheme);
-
   const { imp } = useContext(impContext);
 
   useEffect(() => {
@@ -45,15 +44,10 @@ export function SettingsPage() {
     navigation.navigate("FaqPage");
   };
 
-  const TestImpStoreBackendButton = () => {
-    navigation.navigate("TestImpStoreBackend");
-  };
-
   return (
     <View style={styles.container}>
       <HeaderText title={"Einstellungen"} type={"center"} />
       <SnakeImage size={"big"} />
-
       <TouchableOpacity style={styles.button} onPress={kontoButton}>
         <Text style={styles.buttonText}>Konto</Text>
       </TouchableOpacity>

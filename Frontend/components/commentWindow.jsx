@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Modal, TextInput, StyleSheet } from "react-native";
+import { View, Modal, TextInput, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 import { useTheme } from "../hooks/useTheme";
 import { useThemeContext } from "../components/ThemeContext";
@@ -15,7 +15,7 @@ const CommentWindow = ({
 }) => {
   const [comment, setComment] = useState();
   const { currThreadId } = useSelector((state) => state.currThreads);
-  const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();
+  const { currentAppColorScheme } = useThemeContext();
   const currentTheme = useTheme({ currentAppColorScheme });
   const styles = themedStyle(currentTheme);
   return (
@@ -27,7 +27,7 @@ const CommentWindow = ({
             placeholder="Schreibe deinen Kommentar hier..."
             value={comment}
             onChangeText={(text) => setComment(text)}
-            autoFocus={true} // Tastatur automatisch anzeigen
+            autoFocus={true}
           />
         </View>
         <Button

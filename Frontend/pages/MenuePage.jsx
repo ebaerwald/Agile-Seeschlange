@@ -5,22 +5,15 @@ import Searchbar from "../components/Searchbar.js";
 import HeaderText from "../components/HeaderText";
 import SubHeaderText from "../components/SubHeaderText";
 import Button from "../components/Button";
-import * as question from "../impressive-store/question";
-import * as answer from "../impressive-store/answer";
 import { impContext } from "../impressive-store/provider";
 import { useEffect, useContext } from "react";
 import config from "../config";
-
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { setThreads, setLoading } from "../features/Threads/threadsSlice";
-import {
-  setFavThreads,
-  setFavLoading,
-} from "../features/Threads/favoriteThreadsSlice";
+import { setFavThreads, setFavLoading } from "../features/Threads/favoriteThreadsSlice";
 import axios from "axios";
-
-import { FlatList, Text } from "react-native";
+import { FlatList } from "react-native";
 
 const MenuePage = ({ navigation }) => {
   const { imp } = useContext(impContext);
@@ -55,7 +48,7 @@ const MenuePage = ({ navigation }) => {
     const reqData = {
       method: "GET",
       maxBodyLength: Infinity,
-      url: `http://${config.serverIP}:3001/api/user/favoritequestion/${imp.userStore._id}`, //TODO Take User id from store and put there instead of 653644...
+      url: `http://${config.serverIP}:3001/api/user/favoritequestion/${imp.userStore._id}`,
     };
     const { data: data2 } = await axios.request(reqData);
     console.log(data2);

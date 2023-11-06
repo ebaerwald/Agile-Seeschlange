@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { View, Text } from 'react-native';
 import { Checkbox } from 'expo-checkbox';
 

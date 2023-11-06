@@ -1,19 +1,11 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Answer from "../components/Answer";
-import InteractionButton from "../components/InteractionButton";
 import DataInputField from "../components/DataInputField";
-import axios from "axios";
 import { impContext } from "../impressive-store/provider.jsx";
-import config from "../config.js";
-
-import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import {
-  setCurrThreadId,
-  setCurrLoading,
-} from "../features/Threads/currentThreadSlice.jsx";
-import { useEffect, useContext } from "react";
+import { setCurrThreadId } from "../features/Threads/currentThreadSlice.jsx";
+import { useContext } from "react";
 
 const Question = ({
   subject,
@@ -27,19 +19,9 @@ const Question = ({
   const { imp } = useContext(impContext);
 
   const dispatch = useDispatch();
-  const { currLoading, currThreadId } = useSelector(
-    (state) => state.currThreads
-  );
-  const [likeCount, setLikeCount] = useState(0);
-  const [dislikeCount, setDislikeCount] = useState(0);
-  const [superlikeCount, setSuperlikeCount] = useState(0);
-  const [showAnswers, setShowAnswers] = useState(true);
+  const [showAnswers] = useState(true);
   const [fach, setFach] = useState("");
   const [answer, setAnswer] = useState("");
-  const [interactionButtonTypeStar, setInteractionButtonTypeStar] =
-    useState("star");
-  const [interactionButtonTypeSuperlike, setInteractionButtonTypeSuperlike] =
-    useState("superlike");
 
   const handleShortPress = () => {
     if (!newQuestion) {
@@ -54,7 +36,6 @@ const Question = ({
       style={styles.QuestionContainer}
       onPress={handleShortPress}
     >
-      {/* Container für allgemeine Infos der Frage, wie z. B. welches Fach und welcher Benutzer gefragt hat */}
       <View style={styles.generalInfoContainer}>
         <View style={styles.userContainer}>
           {!newQuestion ? (
@@ -90,17 +71,13 @@ const Question = ({
         )}
       </View>
       <View style={styles.MenueContainer}>
-        {/* Button zum Anzeigen/Ausblenden von Antworten */}
         {!newQuestion && (
           <TouchableOpacity
             style={styles.showAnswersButton}
-            //onPress={}
           ></TouchableOpacity>
         )}
-        {/* Antworten anzeigen, wenn showAnswers true ist */}
         {answers && (
           <View>
-            {/* Hier die Antworten anzeigen */}
             {answers.map((answer, index) => (
               <Answer
                 key={index}
@@ -164,10 +141,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 5,
-    borderBottomWidth: 1, // Breite der Linie
-    borderBottomColor: "black", // Farbe der Linie
-    borderBottomStyle: "dashed", // Stil der Linie (gestrichelt)
-    padding: 10, // Platzierung des Inhalts
+    borderBottomWidth: 1, 
+    borderBottomColor: "black", 
+    borderBottomStyle: "dashed",
+    padding: 10, 
   },
   interactionButtonContainer: {
     flexDirection: "row",

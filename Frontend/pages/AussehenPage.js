@@ -8,6 +8,10 @@ import { impContext } from "../impressive-store/provider";
 import { useEffect, useContext } from "react";
 
 const AussehenPage = () => {
+  const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();
+  const currentTheme = useTheme({ currentAppColorScheme });
+  const styles = themedStyle(currentTheme);
+
   const { imp } = useContext(impContext);
 
   useEffect(() => {
@@ -15,9 +19,6 @@ const AussehenPage = () => {
       navigation.navigate("Login");
     }
   }, []);
-  const { currentAppColorScheme, setCurrentAppColorScheme } = useThemeContext();
-  const currentTheme = useTheme({ currentAppColorScheme });
-  const styles = themedStyle(currentTheme);
 
   const [tiefseeActive, setTiefseeActive] = useState(
     currentAppColorScheme === "dark"

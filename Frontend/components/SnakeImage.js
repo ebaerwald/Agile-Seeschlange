@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   image: {
-    // Die Breite und Höhe wird jetzt dynamisch basierend auf dem "size" Prop gesetzt
+    
   },
 });
 

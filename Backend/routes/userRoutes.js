@@ -13,9 +13,9 @@ const {
 
 router.route("/user/addfavoritequestion").put(addfavoritequestion);
 router.route("/user/deletefavoritequestion").post(deletefavoritequestion);
-router.route("/user/signup").post(signup); //Ready and Teste
-router.route("/user/login").post(login); //Ready and Teste
-router.route("/user").delete(delet); //Ready and Teste
+router.route("/user/signup").post(signup); 
+router.route("/user/login").post(login); 
+router.route("/user").delete(delet); 
 router.route("/user/:id").put(updateUser);
 router.route("/user/:id").get(getUserIniformation);
 router.route("/user/favoritequestion/:id").get(getfavoritequestions);

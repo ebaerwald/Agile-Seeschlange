@@ -12,7 +12,7 @@ exports.createThread = async (req, res, next) => {
     console.log(req.body);
     //check if empty
     if (!title || !text) {
-      responseMgt.faild("ERRORCODE: Title or Text is empty...Miau ", res);
+      responseMgt.faild("ERRORCODE: Title or Text is empty ", res);
     }
     const group = await Group.findById(groupId);
     let thread;

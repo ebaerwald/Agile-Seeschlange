@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import CommentWindow from "../components/commentWindow.jsx";
 import axios from "axios";
 import config from "../config";
+import { useEffect, useContext } from "react";
+import { impContext } from "../impressive-store/provider";
 
 const Answer = ({
   user,
@@ -12,7 +14,7 @@ const Answer = ({
   answerId,
   parentThread,
 }) => {
-
+  const { imp } = useContext(impContext);
   const [commentCount, setCommentCount] = useState(0);
   const [showAnswers] = useState(true);
   const [currentAnswerId, setcurrentAnswerId] = useState("");
@@ -36,8 +38,7 @@ const Answer = ({
   ) => {
     addAnswerToObject(
       commentText,
-      answerId,
-      answerOwner,
+      imp.userStore._id,
       parentAnswer,
       parentThread
     );
@@ -47,11 +48,11 @@ const Answer = ({
 
   async function addAnswerToObject(
     commentText,
-    answerId,
     newAnswerOwner,
     parentAnswer,
     parentThread
   ) {
+    console.log(newAnswerOwner);
     const reqData = {
       method: "POST",
       maxBodyLength: Infinity,
